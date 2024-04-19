@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:40:42 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/18 13:51:25 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:44:45 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,24 @@ t_v2D	create_vector(double x, double y)
 	new.y = y;
 
 	return (new);
+}
+
+t_v2D	normalize_vector(t_v2D v1)
+{
+	double	length;
+
+	length = length_vector(v1);
+	return (divide_vector(v1, create_vector(length, length)));
+}
+
+t_v2D	perp_vector(t_v2D v1)
+{
+	t_v2D	perp;
+
+	perp.x = v1.y;
+	perp.y = -v1.x;
+
+	return (perp);	
 }
 
 void	print_vector(t_v2D vector)

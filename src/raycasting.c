@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parser.c                                       :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/18 14:30:43 by rumachad         ###   ########.fr       */
+/*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
+/*   Updated: 2024/04/19 17:35:55 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	map_parser(t_mlx *mlx)
+void	ft_grua(t_player *player)
 {
-	int		fd;
-	char	*line;
-	int		i;
+	t_v2D	camera;
 
-	fd = open("map.cub", O_WRONLY);
-
-	line = get_next_line(fd);
-	while (line)
-	{
-		while (line[i])
-			draw_map(line[i++]);
-		free(line);
-		line = get_next_line(fd);
-	}
+	printf("Player Pos: %f, %f\n", player->pos.x, player->pos.y);
+	camera = perp_vector(player->pos);
+	printf("Camera Pos: %f, %f\n", camera.x, camera.y);
 }
-
-/* void	draw_map(char c)
-{
-	if (c == 1)
-		
-		
-} */
