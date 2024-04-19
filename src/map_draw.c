@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_draw.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/19 17:35:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/20 00:05:51 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	map_draw(t_mlx *mlx)
 	{
 		map->x = 0;
 		while (map->game_map[map->y][map->x])
-			draw_map(mlx, map->game_map[map->y][map->x], map->x++, map->y);
+		{
+			draw_map(mlx, map->game_map[map->y][map->x], map->x, map->y);
+			map->x++;
+		}
 		map->y++;
 	}
 }
