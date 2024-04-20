@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/19 16:38:41 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/20 01:31:39 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 # define S 115
 # define D 100
 
-# define DELTA 0.10
+# define DELTA 0.001
 
 typedef struct s_player
 {
 	t_v2D	pos;
-	
+	t_v2D	direction;
 }	t_player;
 
 typedef	struct	s_map
@@ -60,6 +60,9 @@ typedef struct s_mlx
 //Raycast
 void	ft_grua(t_player *player);
 
+// Update
+int	update(t_mlx *mlx);
+
 //Render
 int	render(t_mlx *mlx);
 
@@ -71,7 +74,10 @@ t_map	init_map(char *map_name);
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
 void		image_to_window(t_mlx *mlx, t_sprite sprite, double x, double y);
 
-int		handle_event(int keycode, t_mlx *mlx);
+// Events
+int		handle_keyPress(int keycode, t_mlx *mlx);
+int		handle_keyRelease(int keycode, t_mlx *mlx);
+
 void	close_game(t_mlx *mlx);
 
 #endif

@@ -3,12 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/04/19 17:46:19 by rumachad         ###   ########.fr        #
+#    Updated: 2024/04/20 01:53:42 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+GREEN = \033[0;32m
+RED = \033[0;31m
+RESET = \033[0m
 
 NAME = cub3d
 
@@ -42,13 +46,16 @@ MATHFLAGS = -lm
 all: $(NAME)
 
 $(NAME):	$(OBJ)
-			make -C $(MLX_PATH)
-			make -C $(LIBFT_PATH)
-			$(CC) -o $(NAME) $(OBJ) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
+			@make -C $(MLX_PATH) > /dev/null 2>&1
+			@echo "$(GREEN)MLX Compiled$(RESET)"
+			@make -C $(LIBFT_PATH) > /dev/null
+			@echo "$(GREEN)Libft Compiled$(RESET)"
+			@$(CC) -o $(NAME) $(OBJ) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
+			@echo "$(GREEN)Cub3d Compiled$(RESET)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
-	$(CC) $(CFLAGS) $(MLX_HEADER) -c $< -o $@
+	@$(CC) $(CFLAGS) $(MLX_HEADER) -c $< -o $@
 
 val: re
 	valgrind --leak-check=full --show-leak-kinds=all ./cub3d map.cub
