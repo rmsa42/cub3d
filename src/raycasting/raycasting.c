@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/22 14:12:00 by rumachad         ###   ########.fr       */
+/*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
+/*   Updated: 2024/04/22 17:42:30 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	close_game(t_mlx *mlx)
+void	ft_grua(t_mlx *mlx)
 {
-	int	i;
+	t_v2D		camera;
+	t_player	*player;
+	t_map		*map;
 
-	i = 0;
-	while (i < 2)
-		mlx_destroy_image(mlx->lib, mlx->sprite[i++].img_ptr);
-	mlx_clear_window(mlx->lib, mlx->window);
-	mlx_destroy_window(mlx->lib, mlx->window);
-	ft_free_dp((void **)mlx->map.game_map);
-	mlx_destroy_display(mlx->lib);
-	free(mlx->lib);
-	exit(0);
+	player = &mlx->player;
+	map = &mlx->map;
+	printf("Player Pos: %f, %f\n", player->direction.x, player->direction.y);
+	camera = perp_vector(player->direction);
+	printf("Camera Pos: %f, %f\n", camera.x, camera.y);
 }

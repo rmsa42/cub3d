@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/04/20 01:53:42 by rumachad         ###   ########.fr        #
+#    Updated: 2024/04/22 12:08:23 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ GREEN = \033[0;32m
 RED = \033[0;31m
 RESET = \033[0m
 
-NAME = cub3d
+NAME = cub3D
 
 SRC_PATH = src/
+VPATH = $(SRC_PATH) $(SRC_PATH)render $(SRC_PATH)raycasting $(SRC_PATH)map $(SRC_PATH)vector
 SRC = main.c \
 	handle_events.c \
 	render.c \
@@ -53,7 +54,7 @@ $(NAME):	$(OBJ)
 			@$(CC) -o $(NAME) $(OBJ) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
 			@echo "$(GREEN)Cub3d Compiled$(RESET)"
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+$(OBJ_PATH)%.o: %.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CFLAGS) $(MLX_HEADER) -c $< -o $@
 
@@ -66,7 +67,7 @@ clean:
 		rm -rf $(OBJ)
 
 fclean: clean
-		make fclean -C  $(LIBFT_PATH)
+		@make fclean -C  $(LIBFT_PATH)
 		rm -f $(NAME)
 
 re: fclean all

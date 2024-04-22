@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/20 01:31:39 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:14:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,26 @@
 # include "../minilibx-linux/mlx_int.h"
 # include "vector2D.h"
 # include <assert.h>
+# include <stdbool.h>
 
 # define ESC 65307
 # define W 119
 # define A 97
 # define S 115
 # define D 100
+# define LARROW 65361
+# define RARROW 65363
+
+# define ANGLE 0.1
 
 # define DELTA 0.001
 
 typedef struct s_player
 {
 	t_v2D	pos;
+	t_v2D	movement;
 	t_v2D	direction;
+	int		dir;
 }	t_player;
 
 typedef	struct	s_map
@@ -58,7 +65,7 @@ typedef struct s_mlx
 }	t_mlx;
 
 //Raycast
-void	ft_grua(t_player *player);
+void	ft_grua(t_mlx *mlx);
 
 // Update
 int	update(t_mlx *mlx);

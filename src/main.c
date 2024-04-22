@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:33:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/20 01:32:01 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:31:34 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int main(int argc, char *argv[])
 	
 	// Map init / Parser
 	mlx.map = init_map(argv[1]);
-	mlx.player.direction = create_vector(0, 0);
+	mlx.player.movement = create_vector(0, 0);
+	mlx.player.direction = create_vector(0, -1);
+	mlx.player.dir = 0;
 	
 	// Sprite init
 	mlx.sprite[0] = xpm_to_image(&mlx, "wall.xpm");

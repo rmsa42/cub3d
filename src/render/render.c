@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/20 00:50:15 by rumachad         ###   ########.fr       */
+/*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
+/*   Updated: 2024/04/22 16:46:37 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	ft_grua(t_player *player)
+int	render(t_mlx *mlx)
 {
-	t_v2D	camera;
-
-	printf("Player Pos: %f, %f\n", player->pos.x, player->pos.y);
-	camera = perp_vector(player->pos);
-	printf("Camera Pos: %f, %f\n", camera.x, camera.y);
+	update(mlx);
+	mlx_clear_window(mlx->lib, mlx->window);
+	map_draw(mlx);
+	image_to_window(mlx, mlx->sprite[1], mlx->player.pos.x, mlx->player.pos.y);
+	ft_grua(mlx);
+	
+	return (0);
 }
