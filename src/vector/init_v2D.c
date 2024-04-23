@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:40:42 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/22 17:10:00 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:07:37 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_v2D	perp_vector(t_v2D v1)
 {
 	t_v2D	perp;
 
-	perp.x = v1.y;
-	perp.y = -v1.x;
+	perp.x = -v1.y;
+	perp.y = v1.x;
 
 	return (perp);	
 }

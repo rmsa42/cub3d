@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/22 13:02:27 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:54:36 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	draw_map(t_mlx *mlx, char tile, int x, int y)
 	else if ((tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E') && (p == 0))
 	{
 		p++;
-		mlx->player.pos.x = x;
-		mlx->player.pos.y = y;
-		image_to_window(mlx, mlx->sprite[1], x, y);
+		mlx->player.pos.x = x + 0.5;
+		mlx->player.pos.y = y + 0.5;
+		
+		/* image_to_window(mlx, mlx->sprite[1], x, y); */
 	}
 }
 

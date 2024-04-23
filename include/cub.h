@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/22 16:14:53 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:29:54 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define LARROW 65361
 # define RARROW 65363
 
-# define ANGLE 0.1
+# define GREEN 	0x0000FF00
 
 # define DELTA 0.001
 
@@ -37,7 +37,7 @@ typedef struct s_player
 	t_v2D	pos;
 	t_v2D	movement;
 	t_v2D	direction;
-	int		dir;
+	float	angle;
 }	t_player;
 
 typedef	struct	s_map
@@ -45,7 +45,7 @@ typedef	struct	s_map
 	int		x;
 	int		y;
 	char	**game_map;
-	char	*map_name;
+
 }	t_map;
 
 typedef struct s_sprite

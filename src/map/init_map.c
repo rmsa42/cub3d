@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:07:33 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/19 17:35:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:28:28 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_map	init_map(char *map_name)
 
 	map.x = 0;
 	map.y = 0;
-	map.map_name = map_name;
 	map.game_map = clone_map(map_name);
 
 	return (map);
