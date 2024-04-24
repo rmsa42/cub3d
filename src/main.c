@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:33:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/23 13:56:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:49:48 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 	/* assert(mlx.sprite[1].img_ptr != NULL); */
 	
 	// Create Window
-	mlx.window = mlx_new_window(mlx.lib, 800, 600, "cub3d");
+	mlx.window = mlx_new_window(mlx.lib, 700, 500, "cub3d");
 	assert(mlx.window != NULL);
 	
 	

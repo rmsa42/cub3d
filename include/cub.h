@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/23 11:29:54 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:51:55 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@
 # define D 100
 # define LARROW 65361
 # define RARROW 65363
+# define FOV 60
 
+
+# define PI 3.14159265359
 # define GREEN 	0x0000FF00
 
 # define DELTA 0.001
