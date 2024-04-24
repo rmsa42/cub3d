@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/23 13:54:36 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:05:52 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	draw_map(t_mlx *mlx, char tile, int x, int y)
 {
-	static int p;
+	static int	p;
 	/* printf("Tile : %c\n", tile); */
 	if (tile == '1')
 		image_to_window(mlx, mlx->sprite[0], x, y);
@@ -23,8 +23,6 @@ void	draw_map(t_mlx *mlx, char tile, int x, int y)
 		p++;
 		mlx->player.pos.x = x + 0.5;
 		mlx->player.pos.y = y + 0.5;
-		
-		/* image_to_window(mlx, mlx->sprite[1], x, y); */
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:40:42 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/23 15:07:37 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:41:37 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,5 @@ t_v2D	perp_vector(t_v2D v1)
 
 void	print_vector(t_v2D vector)
 {
-	printf("Vector x: %f\n", vector.x);
-	printf("Vector y: %f\n", vector.y);
+	printf("Vector: %f %f\n", vector.x, vector.y);
 }

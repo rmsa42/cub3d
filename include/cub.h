@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/24 12:51:55 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:56:13 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,21 @@
 # define D 100
 # define LARROW 65361
 # define RARROW 65363
-# define FOV 60
+# define FOV 90
 
+# define WIDTH 500
+# define HEIGHT 700
 
 # define PI 3.14159265359
 # define GREEN 	0x0000FF00
 
-# define DELTA 0.001
+# define SPEED 0.01
 
 typedef struct s_player
 {
 	t_v2D	pos;
-	t_v2D	movement;
 	t_v2D	direction;
-	float	angle;
+	t_v2D	plane;
 }	t_player;
 
 typedef	struct	s_map
