@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:30:53 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/24 17:12:17 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:27:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ t_v2D	rotate(t_v2D vector, int degree)
 	t_v2D	newV;
 	double	angle;
 	
-	angle = (double)FOV / 2 + degree;
-	angle = angle * ((double)PI / 180);
+	angle = degree * ((double)PI / 180);
 	newV.x = vector.x * cos(angle) - vector.y * sin(angle);
-	newV.y = vector.x * sin(angle) - vector.y * cos(angle);
+	newV.y = vector.x * sin(angle) + vector.y * cos(angle);
 
 	return (newV);
 }
@@ -35,17 +34,24 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	if (keycode == ESC)
 		close_game(mlx);
 	else if (keycode == W)
-		player->pos.y += player->direction.y * SPEED;
+		player->pos = add_vector(player->pos, multiply_vector(norm, SPEED));
 	else if (keycode == S)
-		player->pos.y -= player->direction.y * SPEED;
+		player->pos = minus_vector(player->pos, multiply_vector(norm, SPEED));
 	else if (keycode == A)
-		player->pos.x -= 1 * SPEED;
+		player->pos = minus_vector(player->pos, multiply_vector(perp_vector(norm), SPEED));
 	else if (keycode == D)
-		player->pos.x += 1 * SPEED;
+		player->pos = add_vector(player->pos, multiply_vector(perp_vector(norm), SPEED));
 	else if (keycode == LARROW)
 	{
+		player->direction = rotate(player->direction, -1);
+		player->plane = perp_vector(player->direction);
+	}
+	else if (keycode == RARROW)
+	{
+		// Se FOV != 90, o plane precisa de ser multiplicado pelo length do vetor plane
+		printf("%f\n", length_vector(player->plane));
 		player->direction = rotate(player->direction, 1);
-		/* player->plane = rotate(player->plane, 1); */
+		player->plane = perp_vector(player->direction);
 	}
 	return (0);
 }

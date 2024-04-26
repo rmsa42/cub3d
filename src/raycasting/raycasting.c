@@ -6,45 +6,56 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/24 17:53:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:17:46 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	see(t_mlx *mlx, t_v2D ray)
+void	render_rays(t_mlx *mlx, t_v2D ray)
 {
-	t_map	*map;
 	double	pX;
 	double	pY;
-	
+	double	s;
+
+	s = 0;
 	pX = mlx->player.pos.x;
 	pY = mlx->player.pos.y;
-	map = &mlx->map;
-	map->x = (int)pX;
-	map->y = (int)pY;
-	while (map->game_map[map->y][map->x] != '1')
+	mlx->map.x = (int)pX;
+	mlx->map.y = (int)pY;
+	while (mlx->map.game_map[mlx->map.y][mlx->map.x] != '1')
 	{
-		
+		pixel_put(&mlx->img, pX * SPRITE_PIXEL, pY * SPRITE_PIXEL);
+		pX += ray.x * s;
+		pY += ray.y * s;
+		mlx->map.x = (int)pX;
+		mlx->map.y = (int)pY;
+		s += 0.001;
 	}
+}
+
+void	launch_rays(t_mlx *mlx, int x)
+{
+	t_player	*player;
+	double		camera;
+	t_v2D		ray;
+
+	player = &mlx->player;
+	camera = 2 * x / (double)WIDTH - 1;
+	ray.x = player->direction.x + player->plane.x * -camera;
+	ray.y = player->direction.y + player->plane.y * -camera;
+	render_rays(mlx, ray);
 }
 
 void	ft_grua(t_mlx *mlx)
 {
-	t_player	*player;
-	t_v2D		ray;
-	double		camera;
-	int			x;
+	int	x;
 
 	x = 0;
-	player = &mlx->player;
 	while (x < (int)WIDTH)
 	{
-		camera = 2 * x / (double)WIDTH - 1;
-		ray.x = player->direction.x + player->plane.x * -camera;
-		ray.y = player->direction.y + player->plane.y * -camera;
-		see(mlx, ray);
+		launch_rays(mlx, x);
 		x++;
 	}
-	exit(0);
+	image_to_window(mlx, mlx->img.img_ptr, 0, 0);
 }

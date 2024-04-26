@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_v2D.c                                         :+:      :+:    :+:   */
+/*   v2D_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:40:42 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/24 17:41:37 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:14:38 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_v2D	create_vector(double x, double y)
 
 	new.x = x;
 	new.y = y;
-
 	return (new);
 }
 
@@ -27,7 +26,7 @@ t_v2D	normalize_vector(t_v2D v1)
 	double	length;
 
 	length = length_vector(v1);
-	return (divide_vector(v1, create_vector(length, length)));
+	return (divide_vector(v1, length));
 }
 
 t_v2D	perp_vector(t_v2D v1)
@@ -36,8 +35,7 @@ t_v2D	perp_vector(t_v2D v1)
 
 	perp.x = -v1.y;
 	perp.y = v1.x;
-
-	return (perp);	
+	return (perp);
 }
 
 void	print_vector(t_v2D vector)

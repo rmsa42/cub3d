@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/04/22 12:08:23 by rumachad         ###   ########.fr        #
+#    Updated: 2024/04/26 16:51:45 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ SRC = main.c \
 	raycasting.c \
 	init_map.c \
 	map_draw.c \
-	math_v2D.c \
-	init_v2D.c \
+	v2D_math.c \
+	v2D_utils.c \
 	load_image.c \
 	clean.c
 

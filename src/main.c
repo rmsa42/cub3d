@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:33:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/24 17:48:32 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:27:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,15 @@ t_player	init_player()
 }
 
 int main(int argc, char *argv[])
-{
-	// game loop
-	
-	// Handle Event
-	// Update
-	// Render
-	
+{	
 	t_mlx	mlx;
 	
 	mlx.lib = mlx_init();
 	assert(mlx.lib != NULL);
 	
-	// Map init / Parser
+	// Map init / Parser / Sprite Init
 	mlx.map = init_map(argv[1]);
 	mlx.player = init_player();
-	
-	// Sprite init
 	mlx.sprite[0] = xpm_to_image(&mlx, "wall.xpm");
 	assert(mlx.sprite[0].img_ptr != NULL);
 	
