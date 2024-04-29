@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/26 17:11:27 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/29 11:31:42 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_image	new_image(t_mlx *mlx)
 int	render(t_mlx *mlx)
 {
 	mlx->img = new_image(mlx);
-	ft_grua(mlx);
 	map_draw(mlx);
+	ft_grua(mlx);
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
 	return (0);
 }

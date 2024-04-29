@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/26 17:27:13 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:26:23 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define RARROW 65363
 # define FOV 90
 
-# define WIDTH 500
-# define HEIGHT 700
+# define HEIGHT 600
+# define WIDTH 800
 # define SPRITE_PIXEL 64
 
 # define PI 3.14159265359
@@ -50,7 +50,6 @@ typedef struct s_map
 	int		x;
 	int		y;
 	char	**game_map;
-
 }	t_map;
 
 typedef struct s_sprite
@@ -77,6 +76,8 @@ typedef struct s_mlx
 	t_player	player;
 	t_map		map;
 	t_image		img;
+	t_v2D		ray_pos;
+	double		camera;
 }	t_mlx;
 
 //Raycast

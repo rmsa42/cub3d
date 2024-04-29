@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:30:53 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/26 17:27:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:12:52 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,14 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 		player->pos = add_vector(player->pos, multiply_vector(perp_vector(norm), SPEED));
 	else if (keycode == LARROW)
 	{
-		player->direction = rotate(player->direction, -1);
-		player->plane = perp_vector(player->direction);
+		player->direction = rotate(player->direction, -2);
+		player->plane = rotate(player->plane, -2);
 	}
 	else if (keycode == RARROW)
 	{
 		// Se FOV != 90, o plane precisa de ser multiplicado pelo length do vetor plane
-		printf("%f\n", length_vector(player->plane));
-		player->direction = rotate(player->direction, 1);
-		player->plane = perp_vector(player->direction);
+		player->direction = rotate(player->direction, 2);
+		player->plane = rotate(player->plane, 2);
 	}
 	return (0);
 }
