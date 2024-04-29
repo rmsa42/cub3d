@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/29 14:26:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:01:33 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define D 100
 # define LARROW 65361
 # define RARROW 65363
-# define FOV 90
 
 # define HEIGHT 600
 # define WIDTH 800
@@ -80,6 +79,8 @@ typedef struct s_mlx
 	double		camera;
 }	t_mlx;
 
+
+t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
 
@@ -92,6 +93,8 @@ int			render(t_mlx *mlx);
 // Map
 void		map_draw(t_mlx *mlx);
 t_map		init_map(char *map_name);
+// Parser
+void		parser_map(t_map *map);
 
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY);

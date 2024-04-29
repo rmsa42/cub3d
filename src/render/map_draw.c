@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/29 15:05:03 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:51:13 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,8 @@
 
 void	draw_map(t_mlx *mlx, char tile, int x, int y)
 {
-	static int	p;
-	/* printf("Tile : %c\n", tile); */
-	/* if (tile == '1')
-		image_to_window(mlx, mlx->sprite[0].img_ptr, x, y); */
-	if ((tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E') && (p == 0))
-	{
-		p++;
-		mlx->player.pos.x = x + 0.5;
-		mlx->player.pos.y = y + 0.5;
-	}
+	if ((tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E'))
+		mlx->player = init_player(x + 0.5, y + 0.5, tile);
 }
 
 void	map_draw(t_mlx *mlx)
