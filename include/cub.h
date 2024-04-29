@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/29 17:01:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/29 22:27:01 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define LARROW 65361
 # define RARROW 65363
 
-# define HEIGHT 600
-# define WIDTH 800
+# define HEIGHT 800
+# define WIDTH 1000
 # define SPRITE_PIXEL 64
 
 # define PI 3.14159265359
@@ -93,8 +93,12 @@ int			render(t_mlx *mlx);
 // Map
 void		map_draw(t_mlx *mlx);
 t_map		init_map(char *map_name);
-// Parser
-void		parser_map(t_map *map);
+
+// Parser (MAP)
+int			parser_map(t_map *map);
+int			color(int nbr);
+int			advance_space(char *line);
+void		print_map(char **map);
 
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY);
