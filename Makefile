@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/04/29 20:36:51 by rumachad         ###   ########.fr        #
+#    Updated: 2024/04/30 17:43:24 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC = main.c \
 	v2D_utils.c \
 	load_image.c \
 	parser.c \
-	utils.c \
+	parser_utils.c \
 	clean.c
 
 OBJ_PATH = obj/
@@ -61,7 +61,7 @@ $(OBJ_PATH)%.o: %.c
 	@$(CC) $(CFLAGS) $(MLX_HEADER) -c $< -o $@
 
 val: re
-	valgrind --leak-check=full --show-leak-kinds=all ./cub3d map.cub
+	valgrind --leak-check=full --show-leak-kinds=all ./cub3D map.cub
 
 clean:
 		make clean -C $(LIBFT_PATH)

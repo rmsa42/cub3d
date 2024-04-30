@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/29 22:27:01 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:29:06 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define LARROW 65361
 # define RARROW 65363
 
-# define HEIGHT 800
-# define WIDTH 1000
+# define HEIGHT 600
+# define WIDTH 800
 # define SPRITE_PIXEL 64
 
 # define PI 3.14159265359
@@ -51,13 +51,6 @@ typedef struct s_map
 	char	**game_map;
 }	t_map;
 
-typedef struct s_sprite
-{
-	void	*img_ptr;
-	int		height;
-	int		width;
-}	t_sprite;
-
 typedef struct s_image
 {
 	void	*img_ptr;
@@ -67,16 +60,28 @@ typedef struct s_image
 	int		endian;
 }	t_image;
 
+typedef struct s_sprite
+{
+	t_image	img;
+	int		height;
+	int		width;
+	int		rgb[3];
+}	t_sprite;
+
+
 typedef struct s_mlx
 {
 	void		*lib;
 	void		*window;
-	t_sprite	sprite[1];
+	t_sprite	sprite[6];
 	t_player	player;
 	t_map		map;
 	t_image		img;
 	t_v2D		ray_pos;
 	double		camera;
+	double		angle;
+	int			f_color;
+	int			c_color;
 }	t_mlx;
 
 
@@ -95,19 +100,20 @@ void		map_draw(t_mlx *mlx);
 t_map		init_map(char *map_name);
 
 // Parser (MAP)
-int			parser_map(t_map *map);
+int			parser_map(t_mlx *mlx);
 int			color(int nbr);
 int			advance_space(char *line);
 void		print_map(char **map);
 
 // Image
-void		pixel_put(t_image *img, int pixelX, int pixelY);
+void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
+int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
 void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
+int			shift_color(t_sprite sprite);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
-int			handle_keyRelease(int keycode, t_mlx *mlx);
 
 void		close_game(t_mlx *mlx);
 

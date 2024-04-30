@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:33:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/29 22:26:20 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:41:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ t_player	init_player(double x, double y, char tile)
 	return (player);
 }
 
+int	shift_color(t_sprite sprite)
+{
+	int	color;
+	
+	color = (sprite.rgb[0] << 16 | sprite.rgb[1] << 8
+		| sprite.rgb[2]);
+	return (color);
+}
+
 int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
@@ -42,16 +51,19 @@ int main(int argc, char *argv[])
 	// Map init / Parser / Sprite Init
 	mlx.map = init_map(argv[1]);
 	mlx.sprite[0] = xpm_to_image(&mlx, "wall.xpm");
-	assert(mlx.sprite[0].img_ptr != NULL);
+	
+	if (parser_map(&mlx) == 1)
+		return (printf("Error\n"), -1);
+
+	mlx.c_color = shift_color(mlx.sprite[5]);
+	mlx.f_color = shift_color(mlx.sprite[4]);
 	
 	// Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
 	
-	if (parser_map(&mlx.map) == 1)
-		return (printf("Error\n"), -1);
-	map_draw(&mlx);
 	
+	map_draw(&mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_loop_hook(mlx.lib, render, &mlx);
 	mlx_loop(mlx.lib);

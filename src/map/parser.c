@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/29 22:56:06 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:33:25 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_element(char *line)
 	return (-1);
 }
 
-int	check_rgb(char *line)
+int	check_rgb(t_sprite *sprite, char *line)
 {
 	char	**rgb;
 	int		i;
@@ -46,7 +46,8 @@ int	check_rgb(char *line)
 	rgb = ft_split(line, ',');
 	while (rgb[i])
 	{
-		if (!color(ft_atoi(rgb[i])))
+		sprite->rgb[i] = ft_atoi(rgb[i]);
+		if (!color(sprite->rgb[i]))
 			break;
 		i++;	
 	}
@@ -65,15 +66,23 @@ int	check_path(char *line)
 	if (fd == -1)
 		return (-1);
 	close(fd);
+	line += 1;
+	if (ft_strncmp(ft_strchr(line, '.'), ".xpm", 5))
+		return (-1);
 	return (0);
 }
 
 int	check_row(char *line)
 {
-	
+	int	len;
+
+	len = ft_strlen(line);
+	if ((line[0] != '1' || line[len] != '1'))
+		return (-1);
+	return (0);
 }
 
-int	check_line(char *line)
+int	check_line(t_sprite *sprite, char *line)
 {
 	int	i;
 
@@ -82,27 +91,41 @@ int	check_line(char *line)
 	if (i >= 0 && i < 4)
 		i = check_path(line + 2);
 	else if (i >= 4)
-		i = check_rgb(line + 2);
+		i = check_rgb(&sprite[i], line + 2);
 	if (i == -1)
 		return (1);
 	return (0);
 }
 
-int	parser_map(t_map *map)
+int	check_first_row(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	print_map(map->game_map);
-	printf("\n");
+	while (line[i] && line[i] == '1')
+		i++;
+	if (line[i] == '\0')
+		return (0);
+	return (-1);
+}
+
+int	parser_map(t_mlx *mlx)
+{
+	int		i;
+	t_map	*map;
+
+	i = 0;
+	map = &mlx->map;
 	while (map->game_map[i])
 	{
-		if (check_line(map->game_map[i]))
-			return (1);
 		if (i == 6)
 			break ;
-		i++;
+		if (check_line(mlx->sprite, map->game_map[i++]))
+			return (1);
 	}
-	while (map->game_map[i])
+	check_first_row(map->game_map[i++]);
+	while (map->game_map[i + 1])
+		check_row(map->game_map[i++]);
+	check_first_row(map->game_map[i]);
 	return (0);
 }
