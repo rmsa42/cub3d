@@ -6,64 +6,61 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/30 17:49:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:34:43by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	foward_rays(t_mlx *mlx, t_v2D ray)
+void	foward_rays(t_mlx *mlx, t_ray ray)
 {
-	double	pX;
-	double	pY;
-	double	s;
+	int	wall_hit;
 
-	s = 0;
-	pX = mlx->player.pos.x;
-	pY = mlx->player.pos.y;
-	mlx->map.x = (int)pX;
-	mlx->map.y = (int)pY;
-	while (mlx->map.game_map[mlx->map.y][mlx->map.x] != '1')
+	wall_hit = 0;
+	while (wall_hit)
 	{
-		pX += ray.x * s;
-		pY += ray.y * s;
-		mlx->map.x = (int)pX;
-		mlx->map.y = (int)pY;
-		s = 0.001;
+
 	}
-	mlx->ray_pos.x = pX;
-	mlx->ray_pos.y = pY;
 }
 
 void	launch_rays(t_mlx *mlx, int x)
 {
 	t_player	*player;
-	t_v2D		ray;
+	t_ray		ray;
 
 	player = &mlx->player;
 	mlx->camera = 2 * x / (double)WIDTH - 1;
-	ray.x = player->direction.x + player->plane.x * mlx->camera;
-	ray.y = player->direction.y + player->plane.y * mlx->camera;
-	mlx->angle = acos(1/length_vector(ray));
+	ray.pos.x = player->direction.x + player->plane.x * mlx->camera;
+	ray.pos.y = player->direction.y + player->plane.y * mlx->camera;
+	mlx->angle = acos(1/length_vector(ray.pos));
+	ray.delta_x = 1 / sin(mlx->angle);
+	ray.delta_y = 1 / cos(mlx->angle);
+	ray.side_x = ray.delta_x / 2;
+	ray.side_y = ray.delta_y / 2; 
 	foward_rays(mlx, ray);
 }
 
-void	draw_texture(t_mlx *mlx, int x, double line)
+void	draw_texture(t_mlx *mlx, int x, double line, double teste)
 {
 	int y;
 	int draw_s;
 	int	draw_e;
 	int	color;
+	int	tex_x;
 	
 	y = -1;
 	draw_s = HEIGHT / 2 - line / 2;
 	draw_e = HEIGHT / 2 + line / 2;
 	assert(mlx->sprite[0].img.addr != NULL);
+	
+	tex_x = teste * x;
+	tex_x = tex_x/(WIDTH/SPRITE_PIXEL);
+
 	while (++y < draw_s)
 		pixel_put(&mlx->img, x, y, mlx->c_color);
 	while (y < draw_e)
 	{
-		color = pixel_get(&mlx->sprite[0].img, x, y);
+		color = pixel_get(&mlx->sprite[0].img, tex_x, y/(HEIGHT/SPRITE_PIXEL));
 		pixel_put(&mlx->img, x, y, color);
 		y++;
 	}
@@ -74,22 +71,23 @@ void	draw_texture(t_mlx *mlx, int x, double line)
 	}
 }
 
-
 void	dda(t_mlx *mlx, int x)
 {
 	t_player	*player;
 	t_v2D		ray;
 	double		length;
 	double		line = 0;
+	double		teste;
 
 	player = &mlx->player;
 	ray = create_vector(mlx->ray_pos.x - player->pos.x, mlx->ray_pos.y - player->pos.y);
 	length = length_vector(ray);
 	length = cos(mlx->angle) * length;
 	line = HEIGHT / length;
+	teste = sin(mlx->angle);
 	if(line >= HEIGHT)
 		line = HEIGHT- 1;
-	draw_texture(mlx, x, line);
+	draw_texture(mlx, x, line, teste);
 }
 
 void	ft_grua(t_mlx *mlx)

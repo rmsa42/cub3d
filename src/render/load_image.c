@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/30 17:52:01 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:02:57 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	pixel_get(t_image *img, int pixel_x, int pixel_y)
 {
 	int color;
 	
-	color =*(unsigned int*) img->addr + (pixel_y * img->line_length + pixel_x * (img->bits_per_pixel / 8));
+	color =*(unsigned int*)(img->addr + (pixel_y * img->line_length + pixel_x * (img->bits_per_pixel / 8)));
 	return (color);
 }
 

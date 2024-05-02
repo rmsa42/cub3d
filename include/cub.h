@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/30 17:29:06 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:47:33 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,14 @@ typedef struct s_sprite
 	int		rgb[3];
 }	t_sprite;
 
+typedef struct s_ray
+{
+	t_v2D	pos;
+	double	delta_x;
+	double	delta_y;
+	double	side_x;
+	double	side_y;
+}	t_ray;
 
 typedef struct s_mlx
 {
@@ -77,7 +85,7 @@ typedef struct s_mlx
 	t_player	player;
 	t_map		map;
 	t_image		img;
-	t_v2D		ray_pos;
+	t_ray		ray;
 	double		camera;
 	double		angle;
 	int			f_color;
