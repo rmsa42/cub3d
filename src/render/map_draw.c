@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_draw.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/03 00:25:57 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:01:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,11 @@ void	draw_map(t_mlx *mlx, char tile, int x, int y)
 void	map_draw(t_mlx *mlx)
 {
 	t_map	*map;
-	int i = 0;
 
 	map = &mlx->map;
-	while (i < 6)
-	{
-		map->game_map++;
-		i++;
-	}
 	map->y = 0;
+	for (int i = 0; i < 6; i++)
+		map->game_map++;
 	while (map->game_map[map->y])
 	{
 		map->x = 0;

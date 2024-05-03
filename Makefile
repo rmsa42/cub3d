@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/04/30 17:43:24 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/03 16:41:49 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC = main.c \
 	load_image.c \
 	parser.c \
 	parser_utils.c \
+	draw.c \
 	clean.c
 
 OBJ_PATH = obj/

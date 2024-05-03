@@ -6,133 +6,131 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/02 17:34:43by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:41:32 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_v2D	foward_rays(t_mlx *mlx, t_ray *ray)
+void	step_rays(t_map map, t_player player, t_ray *ray)
 {
-	t_v2D	step;
-	t_map	map;
-
-	map = mlx->map;
-	map.x = (int)mlx->player.pos.x;
-	map.y = (int)mlx->player.pos.y;
-	step = create_vector(0, 0);
-	if (ray->pos.x < 0)
-		step.x = -1;
+	if (ray->dir.x < 0)
+	{
+		ray->step.x = -1;
+		ray->side_d.x = (player.pos.x - map.x) * ray->delta.x;
+	}
 	else
-		step.x = 1;
-	if (ray->pos.y < 0)
-		step.y = -1;
+	{
+		ray->step.x = 1;
+		ray->side_d.x = (map.x + 1 - player.pos.x) * ray->delta.x;
+	}
+	if (ray->dir.y < 0)
+	{
+		ray->step.y = -1;
+		ray->side_d.y = (player.pos.y - map.y) * ray->delta.y;
+	}
 	else
-		step.y = 1;
-	ray->side_x = (1 - (mlx->player.pos.x - map.x)) / sin(mlx->angle);
-	ray->side_y = (mlx->player.pos.y - map.y) / cos(mlx->angle);
-	/* printf("sx: %f, sy: %f\n", ray->side_x, ray->side_y); */
-	return (step);	
+	{
+		ray->step.y = 1;
+		ray->side_d.y = (map.y + 1 - player.pos.y) * ray->delta.y;
+	}
 }
 
-t_v2D	launch_rays(t_mlx *mlx, int x)
+void	launch_rays(t_mlx *mlx, int x)
 {
 	t_player	*player;
-	t_ray		ray;
 
 	player = &mlx->player;
 	mlx->camera = 2 * x / (double)WIDTH - 1;
-	ray.pos.x = player->direction.x + player->plane.x * mlx->camera;
-	ray.pos.y = player->direction.y + player->plane.y * mlx->camera;
-	mlx->angle = acos(1/length_vector(ray.pos));
-	if (mlx->angle != PI / 2)
-		ray.delta_x = fabs(1 / sin(mlx->angle));
-	ray.delta_y = fabs(1 / cos(mlx->angle));
-	/* printf("dx: %f, dy: %f\n", ray.delta_x, ray.delta_y); */
-	mlx->ray = ray; 
-	return (foward_rays(mlx, &ray));
+	mlx->ray.dir.x = player->direction.x + player->plane.x * mlx->camera;
+	mlx->ray.dir.y = player->direction.y + player->plane.y * mlx->camera;
+	mlx->angle = acos(1/length_vector(mlx->ray.dir));
+	mlx->ray.delta.x = sqrt(1 + (mlx->ray.dir.y * mlx->ray.dir.y) / (mlx->ray.dir.x * mlx->ray.dir.x));
+	mlx->ray.delta.y = sqrt(1 + (mlx->ray.dir.x * mlx->ray.dir.x) / (mlx->ray.dir.y * mlx->ray.dir.y));
+	mlx->map.x = (int)player->pos.x;
+	mlx->map.y = (int)player->pos.y;
+	step_rays(mlx->map, mlx->player, &mlx->ray);
 }
 
-void	draw_texture(t_mlx *mlx, int x, double line)
+int	text_x(t_ray *ray, int side, double perp_wall)
 {
-	int y;
-	int draw_s;
-	int	draw_e;
+	double	wall_x;
+	int		tex_x;
+
+	wall_x = 0;
+	tex_x = 0;
+	// X da parede que o raio acertou
+	if (side == 0)
+		wall_x = ray->dir.x + perp_wall * ray->dir.y;
+	else
+		wall_x = ray->dir.x + perp_wall * ray->dir.x;
 	
-	y = -1;
-	draw_s = HEIGHT / 2 - line / 2;
-	if (draw_s < 0)
-		draw_s = 0;
-	draw_e = HEIGHT / 2 + line / 2;
-	if (draw_e >= HEIGHT)
-		draw_e = HEIGHT - 1;
-	while (++y < draw_s)
-		pixel_put(&mlx->img, x, y, mlx->c_color);
-	while (y < draw_e)
-	{
-/* 		color = pixel_get(&mlx->sprite[0].img, tex_x, y/(HEIGHT/SPRITE_PIXEL)); */
-		pixel_put(&mlx->img, x, y, GREEN);
-		y++;
-	}
-	while(y < HEIGHT)
-	{
-		pixel_put(&mlx->img, x, y, mlx->f_color);
-		y++;
-	}
+	// X vai variar entre 0 e 1
+	wall_x -= floor(wall_x);
+
+	// Calcula a linha que vai renderizar
+	tex_x = (int)(wall_x * 64);
+	if ((side == 0 && ray->dir.x > 0) || (side == 1 && ray->dir.y < 0))
+		tex_x = 64 - tex_x - 1;
+	return (tex_x);
 }
 
-void	dda(t_mlx *mlx, int x, t_v2D step)
+void	dda(t_mlx *mlx, t_map *map, t_ray *ray)
 {
-	int		wall_hit;
-	t_ray	*ray;
-	int		side;
-	double	line_height;
+	int	hit;
 
-	line_height = 0;
-	mlx->map.x = mlx->player.pos.x;
-	mlx->map.y = mlx->player.pos.y;
-	printf("mx: %d, my: %d\n", mlx->map.x, mlx->map.y);
-	ray = &mlx->ray;
-	wall_hit = 0;
-	while (!wall_hit)
+	hit = 0;
+	while (!hit)
 	{
-		if (ray->side_x < ray->side_y)
+		if (ray->side_d.x < ray->side_d.y)
 		{
-			ray->side_x += ray->delta_x;
-			mlx->map.x += step.x;
-			side = 0;
+			ray->side_d.x += ray->delta.x;
+			map->x += ray->step.x;
+			mlx->side = 0;
 		}
 		else
 		{
-			ray->side_y += ray->delta_y;
-			mlx->map.y += step.y;
-			side = 1;
+			ray->side_d.y += ray->delta.y;
+			map->y += ray->step.y;
+			mlx->side = 1;
 		}
-		if (mlx->map.game_map[mlx->map.y][mlx->map.x] == '1')
-		{
-			printf("mx: %d, my: %d\n", mlx->map.x, mlx->map.y);
-			wall_hit = 1;
-		}
+		if (map->game_map[map->y][map->x] == '1')
+			hit = 1;
 	}
-	if (side == 1)
-		line_height = HEIGHT / (ray->side_y - ray->delta_y); 
+}
+
+void	calculus(t_mlx *mlx, t_ray *ray)
+{
+	double	perp_wall;
+
+	perp_wall = 0;
+	if (mlx->side == 0)
+		perp_wall = fabs(ray->side_d.x - ray->delta.x);
 	else
-		line_height = HEIGHT / (ray->side_x - ray->delta_x);
-	printf("Line: %f, %f\n", ray->side_x, ray->side_y);
-	/* exit(0); */
-	draw_texture(mlx, x, line_height);
+		perp_wall = fabs(ray->side_d.y - ray->delta.y);
+	// Calculo do X o Sprite
+	mlx->tex_x = text_x(ray, mlx->side, perp_wall);
+	
+	perp_wall = perp_wall * cos(mlx->angle);
+	mlx->line_height = (int)(HEIGHT / perp_wall);
+	
+	// Calculo do Y do Sprite
+	mlx->step = 1.0 * 64 / mlx->line_height;
+	mlx->tex_pos = (mlx->line_height - HEIGHT) / 2.0 * mlx->step;
 }
 
 void	ft_grua(t_mlx *mlx)
 {
 	int		x;
-	t_v2D	step;
 
 	x = 0;
+	mlx->side = 0;
 	while (x < (int)WIDTH)
 	{
-		step = launch_rays(mlx, x);
-		dda(mlx, x, step);
+		launch_rays(mlx, x);
+		dda(mlx, &mlx->map, &mlx->ray);
+		calculus(mlx, &mlx->ray);
+		draw_texture(mlx, x);
 		x++;
 	}
 	image_to_window(mlx, mlx->img.img_ptr, 0, 0);

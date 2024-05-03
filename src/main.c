@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:33:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/03 00:23:48 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:02:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ t_player	init_player(double x, double y, char tile)
 	int			dir;
 
 	dir = 1;
-	printf("Tile: %c\n", tile);
 	player.pos = create_vector(x, y);
-	print_vector(player.pos);
 	if (tile == 'N')
 		player.direction = create_vector(0, -dir);
 	else if (tile == 'S')

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/02 17:47:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:56:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,10 @@ typedef struct s_sprite
 
 typedef struct s_ray
 {
-	t_v2D	pos;
-	double	delta_x;
-	double	delta_y;
-	double	side_x;
-	double	side_y;
+	t_v2D	dir;
+	t_v2D	delta;
+	t_v2D	side_d;
+	t_v2D	step;
 }	t_ray;
 
 typedef struct s_mlx
@@ -90,12 +89,18 @@ typedef struct s_mlx
 	double		angle;
 	int			f_color;
 	int			c_color;
+	int			tex_x;
+	int			side;
+	int			line_height;
+	int			step;
+	int			tex_pos;
 }	t_mlx;
 
 
 t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
+void		draw_texture(t_mlx *mlx, int x);
 
 // Update
 int			update(t_mlx *mlx);
