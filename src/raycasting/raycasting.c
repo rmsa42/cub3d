@@ -15,28 +15,23 @@
 t_v2D	foward_rays(t_mlx *mlx, t_ray *ray)
 {
 	t_v2D	step;
+	t_map	map;
 
+	map = mlx->map;
+	map.x = (int)mlx->player.pos.x;
+	map.y = (int)mlx->player.pos.y;
 	step = create_vector(0, 0);
 	if (ray->pos.x < 0)
-	{
 		step.x = -1;
-		ray->side_x = mlx->player.pos.x * ray->delta_x; 
-	}
 	else
-	{
 		step.x = 1;
-		ray->side_x = (mlx->player.pos.x + 1) * ray->delta_x;
-	}
 	if (ray->pos.y < 0)
-	{
 		step.y = -1;
-		ray->side_y = (mlx->player.pos.y) * ray->delta_y;
-	}
 	else
-	{
 		step.y = 1;
-		ray->side_y = (mlx->player.pos.y + 1.0) * ray->delta_y;
-	}
+	ray->side_x = (1 - (mlx->player.pos.x - map.x)) / sin(mlx->angle);
+	ray->side_y = (mlx->player.pos.y - map.y) / cos(mlx->angle);
+	/* printf("sx: %f, sy: %f\n", ray->side_x, ray->side_y); */
 	return (step);	
 }
 
@@ -50,10 +45,10 @@ t_v2D	launch_rays(t_mlx *mlx, int x)
 	ray.pos.x = player->direction.x + player->plane.x * mlx->camera;
 	ray.pos.y = player->direction.y + player->plane.y * mlx->camera;
 	mlx->angle = acos(1/length_vector(ray.pos));
-	ray.delta_x = fabs(1 / ray.pos.x);
-	ray.delta_y = fabs(1 / ray.pos.y);
-	printf("dx: %f, dy: %f\n", ray.delta_x, ray.delta_y);
-	exit(0);
+	if (mlx->angle != PI / 2)
+		ray.delta_x = fabs(1 / sin(mlx->angle));
+	ray.delta_y = fabs(1 / cos(mlx->angle));
+	/* printf("dx: %f, dy: %f\n", ray.delta_x, ray.delta_y); */
 	mlx->ray = ray; 
 	return (foward_rays(mlx, &ray));
 }
@@ -66,8 +61,11 @@ void	draw_texture(t_mlx *mlx, int x, double line)
 	
 	y = -1;
 	draw_s = HEIGHT / 2 - line / 2;
+	if (draw_s < 0)
+		draw_s = 0;
 	draw_e = HEIGHT / 2 + line / 2;
-	assert(mlx->sprite[0].img.addr != NULL);
+	if (draw_e >= HEIGHT)
+		draw_e = HEIGHT - 1;
 	while (++y < draw_s)
 		pixel_put(&mlx->img, x, y, mlx->c_color);
 	while (y < draw_e)
@@ -93,6 +91,7 @@ void	dda(t_mlx *mlx, int x, t_v2D step)
 	line_height = 0;
 	mlx->map.x = mlx->player.pos.x;
 	mlx->map.y = mlx->player.pos.y;
+	printf("mx: %d, my: %d\n", mlx->map.x, mlx->map.y);
 	ray = &mlx->ray;
 	wall_hit = 0;
 	while (!wall_hit)
@@ -110,12 +109,17 @@ void	dda(t_mlx *mlx, int x, t_v2D step)
 			side = 1;
 		}
 		if (mlx->map.game_map[mlx->map.y][mlx->map.x] == '1')
+		{
+			printf("mx: %d, my: %d\n", mlx->map.x, mlx->map.y);
 			wall_hit = 1;
+		}
 	}
 	if (side == 1)
-		line_height = ray->side_y; 
+		line_height = HEIGHT / (ray->side_y - ray->delta_y); 
 	else
-		line_height = ray->side_x;
+		line_height = HEIGHT / (ray->side_x - ray->delta_x);
+	printf("Line: %f, %f\n", ray->side_x, ray->side_y);
+	/* exit(0); */
 	draw_texture(mlx, x, line_height);
 }
 
