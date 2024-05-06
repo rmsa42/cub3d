@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:33:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/03 17:02:17 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:42:33 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_player	init_player(double x, double y, char tile)
 		player.direction = create_vector(-dir, 0);
 	else if (tile == 'E')
 		player.direction = create_vector(dir, 0);
-	player.plane = perp_vector(player.direction);
+	player.plane = create_vector((double)FOV / 90, 0);
 	return (player);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/03 16:56:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:43:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,20 @@
 
 # define HEIGHT 600
 # define WIDTH 800
+# define FOV 90
 # define SPRITE_PIXEL 64
 
 # define PI 3.14159265359
 # define GREEN 	0x0000FF00
 
-# define SPEED 0.1
+# define SPEED 0.01
 
 typedef struct s_player
 {
 	t_v2D	pos;
 	t_v2D	direction;
 	t_v2D	plane;
+	t_v2D	movement;
 }	t_player;
 
 typedef struct s_map
@@ -91,9 +93,9 @@ typedef struct s_mlx
 	int			c_color;
 	int			tex_x;
 	int			side;
-	int			line_height;
-	int			step;
-	int			tex_pos;
+	double		line_height;
+	double		step;
+	double		tex_pos;
 }	t_mlx;
 
 
@@ -103,7 +105,7 @@ void		ft_grua(t_mlx *mlx);
 void		draw_texture(t_mlx *mlx, int x);
 
 // Update
-int			update(t_mlx *mlx);
+void		update(t_player *player);
 
 //Render
 int			render(t_mlx *mlx);
@@ -127,6 +129,7 @@ int			shift_color(t_sprite sprite);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
+int			handle_keyUp(int keycode, t_mlx *mlx);
 
 void		close_game(t_mlx *mlx);
 

@@ -6,11 +6,13 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:30:53 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/30 14:11:34 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:47:59 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+// Update Function: Calculo para as novas coordenadas do jogador
 
 t_v2D	rotate(t_v2D vector, int degree)
 {
@@ -33,19 +35,23 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	norm = normalize_vector(mlx->player.direction);
 	if (keycode == ESC)
 		close_game(mlx);
-	else if (keycode == W)
+	if (keycode == W)
 		player->pos = add_vector(player->pos, multiply_vector(norm, SPEED));
-	else if (keycode == S)
+	if (keycode == S)
 		player->pos = minus_vector(player->pos, multiply_vector(norm, SPEED));
-	else if (keycode == A)
+	if (keycode == A)
 		player->pos = minus_vector(player->pos, multiply_vector(perp_vector(norm), SPEED));
-	else if (keycode == D)
+	if (keycode == D)
 		player->pos = add_vector(player->pos, multiply_vector(perp_vector(norm), SPEED));
-	else if (keycode == LARROW)
+	if (keycode == LARROW)
+	{
 		player->direction = rotate(player->direction, -3);
-	else if (keycode == RARROW)
+		player->plane = rotate(player->plane, -3);
+	}
+	if (keycode == RARROW)
+	{
 		player->direction = rotate(player->direction, 3);
-	player->plane = perp_vector(player->direction);
+		player->plane = rotate(player->plane, 3);
+	}
 	return (0);
 }
-
