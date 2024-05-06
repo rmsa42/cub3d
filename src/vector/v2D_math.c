@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   v2D_math.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:15:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/26 17:13:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:46:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_v2D	divide_vector(t_v2D v1, const double scalar)
 	t_v2D	v2;
 
 	v2 = create_vector(0, 0);
+	if (scalar == 0)
+		return (v2);
 	v2.x = v1.x / scalar;
 	v2.y = v1.y / scalar;
 	return (v2);

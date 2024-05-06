@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 17:43:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/06 23:00:00 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define PI 3.14159265359
 # define GREEN 	0x0000FF00
 
-# define SPEED 0.01
+# define SPEED 0.03
 
 typedef struct s_player
 {
@@ -44,6 +44,7 @@ typedef struct s_player
 	t_v2D	direction;
 	t_v2D	plane;
 	t_v2D	movement;
+	double	angle;
 }	t_player;
 
 typedef struct s_map
@@ -129,7 +130,7 @@ int			shift_color(t_sprite sprite);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
-int			handle_keyUp(int keycode, t_mlx *mlx);
+int			handle_keyRelease(int keycode, t_player *player);
 
 void		close_game(t_mlx *mlx);
 

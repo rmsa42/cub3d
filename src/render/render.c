@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 17:42:53 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:25:22 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_image	new_image(t_mlx *mlx)
 
 int	render(t_mlx *mlx)
 {
+	update(&mlx->player);
 	mlx->img = new_image(mlx);
 	mlx->sprite[0].img.addr = mlx_get_data_addr(mlx->sprite[0].img.img_ptr,
 		&mlx->sprite[0].img.bits_per_pixel, &mlx->sprite[0].img.line_length, &mlx->sprite[0].img.endian);

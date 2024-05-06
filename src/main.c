@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:33:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 17:42:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:51:20 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_player	init_player(double x, double y, char tile)
 	else if (tile == 'E')
 		player.direction = create_vector(dir, 0);
 	player.plane = create_vector((double)FOV / 90, 0);
+	player.angle = 0.1;
 	return (player);
 }
 
@@ -65,6 +66,7 @@ int main(int argc, char *argv[])
 	
 	map_draw(&mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
+	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
 	mlx_loop_hook(mlx.lib, render, &mlx);
 	mlx_loop(mlx.lib);
 	
