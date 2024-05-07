@@ -1,7 +1,7 @@
-NO ./wall.xpm
+NO ./north_wall.xpm
 SO ./wall.xpm
-WE ./enemy.xpm
-EA ./enemy.xpm
+WE ./wall.xpm
+EA ./wall.xpm
 F 125,200,100
 C 140,125,100
 

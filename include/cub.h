@@ -5,10 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/07 11:07:44 by rumachad         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/05/07 14:51:07 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
+
+
 
 #ifndef CUB_H
 # define CUB_H
@@ -97,6 +102,7 @@ typedef struct s_mlx
 	double		line_height;
 	double		scale;
 	double		tex_pos;
+	int		sprite_index;
 }	t_mlx;
 
 

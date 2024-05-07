@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/07 13:38:01 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:51:25 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_mlx *mlx)
 	double	wall_x;
 	int		tex_x;
 
+	mlx->sprite_index = 0;
 	wall_x = 0;
 	tex_x = 0;
 	if (side == 0)
@@ -92,6 +93,20 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_mlx *mlx)
 	tex_x = (int)(wall_x * (int)SPRITE_SIZE);
 	if ((side == 0 && ray->dir.x < 0) || (side == 1 && ray->dir.y > 0))
 		tex_x = SPRITE_SIZE - tex_x - 1;
+	if (side == 1)
+	{
+		if(ray->dir.y < 0)
+			mlx->sprite_index = 0;
+		else
+			mlx->sprite_index = 1;
+	}
+	else if(side == 0)
+	{
+		if (ray->dir.x < 0)
+			mlx->sprite_index = 2;
+		else
+			mlx->sprite_index = 3;
+	}
 	return (tex_x);
 }
 
