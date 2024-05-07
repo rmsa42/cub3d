@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/03 15:51:43 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:04:00 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ t_sprite	xpm_to_image(t_mlx *mlx, char *texture)
 void	image_to_window(t_mlx *mlx, void *img_ptr, int x, int y)
 {
 	mlx_put_image_to_window(mlx->lib, mlx->window, img_ptr,
-		x * SPRITE_PIXEL, y * SPRITE_PIXEL);
+		x * SPRITE_SIZE, y * SPRITE_SIZE);
 	/* printf("Sprite Load\n"); */
 }

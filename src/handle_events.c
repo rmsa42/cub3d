@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:30:53 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 23:09:15 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:13:22 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	update(t_player *player)
 	new_pos = normalize_vector(new_pos);
 	velocity = multiply_vector(new_pos, SPEED);
 	player->pos = add_vector(player->pos, velocity);
-	player->direction = 
 }
 
 t_v2D	rotate(t_v2D vector, int degree)

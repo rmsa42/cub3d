@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/03 16:41:49 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/07 10:18:53 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,12 +65,13 @@ val: re
 	valgrind --leak-check=full --show-leak-kinds=all ./cub3D map.cub
 
 clean:
-		make clean -C $(LIBFT_PATH)
-		make clean -C $(MLX_PATH)
-		rm -rf $(OBJ)
+		@make clean -C $(LIBFT_PATH) > /dev/null
+		@make clean -C $(MLX_PATH) > /dev/null 2>&1
+		@rm -rf $(OBJ) > /dev/null
 
 fclean: clean
-		@make fclean -C  $(LIBFT_PATH)
-		rm -f $(NAME)
+		@make fclean -C  $(LIBFT_PATH) > /dev/null
+		@rm -f $(NAME)
+		@echo "$(GREEN)Objects cleaned$(RESET)"
 
 re: fclean all

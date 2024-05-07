@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 23:00:00 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:07:44 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@
 # define HEIGHT 600
 # define WIDTH 800
 # define FOV 90
-# define SPRITE_PIXEL 64
+# define SPRITE_SIZE 64
 
 # define PI 3.14159265359
 # define GREEN 	0x0000FF00
 
-# define SPEED 0.03
+# define SPEED 0.02
 
 typedef struct s_player
 {
@@ -95,7 +95,7 @@ typedef struct s_mlx
 	int			tex_x;
 	int			side;
 	double		line_height;
-	double		step;
+	double		scale;
 	double		tex_pos;
 }	t_mlx;
 
