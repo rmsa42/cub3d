@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:22:16 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 23:00:00 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:13:22 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_mlx
 	double		line_height;
 	double		step;
 	double		tex_pos;
+	int		sprite_index;
 }	t_mlx;
 
 

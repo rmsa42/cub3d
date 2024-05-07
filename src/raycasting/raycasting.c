@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 17:18:41 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:32:22 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_mlx *mlx)
 	double	wall_x;
 	int		tex_x;
 
+	mlx->sprite_index = 0;
 	wall_x = 0;
 	tex_x = 0;
 	// X da parede que o raio acertou
@@ -98,6 +99,20 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_mlx *mlx)
 
 	if ((side == 0 && ray->dir.x < 0) || (side == 1 && ray->dir.y > 0))
 		tex_x = SPRITE_PIXEL - tex_x - 1;
+	if (side == 1)
+	{
+		if(ray->dir.y < 0)
+			mlx->sprite_index = 0;
+		else
+			mlx->sprite_index = 1;
+	}
+	else if(side == 0)
+	{
+		if (ray->dir.x < 0)
+			mlx->sprite_index = 2;
+		else
+			mlx->sprite_index = 3;
+	}
 	return (tex_x);
 }
 

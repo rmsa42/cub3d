@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 17:01:39 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:30:59 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	draw_walls(t_mlx *mlx, int x, int draw_s, int draw_e)
 	{
 		tex_y = (int)mlx->tex_pos & (64 - 1);
 		mlx->tex_pos += mlx->step;
-		color = pixel_get(&mlx->sprite[0].img, mlx->tex_x, tex_y);
+	/* 	printf("index:%i\n", mlx->sprite_index);
+		exit(0); */
+		color = pixel_get(&mlx->sprite[mlx->sprite_index].img, mlx->tex_x, tex_y);
 		pixel_put(&mlx->img, x, y, color);
 		y++;
 	}
@@ -57,11 +59,11 @@ void	draw_texture(t_mlx *mlx, int x)
 	
 	draw_s = (int)HEIGHT / 2 - mlx->line_height / 2;
 	draw_e = (int)HEIGHT / 2 + mlx->line_height / 2;
-	mlx->tex_pos = (draw_s - (int)HEIGHT / 2 + mlx->line_height / 2) * mlx->step;
 	if (draw_s < 0)
 		draw_s = 0;
 	if (draw_e >= (int)HEIGHT)
 		draw_e = (int)HEIGHT - 1;
+	mlx->tex_pos = (draw_s - (int)HEIGHT / 2 + mlx->line_height / 2) * mlx->step;
 	draw_ceiling_floor(&mlx->img, x, draw_s, mlx->c_color);
 	draw_walls(mlx, x, draw_s, draw_e);
 	draw_floor(&mlx->img, x, draw_e, mlx->f_color);
