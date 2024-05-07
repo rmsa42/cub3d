@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/07 14:51:25 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:00:55 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,10 @@ void	calculus(t_mlx *mlx, t_ray *ray)
 		perp_wall = (ray->side_d.x - ray->delta.x);
 	else
 		perp_wall = (ray->side_d.y - ray->delta.y);
-	if (perp_wall - 0.00001 < 0)
-		perp_wall = 1;
+	// SegFault ao entrar na parede
+	// printf("Perp: %f\n", perp_wall);
+	/* if (perp_wall - 0.00001 < 0)
+		perp_wall = 1; */
 	mlx->tex_x = text_x(ray, mlx->side, perp_wall, mlx);
 	mlx->line_height = fabs((int)HEIGHT / perp_wall);
 }

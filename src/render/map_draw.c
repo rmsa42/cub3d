@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/03 17:01:53 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:19:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	map_draw(t_mlx *mlx)
 
 	map = &mlx->map;
 	map->y = 0;
-	for (int i = 0; i < 6; i++)
-		map->game_map++;
 	while (map->game_map[map->y])
 	{
 		map->x = 0;

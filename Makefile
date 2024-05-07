@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/07 10:18:53 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/07 17:21:25 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRC = main.c \
 	load_image.c \
 	parser.c \
 	parser_utils.c \
+	read_from_file.c \
+	check_b4_init.c \
 	draw.c \
 	clean.c
 

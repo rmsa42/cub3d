@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/30 12:33:25 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:31:57 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,7 @@
 int	check_element(char *line)
 {
 	int		i;
-	char	*ele[7];
-
-	i = 0;
-	ele[0] = "NO ";
-	ele[1] = "SO ";
-	ele[2] = "WE ";
-	ele[3] = "EA ";
-	ele[4] = "F ";
-	ele[5] = "C ";
-	ele[6] = 0;
+	
 	while (ele[i])
 	{
 		if (i < 4 && !ft_strncmp(line, ele[i], 3))

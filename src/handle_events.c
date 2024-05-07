@@ -6,33 +6,32 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/07 14:51:15 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:49:31 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
-
-
-
 
 #include "cub.h"
 
 // Update Function: Fazer melhor a rotaçao do jogador
 
-void	update(t_player *player)
+void	update(t_mlx *mlx)
 {
+	t_player *player;
 	t_v2D	velocity;
 	t_v2D	y_axis;
 	t_v2D	x_axis;
 	t_v2D	new_pos;
-
+	t_v2D	check;
+	
+	player = &mlx->player;
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
 	new_pos = add_vector(y_axis, x_axis);
 	new_pos = normalize_vector(new_pos);
 	velocity = multiply_vector(new_pos, SPEED);
-	player->pos = add_vector(player->pos, velocity);
+	check = add_vector(player->pos, velocity);
+	if (mlx->map.game_map[(int)player->pos.y][(int)player->pos.x] != '1')
+		player->pos = check;
 }
 
 t_v2D	rotate(t_v2D vector, int degree)

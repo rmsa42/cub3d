@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/07 14:50:30 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:39:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,48 @@ int	shift_color(t_sprite sprite)
 	return (color);
 }
 
+void	init_sprites(t_mlx *mlx, char **conf_map)
+{
+	int		i;
+	char	*ele[7];
+
+	i = 0;
+	ele[0] = "NO ";
+	ele[1] = "SO ";
+	ele[2] = "WE ";
+	ele[3] = "EA ";
+	ele[4] = 0;
+	while (conf_map[i])
+	{
+		if (!ft_strncmp(conf_map[i], ele[i], 2))
+			sprite[i] = xpm_to_image();
+	}
+}
+
 int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
+	
 	mlx.lib = mlx_init();
 	assert(mlx.lib != NULL);
 	
-	// Map init / Parser / Sprite Init
-	mlx.map = init_map(argv[1]);
-	mlx.sprite[0] = xpm_to_image(&mlx, "north_wall.xpm");
-	mlx.sprite[1] = xpm_to_image(&mlx, "south_wall.xpm");
-	mlx.sprite[2] = xpm_to_image(&mlx, "wall.xpm");
-	mlx.sprite[3] = xpm_to_image(&mlx, "east_wall.xpm");
+	mlx = ft_check_b4_init(argc, argv, &mlx);
 	
-	if (parser_map(&mlx) == 1)
-		return (printf("Error\n"), -1);
+	print_map(mlx.map.config_map);
+	// Map init / Parser / Sprite Init
+	inti_sprite(mlx, );
+	mlx.sprite[0] = xpm_to_image(&mlx, "sprites/wall1.xpm");
+	mlx.sprite[1] = xpm_to_image(&mlx, "sprites/wall2.xpm");
+	mlx.sprite[2] = xpm_to_image(&mlx, "sprites/wall3.xpm");
+	mlx.sprite[3] = xpm_to_image(&mlx, "sprites/wall5.xpm");
+	mlx.sprite[4] = xpm_to_image(&mlx, "sprites/sky.xpm");
 
-	mlx.c_color = shift_color(mlx.sprite[5]);
-	mlx.f_color = shift_color(mlx.sprite[4]);
+	mlx.c_color = shift_color(mlx.sprite[4]);
+	mlx.f_color = shift_color(mlx.sprite[5]);
 	
 	// Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
-	
 	
 	map_draw(&mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);

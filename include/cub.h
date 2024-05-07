@@ -6,14 +6,9 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/07 14:51:07 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:17:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
-
-
 
 #ifndef CUB_H
 # define CUB_H
@@ -57,6 +52,8 @@ typedef struct s_map
 	int		x;
 	int		y;
 	char	**game_map;
+	char	**file_map;
+	char	**config_map;
 }	t_map;
 
 typedef struct s_image
@@ -112,7 +109,7 @@ void		ft_grua(t_mlx *mlx);
 void		draw_texture(t_mlx *mlx, int x);
 
 // Update
-void		update(t_player *player);
+void		update(t_mlx *mlx);
 
 //Render
 int			render(t_mlx *mlx);
@@ -120,12 +117,16 @@ int			render(t_mlx *mlx);
 // Map
 void		map_draw(t_mlx *mlx);
 t_map		init_map(char *map_name);
+t_mlx ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 
 // Parser (MAP)
 int			parser_map(t_mlx *mlx);
 int			color(int nbr);
 int			advance_space(char *line);
+
 void		print_map(char **map);
+int	ft_check_filename(char *str);
+void    ft_read_file_and_copy_map(char *file, t_mlx *mlx);
 
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
@@ -139,5 +140,6 @@ int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 
 void		close_game(t_mlx *mlx);
+int	ft_perror(char *msg, t_mlx *mlx);
 
 #endif
