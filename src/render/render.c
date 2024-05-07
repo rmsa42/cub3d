@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 22:25:22 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:30:49 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@ t_image	new_image(t_mlx *mlx)
 
 int	render(t_mlx *mlx)
 {
+	int i = -1;
 	update(&mlx->player);
 	mlx->img = new_image(mlx);
-	mlx->sprite[0].img.addr = mlx_get_data_addr(mlx->sprite[0].img.img_ptr,
-		&mlx->sprite[0].img.bits_per_pixel, &mlx->sprite[0].img.line_length, &mlx->sprite[0].img.endian);
-	assert(mlx->sprite[0].img.addr != NULL);
+	while (++i < 4)
+	{
+		mlx->sprite[i].img.addr = mlx_get_data_addr(mlx->sprite[i].img.img_ptr,
+			&mlx->sprite[i].img.bits_per_pixel, &mlx->sprite[i].img.line_length, &mlx->sprite[i].img.endian);
+	}
+	/* assert(mlx->sprite[i].img.addr != NULL); */
 	ft_grua(mlx);
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
 	return (0);
