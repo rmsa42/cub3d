@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/09 15:20:15 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:49:33 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	dda(t_mlx *mlx, t_map *map, t_ray *ray)
 			map->y += ray->step.y;
 			mlx->side = 1;
 		}
-		if (map->game_map[map->y][map->x] == '1')
+		if (map->game_map[map->y][map->x] == '1' || mlx->map.game_map[mlx->map.y][mlx->map.x] == 'M')
 			hit = 1;
 	}
 }
@@ -99,13 +99,15 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_mlx *mlx)
 		else
 			mlx->sprite_index = 1;
 	}
-	else if (side == 0)
+	else if(side == 0)
 	{
 		if (ray->dir.x < 0)
 			mlx->sprite_index = 2;
 		else
 			mlx->sprite_index = 3;
 	}
+	if (mlx->map.game_map[mlx->map.y][mlx->map.x] == 'M')
+		mlx->sprite_index = 6;
 	return (tex_x);
 }
 

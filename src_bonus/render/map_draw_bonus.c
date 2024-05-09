@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/09 15:20:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:21:03 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	draw_map(t_mlx *mlx, char tile, int x, int y)
 {
 	if ((tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E'))
 		mlx->player = init_player(x + 0.5, y + 0.5, tile);
+	else if (tile == 'M')
+		mlx->enemy = init_player(x + 0.5, y + 0.5, tile);
 }
 
 void	map_draw(t_mlx *mlx)

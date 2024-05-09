@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/09 10:00:16 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:13:41 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_sprite
 	t_image	img;
 	int		height;
 	int		width;
-	int		rgb[3];
+	int		color;
 }	t_sprite;
 
 typedef struct s_ray
@@ -85,15 +85,14 @@ typedef struct s_mlx
 {
 	void		*lib;
 	void		*window;
-	t_sprite	sprite[6];
+	t_sprite	sprite[7];
 	t_player	player;
+	t_player	enemy;
 	t_map		map;
 	t_image		img;
 	t_ray		ray;
 	double		camera;
 	double		angle;
-	int			f_color;
-	int			c_color;
 	int			tex_x;
 	int			side;
 	double		line_height;
@@ -120,10 +119,9 @@ t_map		init_map(char *map_name);
 t_mlx ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 
 // Parser (MAP)
-int	check_line(t_sprite *sprite, char *line);
-int	check_element(char *line);
-int	check_path(char *line);
-int	check_rgb(t_sprite *sprite, char *line);
+int			check_element(char *line);
+int			check_path(char *line);
+int			check_rgb(int **cc, char *line);
 int			color(int nbr);
 int			advance_space(char *line);
 
@@ -136,7 +134,6 @@ void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
 void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
-int			shift_color(t_sprite sprite);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/09 14:00:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:22:31 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,16 @@ int main(int argc, char *argv[])
 	
 	if (check_map(&mlx, mlx.map.config_map))
 		return (printf("Check Error\n"), -1);
+	
+	mlx.sprite[6] = xpm_to_image(&mlx, "./sprites/enemy.xpm");
+	assert(mlx.sprite[6].img.img_ptr != NULL);
 
 	// Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
 	
 	map_draw(&mlx);
+	print_vector(mlx.enemy.pos);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
 	mlx_loop_hook(mlx.lib, render, &mlx);
