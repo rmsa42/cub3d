@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/07 15:55:57 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:02:18 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_ceiling(t_mlx *mlx, int x, int draw_s, int color)
 	y = -1;
 	while (++y < draw_s)
 	{
-		color = pixel_get(&mlx->sprite[4].img, x, y);
+		/* color = pixel_get(&mlx->sprite[4].img, x, y); */
 		pixel_put(&mlx->img, x, y, color);
 	}
 }

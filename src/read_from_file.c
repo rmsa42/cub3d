@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 15:48:23 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/07 17:22:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/09 11:05:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void    ft_moises(t_mlx *mlx)
 	int k;
 
 	i = -1;
-	mlx->map.config_map = malloc(sizeof(char *) * 6);
+	mlx->map.config_map = (char **)malloc(sizeof(char *) * 6);
 	if (!mlx->map.config_map)
 		ft_perror("ERROR\nMalloc for mlx->map.config_map failed", mlx);
 	while (++i < 6)
-		mlx->map.config_map[i] = ft_strdup(mlx->map.file_map[i]);
+		mlx->map.config_map[i] = mlx->map.file_map[i];
 	mlx->map.config_map[6] = NULL;
 	i = 0;
 	k = 5;
-	mlx->map.game_map = malloc(sizeof(char *) * mlx->map.x);
+	mlx->map.game_map = (char **)malloc(sizeof(char *) * mlx->map.x + 1);
 	if (!mlx->map.game_map)
 		ft_perror("ERROR\nMalloc for mlx->map.game_map failed", mlx);
 	while (mlx->map.file_map[++k])
@@ -48,27 +48,28 @@ void	ft_copy_map(t_mlx *mlx, int fd)
 	count_lines = mlx->map.x;
 	mlx->map.file_map = malloc(sizeof(char *) * mlx->map.x);
 	if (!mlx->map.file_map)
-		ft_perror ("ERROR\nMalloc for mlx->map.file_map failed", mlx);
-	while (count_lines-- >= 0)
+		ft_perror("ERROR\nMalloc for mlx->map.file_map failed", mlx);
+	while (count_lines-- > 0)
 	{
 		i = -1;
 		k = -1;
 		line = get_next_line(fd);
-		if(!line || line[0] == '\n')
-			continue;
-		clean_line = malloc(sizeof(char) * ft_strlen(line));
+		clean_line = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
 		while (line && line[++i])
 		{
 			if (line[i] != ' ' && line[i] != '\t')
 				clean_line[++k] = line[i];
 		}
+		clean_line[k] = '\0';
 		map_join = ft_strjoin_get(map_join, clean_line);
-		free (line);
-		free (clean_line);
+		printf("MapJoin: %s", map_join);
+		free(line);
+		free(clean_line);
 	}
 	close(fd);
 	mlx->map.file_map = ft_split(map_join, '\n');
-	free (map_join);
+	print_map(mlx->map.file_map);
+	free(map_join);
 	if (!mlx->map.file_map)
 		ft_perror ("ERROR\nFile_map non existing", mlx);
 }
@@ -76,7 +77,7 @@ void	ft_copy_map(t_mlx *mlx, int fd)
 void	ft_get_rows(t_mlx *mlx, char *file)
 {
 	char	*line;
-	int	fd;
+	int		fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)

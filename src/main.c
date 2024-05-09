@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/07 17:39:53 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/09 10:42:28 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,30 @@ int	shift_color(t_sprite sprite)
 	return (color);
 }
 
-void	init_sprites(t_mlx *mlx, char **conf_map)
+int	check_map(t_mlx *mlx, char **conf_map)
 {
-	int		i;
-	char	*ele[7];
+	int	i;
+	int	k;
 
+	k = 0;
 	i = 0;
-	ele[0] = "NO ";
-	ele[1] = "SO ";
-	ele[2] = "WE ";
-	ele[3] = "EA ";
-	ele[4] = 0;
 	while (conf_map[i])
 	{
-		if (!ft_strncmp(conf_map[i], ele[i], 2))
-			sprite[i] = xpm_to_image();
+		k = check_element(conf_map[i]);
+		if (k >= 0 && k < 4)
+		{
+			if (check_path(conf_map[k] + 2))
+				return (-1);
+			mlx->sprite[k] = xpm_to_image(mlx, conf_map[k] + 2);
+		}
+		else if (k >= 4)
+		{
+			if (check_rgb(&mlx->sprite[k], conf_map[k] + 2))
+				return (-1);
+		}
+		i++;
 	}
+	return (0);
 }
 
 int main(int argc, char *argv[])
@@ -73,14 +81,15 @@ int main(int argc, char *argv[])
 	
 	mlx = ft_check_b4_init(argc, argv, &mlx);
 	
-	print_map(mlx.map.config_map);
+	/* print_map(mlx.map.config_map); */
 	// Map init / Parser / Sprite Init
-	inti_sprite(mlx, );
-	mlx.sprite[0] = xpm_to_image(&mlx, "sprites/wall1.xpm");
+	if (check_map(&mlx, mlx.map.config_map))
+		return (printf("Check Error\n"), -1);
+	/* mlx.sprite[0] = xpm_to_image(&mlx, "sprites/wall1.xpm");
 	mlx.sprite[1] = xpm_to_image(&mlx, "sprites/wall2.xpm");
 	mlx.sprite[2] = xpm_to_image(&mlx, "sprites/wall3.xpm");
 	mlx.sprite[3] = xpm_to_image(&mlx, "sprites/wall5.xpm");
-	mlx.sprite[4] = xpm_to_image(&mlx, "sprites/sky.xpm");
+	mlx.sprite[4] = xpm_to_image(&mlx, "sprites/sky.xpm"); */
 
 	mlx.c_color = shift_color(mlx.sprite[4]);
 	mlx.f_color = shift_color(mlx.sprite[5]);

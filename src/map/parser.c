@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/07 17:31:57 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:21:44 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,21 @@
 int	check_element(char *line)
 {
 	int		i;
+	char	*ele[7];
 	
+	ele[0] = "NO";
+	ele[1] = "SO";
+	ele[2] = "WE";
+	ele[3] = "EA";
+	ele[4] = "C";
+	ele[5] = "F";
+	ele[6] = 0;
+	i = 0;
 	while (ele[i])
 	{
-		if (i < 4 && !ft_strncmp(line, ele[i], 3))
+		if (i < 4 && !ft_strncmp(line, ele[i], 2))
 			return (i);
-		else if (i >= 4 && !ft_strncmp(line, ele[i], 2))
+		else if (i >= 4 && !ft_strncmp(line, ele[i], 1))
 			return (i);
 		i++;
 	}
@@ -63,15 +72,6 @@ int	check_path(char *line)
 	return (0);
 }
 
-int	check_row(char *line)
-{
-	int	len;
-
-	len = ft_strlen(line);
-	if ((line[0] != '1' || line[len] != '1'))
-		return (-1);
-	return (0);
-}
 
 int	check_line(t_sprite *sprite, char *line)
 {
@@ -88,6 +88,16 @@ int	check_line(t_sprite *sprite, char *line)
 	return (0);
 }
 
+int	check_row(char *line)
+{
+	int	len;
+
+	len = ft_strlen(line);
+	if ((line[0] != '1' || line[len] != '1'))
+		return (-1);
+	return (0);
+}
+
 int	check_first_row(char *line)
 {
 	int	i;
@@ -98,25 +108,4 @@ int	check_first_row(char *line)
 	if (line[i] == '\0')
 		return (0);
 	return (-1);
-}
-
-int	parser_map(t_mlx *mlx)
-{
-	int		i;
-	t_map	*map;
-
-	i = 0;
-	map = &mlx->map;
-	while (map->game_map[i])
-	{
-		if (i == 6)
-			break ;
-		if (check_line(mlx->sprite, map->game_map[i++]))
-			return (1);
-	}
-	check_first_row(map->game_map[i++]);
-	while (map->game_map[i + 1])
-		check_row(map->game_map[i++]);
-	check_first_row(map->game_map[i]);
-	return (0);
 }
