@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/09 15:24:16 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/10 10:29:25 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,9 @@ MLX_HEADER = -I minilibx
 MLX_PATH = minilibx-linux
 LIBFT_PATH = libft
 
-CFLAGS = -Wall -Wextra -Werror -I include
+HEADER = include
+HEADER_BONUS = include_bonus
+CFLAGS = -Wall -Wextra -Werror -I
 MLXFLAGS = -Lminilibx-linux -lmlx -lXext -lX11
 LIBFTFLAGS = -Llibft -lft
 MATHFLAGS = -lm
@@ -92,11 +94,11 @@ $(BONUS):	$(OBJ_BONUS)
 
 $(OBJ_PATH)%.o: %.c
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CFLAGS) $(MLX_HEADER) -c $< -o $@
+	@$(CC) $(CFLAGS) $(HEADER) $(MLX_HEADER) -c $< -o $@
 
 $(OBJ_BONUS_PATH)%.o: %.c
 	@mkdir -p $(OBJ_BONUS_PATH)
-	@$(CC) $(CFLAGS) $(MLX_HEADER) -c $< -o $@
+	@$(CC) $(CFLAGS) $(HEADER_BONUS) $(MLX_HEADER) -c $< -o $@
 
 val: re
 	valgrind --leak-check=full --show-leak-kinds=all ./cub3D map.cub
