@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 11:25:03 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:54:37 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	ft_grua(t_mlx *mlx)
 		draw_texture(mlx, x);
 		x++;
 	}
-	image_to_window(mlx, mlx->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(mlx->lib, mlx->window,
+			mlx->buffer.img_ptr, 0, 0);
 }

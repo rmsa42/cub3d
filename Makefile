@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/10 11:42:28 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/10 18:37:01 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,15 +39,15 @@ SRC_BONUS = main_bonus.c \
 
 SRC = main.c \
 	handle_events.c \
-	render.c \
+	img_manipulation.c \
+	img_utils.c \
 	raycasting.c \
 	texture_pos.c \
 	init_map.c \
-	map_draw.c \
+	set_map.c \
 	check_map.c \
 	v2D_math.c \
 	v2D_utils.c \
-	load_image.c \
 	check_functions.c \
 	utils.c \
 	read_from_file.c \
@@ -103,14 +103,14 @@ $(OBJ_BONUS_PATH)%.o: %.c
 	@$(CC) $(CFLAGS) $(HEADER_BONUS) $(MLX_HEADER) -c $< -o $@
 
 val: re
-	valgrind --leak-check=full --show-leak-kinds=all ./cub3D map.cub
+	valgrind --leak-check=full --show-leak-kinds=all ./cub3D maps/map.cub
 
 bonus: $(BONUS)
 
 clean:
 		@make clean -C $(LIBFT_PATH) > /dev/null
 		@make clean -C $(MLX_PATH) > /dev/null 2>&1
-		@rm -rf $(OBJ) $(OBJ_BONUS) > /dev/null
+		@rm -rf $(OBJ_PATH) $(OBJ_BONUS_PATH) > /dev/null
 
 fclean: clean
 		@make fclean -C  $(LIBFT_PATH) > /dev/null

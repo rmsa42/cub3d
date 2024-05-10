@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 10:58:59 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 11:11:26 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:49:15 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_config(t_mlx *mlx, char **conf_map)
 	i = 0;
 	rgb = (int *)malloc(sizeof(int) * 3);
 	if (rgb == NULL)
-		return (0);
+		return (-1);
 	while (conf_map[i])
 	{
 		k = check_element(conf_map[i]);

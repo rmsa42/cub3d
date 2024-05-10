@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 12:22:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 19:04:11 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <assert.h>
 # include <stdbool.h>
 
+/* void	*my_malloc(size_t size);
+# define malloc(size) my_malloc(size) */
+
 # define ESC 65307
 # define W 119
 # define A 97
@@ -30,7 +33,7 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 120
+# define FOV 90
 # define SPRITE_SIZE 64
 
 # define PI 3.14159265359
@@ -90,7 +93,7 @@ typedef struct s_mlx
 	t_sprite	sprite[6];
 	t_player	player;
 	t_map		map;
-	t_image		img;
+	t_image		buffer;
 	t_ray		ray;
 	double		camera;
 	double		angle;
@@ -99,11 +102,12 @@ typedef struct s_mlx
 	double		line_height;
 	double		scale;
 	double		tex_pos;
-	int		sprite_index;
+	int			sprite_index;
 }	t_mlx;
 
-
+// Init Map/Player/Sprites
 t_player	init_player(double x, double y, char tile);
+
 //Raycast
 void		ft_grua(t_mlx *mlx);
 void		calculus(t_mlx *mlx, t_ray *ray);
@@ -114,12 +118,13 @@ void		update(t_mlx *mlx);
 
 //Render
 int			render(t_mlx *mlx);
-void	start_image_sprite(t_sprite *sprite);
+void		start_image_sprite(t_sprite *sprite);
+t_image		start_image_buffer(void *lib);
 
 // Map
-void		map_draw(t_mlx *mlx);
+void		set_map(t_map *map, t_player *player);
 t_map		init_map(char *map_name);
-t_mlx ft_check_b4_init(int ac, char **av, t_mlx *mlx);
+t_mlx		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 
 // Parser (MAP)
 int			check_element(char *line);
@@ -143,7 +148,7 @@ void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 
-void		close_game(t_mlx *mlx);
+int	close_game(t_mlx *mlx);
 int	ft_perror(char *msg, t_mlx *mlx);
 
 #endif

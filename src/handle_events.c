@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 12:23:04 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:45:45 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_v2D	rotate(t_v2D vector, int degree)
 	angle = degree * ((double)PI / 180);
 	newV.x = (vector.x * cos(angle) - vector.y * sin(angle)) * ROTATION_SPEED;
 	newV.y = (vector.x * sin(angle) + vector.y * cos(angle)) * ROTATION_SPEED;
-	print_vector(newV);
 	return (newV);
 }
 
@@ -54,7 +53,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	t_player	*player;
 	
 	player = &mlx->player;
-	if (keycode == ESC)
+	if (keycode == ESC || keycode < 0)
 		close_game(mlx);
 	else if (keycode == W)
 		player->movement.y = 1;

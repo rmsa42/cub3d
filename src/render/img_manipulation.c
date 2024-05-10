@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_image.c                                       :+:      :+:    :+:   */
+/*   img_manipulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 12:31:31 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:39:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,25 @@ void	pixel_put(t_image *img, int pixelX, int pixelY, int color)
 	*(unsigned int *)dst = color;
 }
 
-t_sprite	xpm_to_image(t_mlx *mlx, char *texture)
+void	start_image_sprite(t_sprite *sprite)
 {
-	t_sprite	sprite;
+	int	i;
 
-	sprite.img.img_ptr = mlx_xpm_file_to_image(mlx->lib, texture,
-			&sprite.width, &sprite.height);
-	assert(sprite.img.img_ptr != NULL);
-	return (sprite);
+	i = -1;
+	while (++i < 4)
+	{
+		sprite[i].img.addr = mlx_get_data_addr(sprite[i].img.img_ptr,
+				&sprite[i].img.bits_per_pixel,
+				&sprite[i].img.line_length, &sprite[i].img.endian);
+	}
 }
 
-void	image_to_window(t_mlx *mlx, void *img_ptr, int x, int y)
+t_image	start_image_buffer(void *lib)
 {
-	mlx_put_image_to_window(mlx->lib, mlx->window, img_ptr,
-		x * SPRITE_SIZE, y * SPRITE_SIZE);
+	t_image	img;
+
+	img.img_ptr = mlx_new_image(lib, WIDTH, HEIGHT);
+	img.addr = mlx_get_data_addr(img.img_ptr, &img.bits_per_pixel,
+			&img.line_length, &img.endian);
+	return (img);
 }
