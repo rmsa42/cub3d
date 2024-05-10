@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/10 10:29:25 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/10 11:42:28 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,13 +41,15 @@ SRC = main.c \
 	handle_events.c \
 	render.c \
 	raycasting.c \
+	texture_pos.c \
 	init_map.c \
 	map_draw.c \
+	check_map.c \
 	v2D_math.c \
 	v2D_utils.c \
 	load_image.c \
-	parser.c \
-	parser_utils.c \
+	check_functions.c \
+	utils.c \
 	read_from_file.c \
 	check_b4_init.c \
 	draw.c \

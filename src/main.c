@@ -6,11 +6,9 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/09 14:00:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 12:28:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "cub.h"
 #include "vector2D.h"
@@ -31,51 +29,11 @@ t_player	init_player(double x, double y, char tile)
 	else if (tile == 'E')
 		player.direction = create_vector(dir, 0);
 	player.movement = create_vector(0, 0);
-	player.plane = create_vector((double)FOV / 90, 0);
+	player.plane = perp_vector(player.direction);
 	player.movement = create_vector(0,0);
 	player.angle = 0.1;
+	player.fov = (double)FOV / 90;
 	return (player);
-}
-
-int	shift_color(int *rgb)
-{
-	int	color;
-	
-	color = (rgb[0] << 16 | rgb[1] << 8
-		| rgb[2]);
-	return (color);
-}
-
-int	check_map(t_mlx *mlx, char **conf_map)
-{
-	int	i;
-	int	k;
-	int	*rgb;
-
-	k = 0;
-	i = 0;
-	rgb = (int *)malloc(sizeof(int) * 3);
-	if (rgb == NULL)
-		return (0);
-	while (conf_map[i])
-	{
-		k = check_element(conf_map[i]);
-		if (k >= 0 && k < 4)
-		{
-			if (check_path(conf_map[i] + 2))
-				return (-1);
-			mlx->sprite[k] = xpm_to_image(mlx, conf_map[i] + 3);
-		}
-		else if (k >= 4)
-		{
-			if (check_rgb(&rgb, conf_map[i] + 1))
-				return (-1);
-			mlx->sprite[k].color = shift_color(rgb);
-		}
-		i++;
-	}
-	free(rgb);
-	return (0);
 }
 
 char **teste(char **map)
@@ -91,7 +49,6 @@ char **teste(char **map)
 	return (conf_map);
 }
 
-
 int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
@@ -105,7 +62,7 @@ int main(int argc, char *argv[])
 	mlx.map = init_map(argv[1]);
 	mlx.map.config_map = teste(mlx.map.game_map);
 	
-	if (check_map(&mlx, mlx.map.config_map))
+	if (check_config(&mlx, mlx.map.config_map))
 		return (printf("Check Error\n"), -1);
 
 	// Create Window
@@ -113,6 +70,7 @@ int main(int argc, char *argv[])
 	assert(mlx.window != NULL);
 	
 	map_draw(&mlx);
+	start_image_sprite(mlx.sprite);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
 	mlx_loop_hook(mlx.lib, render, &mlx);

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/09 16:20:21 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 12:23:04 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ t_v2D	rotate(t_v2D vector, int degree)
 	double	angle;
 	
 	angle = degree * ((double)PI / 180);
-	newV.x = (vector.x * cos(angle) - vector.y * sin(angle)) * abs(degree);
-	newV.y = (vector.x * sin(angle) + vector.y * cos(angle)) * abs(degree);
+	newV.x = (vector.x * cos(angle) - vector.y * sin(angle)) * ROTATION_SPEED;
+	newV.y = (vector.x * sin(angle) + vector.y * cos(angle)) * ROTATION_SPEED;
+	print_vector(newV);
 	return (newV);
 }
 
@@ -32,7 +33,6 @@ void	update(t_mlx *mlx)
 	t_v2D	y_axis;
 	t_v2D	x_axis;
 	t_v2D	new_pos;
-	t_v2D	check;
 	
 	player = &mlx->player;
 	y_axis = multiply_vector(player->direction, player->movement.y);
@@ -40,12 +40,12 @@ void	update(t_mlx *mlx)
 	new_pos = add_vector(y_axis, x_axis);
 	new_pos = normalize_vector(new_pos);
 	velocity = multiply_vector(new_pos, SPEED);
-	check = add_vector(player->pos, velocity);
+	player->pos = add_vector(player->pos, velocity);
 	player->direction = add_vector(player->direction, rotate(player->direction, player->angle));
 	player->direction = normalize_vector(player->direction);
-	player->plane = add_vector(player->plane, rotate(player->plane, player->angle));
+	player->plane = add_vector(player->plane, perp_vector(player->direction));
 	player->plane = normalize_vector(player->plane);
-	player->pos = check;
+	player->plane = multiply_vector(player->plane, player->fov);
 }
 
 

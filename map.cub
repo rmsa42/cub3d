@@ -4,6 +4,7 @@ SO ./sprites/south_wall.xpm
 WE ./sprites/wall.xpm
 F 125,200,100
 NO ./sprites/north_wall.xpm
+
 11111111
 10000001
 10010001

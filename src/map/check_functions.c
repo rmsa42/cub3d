@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   check_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/09 13:55:05 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:43:04 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,22 +71,6 @@ int	check_path(char *line)
 		return (-1);
 	return (0);
 }
-
-
-/* int	check_line(t_sprite *sprite, char *line)
-{
-	int	i;
-
-	i = 0;
-	i = check_element(line);
-	if (i >= 0 && i < 4)
-		i = check_path(line + 2);
-	else if (i >= 4)
-		i = check_rgb(&sprite[i], line + 2);
-	if (i == -1)
-		return (1);
-	return (0);
-} */
 
 int	check_row(char *line)
 {

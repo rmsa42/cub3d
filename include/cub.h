@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 10:27:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 12:22:46 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 90
+# define FOV 120
 # define SPRITE_SIZE 64
 
 # define PI 3.14159265359
 # define GREEN 	0x0000FF00
 
 # define SPEED 0.02
+# define ROTATION_SPEED 3
 
 typedef struct s_player
 {
@@ -44,6 +45,7 @@ typedef struct s_player
 	t_v2D	direction;
 	t_v2D	plane;
 	t_v2D	movement;
+	double	fov;
 	double	angle;
 }	t_player;
 
@@ -104,6 +106,7 @@ typedef struct s_mlx
 t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
+void		calculus(t_mlx *mlx, t_ray *ray);
 void		draw_texture(t_mlx *mlx, int x);
 
 // Update
@@ -111,6 +114,7 @@ void		update(t_mlx *mlx);
 
 //Render
 int			render(t_mlx *mlx);
+void	start_image_sprite(t_sprite *sprite);
 
 // Map
 void		map_draw(t_mlx *mlx);
@@ -121,6 +125,7 @@ t_mlx ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 int			check_element(char *line);
 int			check_path(char *line);
 int			check_rgb(int **cc, char *line);
+int			check_config(t_mlx *mlx, char **conf_map);
 int			color(int nbr);
 int			advance_space(char *line);
 

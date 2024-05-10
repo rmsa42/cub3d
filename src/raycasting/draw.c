@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/09 15:48:21 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:26:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,11 @@ void	draw_texture(t_mlx *mlx, int x)
 	int		draw_e;
 	
 	draw_s = (int)HEIGHT / 2 - mlx->line_height / 2;
-	draw_e = (int)HEIGHT / 2 + mlx->line_height / 2;
 	if (draw_s < 0)
 		draw_s = 0;
 	draw_e = (int)HEIGHT / 2 + mlx->line_height / 2;
 	if (draw_e >= (int)HEIGHT)
 		draw_e = (int)HEIGHT;
-	mlx->scale = SPRITE_SIZE / mlx->line_height;
 	mlx->tex_pos = (draw_s - (int)HEIGHT / 2 + mlx->line_height / 2) * mlx->scale;
 	draw_ceiling(mlx, x, draw_s, mlx->sprite[4].color);
 	draw_walls(mlx, x, draw_s, draw_e);
