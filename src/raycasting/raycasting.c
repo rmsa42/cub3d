@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 11:25:03 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:11:13 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	launch_rays(t_mlx *mlx, int x)
 	mlx->map.y = (int)player->pos.y;
 	step_rays(mlx->map, mlx->player, &mlx->ray);
 }
-
 
 void	dda(t_mlx *mlx, t_map *map, t_ray *ray)
 {

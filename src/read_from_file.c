@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   read_from_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 15:48:23 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/09 11:48:30 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:12:21 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void    ft_moises(t_mlx *mlx)
+void	ft_moises(t_mlx *mlx)
 {
 	int	i;
-	int k;
+	int	k;
 
 	i = -1;
 	mlx->map.config_map = (char **)malloc(sizeof(char *) * 6);
@@ -36,13 +36,12 @@ void    ft_moises(t_mlx *mlx)
 
 void	ft_copy_map(t_mlx *mlx, int fd)
 {
-	//#TODO ERROR COMPILING
 	char	*line;
 	char	*clean_line;
 	char	*map_join;
-	int	count_lines;
-	int	i;
-	int k;
+	int		count_lines;
+	int		i;
+	int		k;
 
 	map_join = NULL;
 	count_lines = mlx->map.x;
@@ -91,9 +90,9 @@ void	ft_get_rows(t_mlx *mlx, char *file)
 	close(fd);
 }
 
-void    ft_read_file_and_copy_map(char *file, t_mlx *mlx)
+void	ft_read_file_and_copy_map(char *file, t_mlx *mlx)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)

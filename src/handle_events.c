@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 12:23:04 by rumachad         ###   ########.fr       */
+/*   Created: 2024/05/10 14:52:27 by cacarval          #+#    #+#             */
+/*   Updated: 2024/05/10 14:55:17 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@
 
 t_v2D	rotate(t_v2D vector, int degree)
 {
-	t_v2D	newV;
+	t_v2D	new_v;
 	double	angle;
-	
+
 	angle = degree * ((double)PI / 180);
-	newV.x = (vector.x * cos(angle) - vector.y * sin(angle)) * ROTATION_SPEED;
-	newV.y = (vector.x * sin(angle) + vector.y * cos(angle)) * ROTATION_SPEED;
-	print_vector(newV);
-	return (newV);
+	new_v.x = (vector.x * cos(angle) - vector.y * sin(angle)) * ROTATION_SPEED;
+	new_v.y = (vector.x * sin(angle) + vector.y * cos(angle)) * ROTATION_SPEED;
+	print_vector(new_v);
+	return (new_v);
 }
 
 void	update(t_mlx *mlx)
 {
-	t_player *player;
-	t_v2D	velocity;
-	t_v2D	y_axis;
-	t_v2D	x_axis;
-	t_v2D	new_pos;
-	
+	t_player	*player;
+	t_v2D		velocity;
+	t_v2D		y_axis;
+	t_v2D		x_axis;
+	t_v2D		new_pos;
+
 	player = &mlx->player;
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
@@ -41,18 +41,18 @@ void	update(t_mlx *mlx)
 	new_pos = normalize_vector(new_pos);
 	velocity = multiply_vector(new_pos, SPEED);
 	player->pos = add_vector(player->pos, velocity);
-	player->direction = add_vector(player->direction, rotate(player->direction, player->angle));
+	player->direction = add_vector(player->direction, \
+		rotate(player->direction, player->angle));
 	player->direction = normalize_vector(player->direction);
 	player->plane = add_vector(player->plane, perp_vector(player->direction));
 	player->plane = normalize_vector(player->plane);
 	player->plane = multiply_vector(player->plane, player->fov);
 }
 
-
-int	handle_keyPress(int keycode, t_mlx *mlx)
+int	handle_keypress(int keycode, t_mlx *mlx)
 {
 	t_player	*player;
-	
+
 	player = &mlx->player;
 	if (keycode == ESC)
 		close_game(mlx);
@@ -71,7 +71,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	return (0);
 }
 
-int	handle_keyRelease(int keycode, t_player *player)
+int	handle_keyrelease(int keycode, t_player *player)
 {
 	if (keycode == W || keycode == S)
 		player->movement.y = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 12:22:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:54:48 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
 void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
 
 // Events
-int			handle_keyPress(int keycode, t_mlx *mlx);
-int			handle_keyRelease(int keycode, t_player *player);
+int			handle_keypress(int keycode, t_mlx *mlx);
+int			handle_keyrelease(int keycode, t_player *player);
 
 void		close_game(t_mlx *mlx);
 int	ft_perror(char *msg, t_mlx *mlx);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 20:34:30 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/30 10:20:30 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:09:50 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	advance_space(char *line)
 
 void	print_map(char **map)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (map[i])
 		printf("%s\n", map[i++]);
 }

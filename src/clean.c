@@ -17,17 +17,13 @@ void	close_game(t_mlx *mlx)
 	int	i;
 
 	i = 0;
-	// Sprites
 	while (i < 4)
 		mlx_destroy_image(mlx->lib, mlx->sprite[i++].img.img_ptr);
-	// Window
 	mlx_clear_window(mlx->lib, mlx->window);
 	mlx_destroy_window(mlx->lib, mlx->window);
 	mlx_destroy_display(mlx->lib);
-	// Map
 	free(mlx->map.config_map);
 	ft_free_dp((void **)mlx->map.game_map);
-	// MLX
 	free(mlx->lib);
 	exit(0);
 }

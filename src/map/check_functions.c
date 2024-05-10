@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 11:43:04 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:09:00 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_element(char *line)
 {
 	int		i;
 	char	*ele[7];
-	
+
 	ele[0] = "NO";
 	ele[1] = "SO";
 	ele[2] = "WE";
@@ -48,7 +48,7 @@ int	check_rgb(int **cc, char *line)
 	{
 		cc[0][i] = ft_atoi(rgb[i]);
 		if (!color(cc[0][i]))
-			break;
+			break ;
 		i++;
 	}
 	ft_free_dp((void **)rgb);

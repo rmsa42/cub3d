@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 10:58:59 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 11:11:26 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:13:13 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	shift_color(int *rgb)
 {
 	int	color;
-	
-	color = (rgb[0] << 16 | rgb[1] << 8
-		| rgb[2]);
+
+	color = (rgb[0] << 16 | rgb[1] << 8 | \
+			rgb[2]);
 	return (color);
 }
 
