@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_events.c                                    :+:      :+:    :+:   */
+/*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/09 16:20:21 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:42:22 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_v2D	rotate(t_v2D vector, int degree)
 	double	angle;
 	
 	angle = degree * ((double)PI / 180);
-	newV.x = (vector.x * cos(angle) - vector.y * sin(angle)) * abs(degree);
-	newV.y = (vector.x * sin(angle) + vector.y * cos(angle)) * abs(degree);
+	newV.x = (vector.x * cos(angle) - vector.y * sin(angle)) * abs(degree) * 2;;
+	newV.y = (vector.x * sin(angle) + vector.y * cos(angle)) * abs(degree) * 2;;
 	return (newV);
 }
 
