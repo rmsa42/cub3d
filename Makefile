@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/10 18:37:01 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/09 14:52:15 by jmarinho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,49 +15,24 @@ RED = \033[0;31m
 RESET = \033[0m
 
 NAME = cub3D
-BONUS = cub3D_bonus
 
-SRC_BONUS_PATH = src_bonus/
 SRC_PATH = src/
-VPATH = $(SRC_PATH) $(SRC_PATH)render $(SRC_PATH)raycasting $(SRC_PATH)map $(SRC_PATH)vector \
-		$(SRC_BONUS_PATH) $(SRC_BONUS_PATH)render $(SRC_BONUS_PATH)raycasting $(SRC_BONUS_PATH)map $(SRC_BONUS_PATH)vector
-SRC_BONUS = main_bonus.c \
-	handle_events_bonus.c \
-	render_bonus.c \
-	raycasting_bonus.c \
-	init_map_bonus.c \
-	map_draw_bonus.c \
-	v2D_math_bonus.c \
-	v2D_utils_bonus.c \
-	load_image_bonus.c \
-	parser_bonus.c \
-	parser_utils_bonus.c \
-	read_from_file_bonus.c \
-	check_b4_init_bonus.c \
-	draw_bonus.c \
-	clean_bonus.c 
-
+VPATH = $(SRC_PATH) $(SRC_PATH)parser $(SRC_PATH)render $(SRC_PATH)raycasting $(SRC_PATH)map $(SRC_PATH)vector
 SRC = main.c \
 	handle_events.c \
-	img_manipulation.c \
-	img_utils.c \
+	render.c \
 	raycasting.c \
-	texture_pos.c \
 	init_map.c \
-	set_map.c \
-	check_map.c \
+	map_draw.c \
 	v2D_math.c \
 	v2D_utils.c \
-	check_functions.c \
-	utils.c \
-	read_from_file.c \
+	load_image.c \
+	parser_utils.c \
 	check_b4_init.c \
+	copy_config_map.c \
+	copy_game_map.c \
 	draw.c \
-	clean.c
-
-OBJ_BONUS_PATH = obj_bonus/
-OBJ_BONUS_FILES = $(SRC_BONUS:.c=.o)
-OBJ_BONUS = $(addprefix $(OBJ_BONUS_PATH), $(OBJ_BONUS_FILES))
+	clean.c \
 
 OBJ_PATH = obj/
 OBJFILES = $(SRC:.c=.o)
@@ -69,9 +44,7 @@ MLX_HEADER = -I minilibx
 MLX_PATH = minilibx-linux
 LIBFT_PATH = libft
 
-HEADER = include
-HEADER_BONUS = include_bonus
-CFLAGS = -Wall -Wextra -Werror -I
+CFLAGS = -Wall -Wextra -Werror -I include
 MLXFLAGS = -Lminilibx-linux -lmlx -lXext -lX11
 LIBFTFLAGS = -Llibft -lft
 MATHFLAGS = -lm
@@ -86,35 +59,21 @@ $(NAME):	$(OBJ)
 			@$(CC) -o $(NAME) $(OBJ) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
 			@echo "$(GREEN)Cub3d Compiled$(RESET)"
 
-$(BONUS):	$(OBJ_BONUS)
-			@make -C $(MLX_PATH) > /dev/null 2>&1
-			@echo "$(GREEN)MLX Compiled$(RESET)"
-			@make -C $(LIBFT_PATH) > /dev/null
-			@echo "$(GREEN)Libft Compiled$(RESET)"
-			@$(CC) -o $(BONUS) $(OBJ_BONUS) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
-			@echo "$(GREEN)Cub3d Bonus Compiled$(RESET)"
-
 $(OBJ_PATH)%.o: %.c
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CFLAGS) $(HEADER) $(MLX_HEADER) -c $< -o $@
-
-$(OBJ_BONUS_PATH)%.o: %.c
-	@mkdir -p $(OBJ_BONUS_PATH)
-	@$(CC) $(CFLAGS) $(HEADER_BONUS) $(MLX_HEADER) -c $< -o $@
+	@$(CC) $(CFLAGS) $(MLX_HEADER) -c $< -o $@
 
 val: re
-	valgrind --leak-check=full --show-leak-kinds=all ./cub3D maps/map.cub
-
-bonus: $(BONUS)
+	valgrind --leak-check=full --show-leak-kinds=all ./cub3D map.cub
 
 clean:
 		@make clean -C $(LIBFT_PATH) > /dev/null
 		@make clean -C $(MLX_PATH) > /dev/null 2>&1
-		@rm -rf $(OBJ_PATH) $(OBJ_BONUS_PATH) > /dev/null
+		@rm -rf $(OBJ) > /dev/null
 
 fclean: clean
 		@make fclean -C  $(LIBFT_PATH) > /dev/null
-		@rm -f $(NAME) $(BONUS)
+		@rm -f $(NAME)
 		@echo "$(GREEN)Objects cleaned$(RESET)"
 
 re: fclean all

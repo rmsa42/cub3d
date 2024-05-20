@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 19:04:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:51:09 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,13 @@
 # include <assert.h>
 # include <stdbool.h>
 
-/* void	*my_malloc(size_t size);
-# define malloc(size) my_malloc(size) */
+#define NO 0
+#define SO 1
+#define EA 2
+#define WE 3
+#define F 4
+#define C 5
+
 
 # define ESC 65307
 # define W 119
@@ -40,7 +45,6 @@
 # define GREEN 	0x0000FF00
 
 # define SPEED 0.02
-# define ROTATION_SPEED 3
 
 typedef struct s_player
 {
@@ -48,7 +52,6 @@ typedef struct s_player
 	t_v2D	direction;
 	t_v2D	plane;
 	t_v2D	movement;
-	double	fov;
 	double	angle;
 }	t_player;
 
@@ -56,9 +59,16 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
+	int		game_map_lines;
 	char	**game_map;
 	char	**file_map;
-	char	**config_map;
+	char	*config_map[6];
+	bool	NO_flag;
+	bool	SO_flag;
+	bool	EA_flag;
+	bool	WE_flag;
+	bool	F_flag;
+	bool	C_flag;
 }	t_map;
 
 typedef struct s_image
@@ -75,7 +85,7 @@ typedef struct s_sprite
 	t_image	img;
 	int		height;
 	int		width;
-	int		color;
+	int		rgb[3];
 }	t_sprite;
 
 typedef struct s_ray
@@ -88,29 +98,30 @@ typedef struct s_ray
 
 typedef struct s_mlx
 {
+	char		*file;
 	void		*lib;
 	void		*window;
 	t_sprite	sprite[6];
 	t_player	player;
 	t_map		map;
-	t_image		buffer;
+	t_image		img;
 	t_ray		ray;
 	double		camera;
 	double		angle;
+	int			f_color;
+	int			c_color;
 	int			tex_x;
 	int			side;
 	double		line_height;
 	double		scale;
 	double		tex_pos;
-	int			sprite_index;
+	int		sprite_index;
 }	t_mlx;
 
-// Init Map/Player/Sprites
-t_player	init_player(double x, double y, char tile);
 
+t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
-void		calculus(t_mlx *mlx, t_ray *ray);
 void		draw_texture(t_mlx *mlx, int x);
 
 // Update
@@ -118,37 +129,38 @@ void		update(t_mlx *mlx);
 
 //Render
 int			render(t_mlx *mlx);
-void		start_image_sprite(t_sprite *sprite);
-t_image		start_image_buffer(void *lib);
 
 // Map
-void		set_map(t_map *map, t_player *player);
+void		map_draw(t_mlx *mlx);
 t_map		init_map(char *map_name);
-t_mlx		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
+t_mlx 		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
+void    	ft_check_game_map(t_mlx *mlx);
+void		ft_copy_config_map(t_mlx *mlx);
+void 		ft_copy_game_map(t_mlx *mlx);
 
 // Parser (MAP)
-int			check_element(char *line);
-int			check_path(char *line);
-int			check_rgb(int **cc, char *line);
-int			check_config(t_mlx *mlx, char **conf_map);
+int			parser_map(t_mlx *mlx);
 int			color(int nbr);
 int			advance_space(char *line);
 
 void		print_map(char **map);
-int			ft_check_filename(char *str);
-void    	ft_read_file_and_copy_map(char *file, t_mlx *mlx);
+int			ft_check_filename(t_mlx *mlx);
+void    	ft_read_file_and_copy_map(t_mlx *mlx);
+void		ft_get_rows(t_mlx *mlx);
+int			ft_count_lines(t_mlx *mlx);
 
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
 void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
+int			shift_color(t_sprite sprite);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 
-int	close_game(t_mlx *mlx);
-int	ft_perror(char *msg, t_mlx *mlx);
+void		close_game(t_mlx *mlx);
+void		ft_perror(char *msg, t_mlx *mlx);
 
 #endif

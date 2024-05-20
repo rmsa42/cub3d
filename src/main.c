@@ -3,78 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 19:06:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:53:35 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "cub.h"
 #include "vector2D.h"
 
-/* void	*my_malloc(size_t size)
+t_player	init_player(double x, double y, char tile)
 {
-	(void)size;
-	return (NULL);
-} */
+	t_player	player;
+	int			dir;
 
-char **teste(char **map)
+	dir = 1;
+	player.pos = create_vector(x, y);
+	if (tile == 'N')
+		player.direction = create_vector(0, -dir);
+	else if (tile == 'S')
+		player.direction = create_vector(0, dir);
+	else if (tile == 'W')
+		player.direction = create_vector(-dir, 0);
+	else if (tile == 'E')
+		player.direction = create_vector(dir, 0);
+	player.movement = create_vector(0, 0);
+	player.plane = create_vector((double)FOV / 90, 0);
+	player.movement = create_vector(0,0);
+	player.angle = 0.1;
+	return (player);
+}
+
+int	shift_color(t_sprite sprite)
 {
-	char	**conf_map;
+	int	color;
+	
+	color = (sprite.rgb[0] << 16 | sprite.rgb[1] << 8
+		| sprite.rgb[2]);
+	return (color);
+}
 
-	conf_map = (char **)malloc(sizeof(char *) * 7);
-	if (conf_map == NULL)
-		return (NULL);
-	for (int i = 0; i < 6; i++)
+/*void	init_sprites(t_mlx *mlx, char **conf_map)
+{
+	int		i;
+	char	*ele[7];
+
+	i = 0;
+	ele[0] = "NO ";
+	ele[1] = "SO ";
+	ele[2] = "WE ";
+	ele[3] = "EA ";
+	ele[4] = 0;
+	while (conf_map[i])
 	{
-		conf_map[i] = map[i];
+		if (!ft_strncmp(conf_map[i], ele[i], 2))
+			sprite[i] = xpm_to_image();
 	}
-	conf_map[6] = 0;
-	return (conf_map);
-}
-
-int	render(t_mlx *mlx)
-{
-	update(mlx);
-	mlx->buffer = start_image_buffer(mlx->lib);
-	ft_grua(mlx);
-	mlx_destroy_image(mlx->lib, mlx->buffer.img_ptr);
-	return (0);
-}
+}*/
 
 int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
 	
-	ft_memset((void *)&mlx, 0, sizeof(t_mlx));
 	mlx.lib = mlx_init();
-	if (mlx.lib == NULL)
-		return (perror("MLX Failure\n"), -1);
+	assert(mlx.lib != NULL);
+	mlx = ft_check_b4_init(argc, argv, &mlx);
 	
-	/* mlx = ft_check_b4_init(argc, argv, &mlx); */
+	ft_perror("END PARSER\n", &mlx);//delete when no use
+	exit(0);//delete when no use
 	
 	// Map init / Parser / Sprite Init
-	mlx.map = init_map(argv[1]);
-	mlx.map.config_map = teste(mlx.map.game_map);
-	
-	if (check_config(&mlx, mlx.map.config_map))
-	{
-		close_game(&mlx);
-		return (printf("Check Error\n"), -1);
-	}
+	//inti_sprite(mlx, );
+	mlx.sprite[0] = xpm_to_image(&mlx, "sprites/wall1.xpm");
+	mlx.sprite[1] = xpm_to_image(&mlx, "sprites/wall2.xpm");
+	mlx.sprite[2] = xpm_to_image(&mlx, "sprites/wall3.xpm");
+	mlx.sprite[3] = xpm_to_image(&mlx, "sprites/wall5.xpm");
+	mlx.sprite[4] = xpm_to_image(&mlx, "sprites/sky.xpm");
 
-	// Set Map and Sprites
-	set_map(&mlx.map, &mlx.player);
-	start_image_sprite(mlx.sprite);
+	mlx.c_color = shift_color(mlx.sprite[4]);
+	mlx.f_color = shift_color(mlx.sprite[5]);
 	
 	// Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
-	if (mlx.window == NULL)
-		return (perror("MLX Window Failure\n"), -1);
+	assert(mlx.window != NULL);
 	
-	// Game Loop
-	mlx_hook(mlx.window, DestroyNotify, ButtonPressMask, close_game, &mlx);
+	map_draw(&mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
 	mlx_loop_hook(mlx.lib, render, &mlx);

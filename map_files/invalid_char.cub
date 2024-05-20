@@ -1,0 +1,14 @@
+NO ./sprites/north_wall.xpm
+SO ./sprites/wall.xpm
+WE ./sprites/wall.xpm
+EA ./sprites/wall.xpm
+F 125,200,100
+C 140,125,100
+
+
+01111111
+10000001
+10010001
+10000101
+1N000021
+11111111
