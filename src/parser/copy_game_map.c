@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:35:11 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/09 14:54:08 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:26:31 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,69 +51,65 @@ void    ft_check_game_map(t_mlx *mlx)
         {
             if (mlx->map.game_map[i][k] != '0' && mlx->map.game_map[i][k] != '1' && mlx->map.game_map[i][k] != 'N' 
                 && mlx->map.game_map[i][k] != 'S' && mlx->map.game_map[i][k] != 'E' && mlx->map.game_map[i][k] != 'W')
-                ft_perror("ERROR\nInvalid characters on game map", mlx);
+                ft_perror("ERROR\nInvalid characters on game map\n", mlx);
             if (mlx->map.game_map[0][k] != '1' || mlx->map.game_map[mlx->map.x][k] != '1')//checka se o mapa e rodeado por paredes em cima e em baixo
-                ft_perror("ERROR\nMap is not surrounded by walls(1)", mlx);
+                ft_perror("ERROR\nMap is not surrounded by walls(1)\n", mlx);
             if (mlx->map.game_map[i][0] != '1' || mlx->map.game_map[i][mlx->map.y] != '1')//checka se o mapa e rodeado por paredes a esquerda e a direita
-                ft_perror("ERROR\nMap is not surrounded by walls(2)", mlx);
+                ft_perror("ERROR\nMap is not surrounded by walls(2)\n", mlx);
         }
             
     }
 }
 
-int	ft_count_lines(t_mlx *mlx)
+void	ft_count_map_lines(t_mlx *mlx)
 {
-	int i;
-
-	i = 0;
-	while (mlx->map.file_map[i])
-		i++;
-	//printf("%s\n", mlx->map.file_map[i]);
-	return i;
-}
-
-void	ft_copy_game_map_aux(t_mlx *mlx)
-{
-	char	*line;
-	char	*map_join;
-	int	i;
 	int	fd;
+	char *line;
 
-	i = -1;
-	map_join = NULL;
-	mlx->map.file_map = malloc(sizeof(char *) * mlx->map.x);
-	if (!mlx->map.file_map)
-		ft_perror ("ERROR\nMalloc for mlx->map.file_map failed", mlx);
+	mlx->map.total_lines = 0;
 	fd = open(mlx->file, O_RDONLY);
 	if (fd < 0)
-		ft_perror("Error\nCouldn't open requested file.", mlx);
-	while (++i <= mlx->map.x)
+		ft_perror("Error\nCouldn't open requested file\n", mlx);
+	while (1)
 	{
 		line = get_next_line(fd);
-		if(!line || line[0] == '\n')
-			continue;
-		map_join = ft_strjoin_get(map_join, line);
-		free (line);
+		if (!line)
+			break ;
+		mlx->map.total_lines++;
+		free(line);
 	}
 	close(fd);
-	mlx->map.file_map = ft_split(map_join, '\n');
-	free (map_join);
-	//print_map(mlx->map.file_map);
-	if (!mlx->map.file_map)
-		ft_perror ("ERROR\nFile_map non existing", mlx);
 }
 
 void	ft_copy_game_map(t_mlx *mlx)
 {
-	int cl;
-
-	ft_copy_game_map_aux(mlx);
-	cl = ft_count_lines(mlx);
-	//printf("cl %i\n", cl);
-	mlx->map.game_map_lines = cl - 6;
-			
-	//#TODO moises for game_map
-
+	//#TODO copy map to **game_map
 	
-	
+	int i;
+	int	fd;
+	char *line;
+
+	mlx->map.game_map = malloc(sizeof(char *) * (mlx->map.total_lines + 1));
+	if (!mlx->map.game_map) 
+		ft_perror ("ERROR\nMalloc for mlx->map.game_map failed\n", mlx);
+	fd = open(mlx->file, O_RDONLY);
+	if (fd < 0)
+		ft_perror("Error\nCouldn't open requested file\n", mlx);
+	i = -1;
+	line = get_next_line(fd);
+	while (line)
+	{
+		if(!line || line[0] == '\n')
+		{
+			free (line);
+			line = get_next_line(fd);
+			continue;
+		}
+		mlx->map.game_map[++i] = strdup(line);
+		free (line);
+		line = get_next_line(fd);
+	}
+	mlx->map.game_map[i] = NULL;
+	close(fd);
+	print_map(mlx->map.game_map);
 }

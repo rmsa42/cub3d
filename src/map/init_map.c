@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:07:33 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/26 17:11:59 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:40:40 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-char	**clone_map(char *map_name)
+/*char	**clone_map(char *map_name)
 {
 	int		fd;
 	char	*line;
@@ -43,4 +43,4 @@ t_map	init_map(char *map_name)
 	map.y = 0;
 	map.game_map = clone_map(map_name);
 	return (map);
-}
+}*/

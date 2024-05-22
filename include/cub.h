@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/09 14:51:09 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:11:34 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
-	int		game_map_lines;
+	int		total_lines;
+	int		lines_to_map;
 	char	**game_map;
 	char	**file_map;
 	char	*config_map[6];
@@ -137,6 +138,8 @@ t_mlx 		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 void    	ft_check_game_map(t_mlx *mlx);
 void		ft_copy_config_map(t_mlx *mlx);
 void 		ft_copy_game_map(t_mlx *mlx);
+int			ft_check_all_config_flags(t_mlx *mlx);
+void		ft_count_map_lines(t_mlx *mlx);
 
 // Parser (MAP)
 int			parser_map(t_mlx *mlx);
