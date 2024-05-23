@@ -6,7 +6,7 @@
 #    By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/09 14:52:15 by jmarinho         ###   ########.fr        #
+#    Updated: 2024/05/23 11:30:30 by jmarinho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC = main.c \
 	check_b4_init.c \
 	copy_config_map.c \
 	copy_game_map.c \
+	check_game_map.c \
 	draw.c \
 	clean.c \
 
