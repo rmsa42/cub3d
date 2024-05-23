@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/23 11:27:07 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:41:54 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ int main(int argc, char *argv[])
 	mlx.lib = mlx_init();
 	assert(mlx.lib != NULL);
 	mlx = ft_check_b4_init(argc, argv, &mlx);
+
+	#//TODO fazer checkagens ao mapa
+	#//TODO fazer checkagens ao xpm. se ponteiro for null retornar erro para nao crashar o programa
 	
 	exit(0);//delete when no use
 	
