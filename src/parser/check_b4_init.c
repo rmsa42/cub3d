@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:40:18 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/22 17:04:46 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:30:10 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_mlx ft_check_b4_init(int ac, char **av, t_mlx *mlx)
     ft_check_filename(mlx);
 	ft_copy_config_map(mlx);
 	ft_copy_game_map(mlx);
+	ft_check_game_map(mlx);
 	return *mlx;
 }
 

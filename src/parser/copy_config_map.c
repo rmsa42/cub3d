@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 15:48:23 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/22 17:24:28 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:18:43 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	ft_copy_config_map(t_mlx *mlx)
 			mlx->map.lines_to_map++;
 			continue;
 		}
-		clean_line = malloc(sizeof(char) * ft_strlen(line) + 1);
+		clean_line = malloc(sizeof(char) * ft_strlen(line));
 		if (!clean_line)
 		{
 			if(line)
@@ -103,6 +103,8 @@ void	ft_copy_config_map(t_mlx *mlx)
 			if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
 				clean_line[++k] = line[i];
 		}
+		if (k == -1)
+			k = 0;
 		clean_line[k] = '\0';
 		ft_check_for_configs(mlx, clean_line);
 		if(line)
@@ -115,5 +117,8 @@ void	ft_copy_config_map(t_mlx *mlx)
 	}
 	while (line)
 		line = get_next_line(fd);
+	/*for (int t = 0; t < 6; t++)
+		printf("mlx->map.config_map[%i]%s\n", t, mlx->map.config_map[t]);*/
+	free (line);
 	close(fd);
 }
