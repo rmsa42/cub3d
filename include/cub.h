@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/22 16:11:34 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:16:55 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_map
 	char	**game_map;
 	char	**file_map;
 	char	*config_map[6];
+	char	**flood_map;
 	bool	NO_flag;
 	bool	SO_flag;
 	bool	EA_flag;
@@ -149,7 +150,6 @@ int			advance_space(char *line);
 void		print_map(char **map);
 int			ft_check_filename(t_mlx *mlx);
 void    	ft_read_file_and_copy_map(t_mlx *mlx);
-void		ft_get_rows(t_mlx *mlx);
 int			ft_count_lines(t_mlx *mlx);
 
 // Image

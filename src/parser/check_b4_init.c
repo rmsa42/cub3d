@@ -6,28 +6,28 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:40:18 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/23 11:30:10 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:27:41 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	ft_get_rows(t_mlx *mlx)
+void	ft_count_map_lines(t_mlx *mlx)
 {
-	char	*line;
 	int	fd;
+	char *line;
 
+	mlx->map.total_lines = 0;
 	fd = open(mlx->file, O_RDONLY);
 	if (fd < 0)
 		ft_perror("Error\nCouldn't open requested file\n", mlx);
-	mlx->map.x = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
+		mlx->map.total_lines++;
 		free(line);
-		mlx->map.x++;
 	}
 	close(fd);
 }

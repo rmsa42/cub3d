@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:35:11 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/23 11:28:26 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:14:06 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void	ft_copy_game_map(t_mlx *mlx)
 	int	fd;
 	char *line;
 
-	mlx->map.game_map = malloc(sizeof(char *) * (mlx->map.total_lines + 1));
+	mlx->map.game_map = malloc((sizeof(char *) * mlx->map.total_lines) + 1);
 	if (!mlx->map.game_map) 
 		ft_perror ("ERROR\nMalloc for mlx->map.game_map failed\n", mlx);
 	fd = open(mlx->file, O_RDONLY);
 	if (fd < 0)
-		ft_perror("Error\nCouldn't open requested file\n", mlx);
+		ft_perror("ERROR\nCouldn't open requested file\n", mlx);
 	i = 0;
-	while (i++ <= mlx->map.lines_to_map)
+	while (i++ <= (mlx->map.lines_to_map + 1))
 		line = get_next_line(fd);
 	i = -1;
 	while (line)
@@ -51,10 +51,11 @@ void	ft_copy_game_map(t_mlx *mlx)
 			continue;
 		}
 		mlx->map.game_map[++i] = ft_strdup(line);
-		mlx->map.game_map[i][ft_strlen(mlx->map.game_map[i] + 1)] = '\n';
+		//mlx->map.game_map[i][ft_strlen(mlx->map.game_map[i]) + 1] = '\n';
 		free (line);
 		line = get_next_line(fd);
 	}
-	mlx->map.game_map[++i] = NULL;
+	mlx->map.game_map[i + 1] = NULL;
+	//print_map(mlx->map.game_map);
 	close(fd);
 }
