@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 15:48:23 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/23 11:18:43 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:59:26 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_check_all_config_flags(t_mlx *mlx)
 {
 	if (mlx->map.NO_flag == true && mlx->map.SO_flag == true && mlx->map.EA_flag == true
-		&& mlx->map.WE_flag == true && mlx->map.F_flag == true && mlx->map.F_flag == true)
+		&& mlx->map.WE_flag == true && mlx->map.F_flag == true && mlx->map.C_flag == true)
 		return (EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 	/*else
@@ -105,7 +105,7 @@ void	ft_copy_config_map(t_mlx *mlx)
 		}
 		if (k == -1)
 			k = 0;
-		clean_line[k] = '\0';
+		clean_line[k + 1] = '\0';
 		ft_check_for_configs(mlx, clean_line);
 		if(line)
 			free (line); 	
@@ -117,8 +117,8 @@ void	ft_copy_config_map(t_mlx *mlx)
 	}
 	while (line)
 		line = get_next_line(fd);
-	/*for (int t = 0; t < 6; t++)
-		printf("mlx->map.config_map[%i]%s\n", t, mlx->map.config_map[t]);*/
+	for (int t = 0; t < 6; t++)
+		printf("mlx->map.config_map[%i]%s\n", t, mlx->map.config_map[t]);
 	free (line);
 	close(fd);
 }
