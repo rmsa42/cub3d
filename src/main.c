@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 19:06:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:12:10 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char **teste(char **map)
 
 int	render(t_mlx *mlx)
 {
-	update(mlx);
+	update(&mlx->player, &mlx->map);
 	mlx->buffer = start_image_buffer(mlx->lib);
 	ft_grua(mlx);
 	mlx_destroy_image(mlx->lib, mlx->buffer.img_ptr);
@@ -47,7 +47,6 @@ int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
 	
-	ft_memset((void *)&mlx, 0, sizeof(t_mlx));
 	mlx.lib = mlx_init();
 	if (mlx.lib == NULL)
 		return (perror("MLX Failure\n"), -1);
@@ -66,7 +65,6 @@ int main(int argc, char *argv[])
 
 	// Set Map and Sprites
 	set_map(&mlx.map, &mlx.player);
-	start_image_sprite(mlx.sprite);
 	
 	// Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");

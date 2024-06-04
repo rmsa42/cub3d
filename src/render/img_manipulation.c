@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 16:39:05 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:09:36 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,6 @@ void	pixel_put(t_image *img, int pixelX, int pixelY, int color)
 	dst = img->addr + (pixelY * img->line_length
 			+ pixelX * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
-}
-
-void	start_image_sprite(t_sprite *sprite)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 4)
-	{
-		sprite[i].img.addr = mlx_get_data_addr(sprite[i].img.img_ptr,
-				&sprite[i].img.bits_per_pixel,
-				&sprite[i].img.line_length, &sprite[i].img.endian);
-	}
 }
 
 t_image	start_image_buffer(void *lib)

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 17:24:15 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:04:44 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ t_player	init_player(double x, double y, char tile)
 	dir = 1;
 	player.pos = (t_v2D){x, y};
 	if (tile == 'N')
-		player.direction = create_vector(0, -dir);
+		player.direction = (t_v2D){0, -dir};
 	else if (tile == 'S')
-		player.direction = create_vector(0, dir);
+		player.direction = (t_v2D){0, dir};
 	else if (tile == 'W')
-		player.direction = create_vector(-dir, 0);
+		player.direction = (t_v2D){-dir, 0};
 	else if (tile == 'E')
-		player.direction = create_vector(dir, 0);
+		player.direction = (t_v2D){dir, 0};
 	player.movement = (t_v2D){0, 0};
 	player.plane = perp_vector(player.direction);
 	player.angle = 0.1;

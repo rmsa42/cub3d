@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 19:04:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:16:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 # define SPRITE_SIZE 64
 
 # define PI 3.14159265359
-# define GREEN 	0x0000FF00
 
 # define SPEED 0.02
 # define ROTATION_SPEED 3
@@ -95,8 +94,6 @@ typedef struct s_mlx
 	t_map		map;
 	t_image		buffer;
 	t_ray		ray;
-	double		camera;
-	double		angle;
 	int			tex_x;
 	int			side;
 	double		line_height;
@@ -114,11 +111,10 @@ void		calculus(t_mlx *mlx, t_ray *ray);
 void		draw_texture(t_mlx *mlx, int x);
 
 // Update
-void		update(t_mlx *mlx);
+void		update(t_player *player, t_map *map);
 
 //Render
 int			render(t_mlx *mlx);
-void		start_image_sprite(t_sprite *sprite);
 t_image		start_image_buffer(void *lib);
 
 // Map
@@ -142,7 +138,6 @@ void    	ft_read_file_and_copy_map(char *file, t_mlx *mlx);
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
-void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
