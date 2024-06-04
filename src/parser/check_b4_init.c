@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:40:18 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/31 14:18:52 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:51:18 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_count_map_lines(t_mlx *mlx)
 {
-	int	fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	mlx->map.total_lines = 0;
 	fd = open(mlx->file, O_RDONLY);
@@ -32,21 +32,21 @@ void	ft_count_map_lines(t_mlx *mlx)
 	close(fd);
 }
 
-void ft_check_b4_init(int ac, char **av, t_mlx *mlx)
+void	ft_check_b4_init(int ac, char **av, t_mlx *mlx)
 {
 	mlx->file = av[1];
 	mlx->map.config_map[5] = NULL;
-	mlx->map.NO_flag = false;
-	mlx->map.SO_flag = false;
-	mlx->map.EA_flag = false;
-	mlx->map.WE_flag = false;
-	mlx->map.F_flag = false;
-	mlx->map.C_flag = false;
+	mlx->map.no_flag = false;
+	mlx->map.so_flag = false;
+	mlx->map.ea_flag = false;
+	mlx->map.we_flag = false;
+	mlx->map.f_flag = false;
+	mlx->map.c_flag = false;
 	mlx->map.lines_to_map = 0;
 	ft_count_map_lines(mlx);
 	if (ac != 2)
-    	ft_perror("Error\nNumber of arguments used to launch program are invalid!\n", mlx);
-    ft_check_filename(mlx);
+		ft_perror("Error\nNumber of args are invalid!\n", mlx);
+	ft_check_filename(mlx);
 	ft_copy_config_map(mlx);
 	ft_copy_game_map(mlx);
 	ft_check_game_map(mlx);
@@ -54,23 +54,24 @@ void ft_check_b4_init(int ac, char **av, t_mlx *mlx)
 
 void	ft_perror(char *msg, t_mlx *mlx)
 {
-    ft_fprintf(2, "%s", msg);
+	ft_fprintf(2, "%s", msg);
 	(void) mlx;
 	/*if (*mlx->map.file_map)
 		ft_free_dp((void**)mlx->map.file_map);
 	if (*mlx->map.game_map)
 		ft_free_dp((void**)mlx->map.game_map);
 	//ft_free_dp((void**)mlx->map.config_map);*/
-    exit (EXIT_SUCCESS);
+	exit (EXIT_SUCCESS);
 }
 
 int	ft_check_filename(t_mlx *mlx)
 {
-	char *str = mlx->file;
+	char	*str;
 
+	str = mlx->file;
 	if (ft_strnstr(str + ft_strlen(str) - 4, ".cub", 4))
 		return (EXIT_SUCCESS);
 	else
-		ft_perror("Error\nInvalid file extension. Try maps/<map_name>.cub\n", mlx);
+		ft_perror("Error\nInvalid. Try maps/<map_name>.cub\n", mlx);
 	return (0);
 }

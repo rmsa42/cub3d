@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 14:07:06 by jmarinho         ###   ########.fr       */
+/*   Created: 2024/06/04 16:29:45 by jmarinho          #+#    #+#             */
+/*   Updated: 2024/06/04 16:34:06 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@
 # include <assert.h>
 # include <stdbool.h>
 
-#define NO 0
-#define SO 1
-#define EA 2
-#define WE 3
-#define F 4
-#define C 5
-
+# define NO 0
+# define SO 1
+# define EA 2
+# define WE 3
+# define F 	4
+# define C 	5
 
 # define ESC 65307
 # define W 119
@@ -57,8 +56,8 @@ typedef struct s_player
 
 typedef struct x_pos
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 }	t_pos;
 
 typedef struct s_map
@@ -73,14 +72,14 @@ typedef struct s_map
 	char	**file_map;
 	char	*config_map[6];
 	char	**flood_map;
-	bool	NO_flag;
-	bool	SO_flag;
-	bool	EA_flag;
-	bool	WE_flag;
-	bool	F_flag;
-	bool	C_flag;
+	bool	empty_line_flag;
+	bool	no_flag;
+	bool	so_flag;
+	bool	ea_flag;
+	bool	we_flag;
+	bool	f_flag;
+	bool	c_flag;
 }	t_map;
-
 
 typedef struct s_image
 {
@@ -96,7 +95,7 @@ typedef struct s_sprite
 	t_image	img;
 	int		height;
 	int		width;
-	int		rgb[3];
+	int		color;
 }	t_sprite;
 
 typedef struct s_ray
@@ -126,9 +125,8 @@ typedef struct s_mlx
 	double		line_height;
 	double		scale;
 	double		tex_pos;
-	int		sprite_index;
+	int			sprite_index;
 }	t_mlx;
-
 
 t_player	init_player(double x, double y, char tile);
 //Raycast
@@ -144,10 +142,10 @@ int			render(t_mlx *mlx);
 // Map
 void		map_draw(t_mlx *mlx);
 t_map		init_map(char *map_name);
-void 		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
-void    	ft_check_game_map(t_mlx *mlx);
+void		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
+void		ft_check_game_map(t_mlx *mlx);
 void		ft_copy_config_map(t_mlx *mlx);
-void 		ft_copy_game_map(t_mlx *mlx);
+void		ft_copy_game_map(t_mlx *mlx);
 int			ft_check_all_config_flags(t_mlx *mlx);
 void		ft_count_map_lines(t_mlx *mlx);
 
@@ -158,7 +156,7 @@ int			advance_space(char *line);
 
 void		print_map(char **map);
 int			ft_check_filename(t_mlx *mlx);
-void    	ft_read_file_and_copy_map(t_mlx *mlx);
+void		ft_read_file_and_copy_map(t_mlx *mlx);
 int			ft_count_lines(t_mlx *mlx);
 
 // Image
@@ -166,7 +164,6 @@ void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
 void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
-int			shift_color(t_sprite sprite);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);

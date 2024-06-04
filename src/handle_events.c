@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/07 16:49:31 by rumachad         ###   ########.fr       */
+/*   Created: 2024/06/04 16:43:21 by jmarinho          #+#    #+#             */
+/*   Updated: 2024/06/04 16:44:52 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 
 void	update(t_mlx *mlx)
 {
-	t_player *player;
-	t_v2D	velocity;
-	t_v2D	y_axis;
-	t_v2D	x_axis;
-	t_v2D	new_pos;
-	t_v2D	check;
-	
+	t_player	*player;
+	t_v2D		velocity;
+	t_v2D		y_axis;
+	t_v2D		x_axis;
+	t_v2D		new_pos;
+	t_v2D		check;
+
 	player = &mlx->player;
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
@@ -38,18 +38,17 @@ t_v2D	rotate(t_v2D vector, int degree)
 {
 	t_v2D	newV;
 	double	angle;
-	
+
 	angle = degree * ((double)PI / 180);
 	newV.x = vector.x * cos(angle) - vector.y * sin(angle);
 	newV.y = vector.x * sin(angle) + vector.y * cos(angle);
-
 	return (newV);
 }
 
 int	handle_keyPress(int keycode, t_mlx *mlx)
 {
 	t_player	*player;
-	
+
 	player = &mlx->player;
 	if (keycode == ESC)
 		close_game(mlx);
