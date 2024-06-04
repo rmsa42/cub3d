@@ -1,7 +1,7 @@
-NO ../sprites/north_wall.xpm
-SO ../sprites/south_wall.xpm
-WE ../sprites/west_wall.xpm
-EA ../sprites/east_wall.xpm
+NO ./sprites/north_wall.xpm
+SO ./sprites/south_wall.xpm
+WE ./sprites/west_wall.xpm
+EA ./sprites/east_wall.xpm
 F 125,200,10
 C 140,125,10
 

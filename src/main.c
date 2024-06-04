@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:39:03 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/06/04 17:15:41 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:29:07 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	main(int argc, char *argv[])
 	mlx.lib = mlx_init();
 	assert(mlx.lib != NULL);
 	ft_check_b4_init(argc, argv, &mlx);
-	mlx.sprite[0] = xpm_to_image(&mlx, mlx.map.config_map[NO]);
+	mlx.sprite[0] = xpm_to_image(&mlx, "./sprites/north_wall.xpm");
 	mlx.sprite[1] = xpm_to_image(&mlx, mlx.map.config_map[SO]);
 	mlx.sprite[2] = xpm_to_image(&mlx, mlx.map.config_map[EA]);
 	mlx.sprite[3] = xpm_to_image(&mlx, mlx.map.config_map[WE]);

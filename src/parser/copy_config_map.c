@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 15:48:23 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/06/04 16:59:24 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:31:19 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,22 @@ void	ft_check_for_configs(t_mlx *mlx, char *line)
 		return ;
 	if (line[0] == 'N' && line[1] == 'O' && mlx->map.no_flag == false)
 	{
-		mlx->map.config_map[NO] = ft_strdup(line + 4);
+		mlx->map.config_map[NO] = ft_strdup(line + 2);
 		mlx->map.no_flag = true;
 	}
 	else if (line[0] == 'S' && line[1] == 'O' && mlx->map.so_flag == false)
 	{
-		mlx->map.config_map[SO] = ft_strdup(line + 4);
+		mlx->map.config_map[SO] = ft_strdup(line + 2);
 		mlx->map.so_flag = true;
 	}
 	else if (line[0] == 'E' && line[1] == 'A' && mlx->map.ea_flag == false)
 	{
-		mlx->map.config_map[EA] = ft_strdup(line + 4);
+		mlx->map.config_map[EA] = ft_strdup(line + 2);
 		mlx->map.ea_flag = true;
 	}
 	else if (line[0] == 'W' && line[1] == 'E' && mlx->map.we_flag == false)
 	{
-		mlx->map.config_map[WE] = ft_strdup(line + 4);
+		mlx->map.config_map[WE] = ft_strdup(line + 2);
 		mlx->map.we_flag = true;
 	}
 	else if (line[0] == 'F' && mlx->map.f_flag == false)

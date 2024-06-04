@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 17:03:27 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:37:02 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ t_sprite	xpm_to_image(t_mlx *mlx, char *texture)
 			&sprite.width, &sprite.height);
 	if (sprite.img.img_ptr == NULL)
 		ft_perror("ERROR\nSome textures are not valid\n", mlx);
+	sprite.img.addr = mlx_get_data_addr(sprite.img.img_ptr, &sprite.img.bits_per_pixel,
+			&sprite.img.line_length, &sprite.img.endian);
 	return (sprite);
 }
 

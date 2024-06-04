@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 16:46:19 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:35:26 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	draw_ceiling(t_mlx *mlx, int x, int draw_s, int color)
 	y = -1;
 	while (++y < draw_s)
 	{
-		color = pixel_get(&mlx->sprite[4].img, x, y);
 		pixel_put(&mlx->img, x, y, color);
 	}
 }
