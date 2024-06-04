@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/24 15:16:55 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:07:06 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,20 @@ typedef struct s_player
 	double	angle;
 }	t_player;
 
+typedef struct x_pos
+{
+	int x;
+	int y;
+}	t_pos;
+
 typedef struct s_map
 {
 	int		x;
 	int		y;
 	int		total_lines;
 	int		lines_to_map;
+	int		player_count;
+	t_pos	player_pos;
 	char	**game_map;
 	char	**file_map;
 	char	*config_map[6];
@@ -72,6 +80,7 @@ typedef struct s_map
 	bool	F_flag;
 	bool	C_flag;
 }	t_map;
+
 
 typedef struct s_image
 {
@@ -135,7 +144,7 @@ int			render(t_mlx *mlx);
 // Map
 void		map_draw(t_mlx *mlx);
 t_map		init_map(char *map_name);
-t_mlx 		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
+void 		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 void    	ft_check_game_map(t_mlx *mlx);
 void		ft_copy_config_map(t_mlx *mlx);
 void 		ft_copy_game_map(t_mlx *mlx);

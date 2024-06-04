@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 15:48:23 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/31 12:59:26 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:11:54 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,32 @@ void	ft_check_for_configs(t_mlx *mlx, char *line)
 		return ;
 	if (line[0] == 'N' && line[1] == 'O' && mlx->map.NO_flag == false)
 	{
-		mlx->map.config_map[NO] = ft_strdup(line);
+		mlx->map.config_map[NO] = ft_strdup(line + 4);
 		mlx->map.NO_flag = true;
 	}
 	else if (line[0] == 'S' && line[1] == 'O' && mlx->map.SO_flag == false )
 	{
-		mlx->map.config_map[SO] = ft_strdup(line);
+		mlx->map.config_map[SO] = ft_strdup(line + 4);
 		mlx->map.SO_flag = true;
 	}
 	else if (line[0] == 'E' && line[1] == 'A' && mlx->map.EA_flag == false)
 	{
-		mlx->map.config_map[EA] = ft_strdup(line);
+		mlx->map.config_map[EA] = ft_strdup(line + 4);
 		mlx->map.EA_flag = true;
 	}
 	else if (line[0] == 'W' && line[1] == 'E' && mlx->map.WE_flag == false)
 	{
-		mlx->map.config_map[WE] = ft_strdup(line);
+		mlx->map.config_map[WE] = ft_strdup(line + 4);
 		mlx->map.WE_flag = true;
 	}
 	else if (line[0] == 'F' && mlx->map.F_flag == false)
 	{
-		mlx->map.config_map[F] = ft_strdup(line);
+		mlx->map.config_map[F] = ft_strdup(line + 1);
 		mlx->map.F_flag = true;
 	}
 	else if (line[0] == 'C' && mlx->map.C_flag == false)
 	{
-		mlx->map.config_map[C] = ft_strdup(line);
+		mlx->map.config_map[C] = ft_strdup(line + 1);
 		mlx->map.C_flag = true;
 	}
 	/*else if (!ft_check_all_config_flags(mlx))
@@ -117,8 +117,6 @@ void	ft_copy_config_map(t_mlx *mlx)
 	}
 	while (line)
 		line = get_next_line(fd);
-	for (int t = 0; t < 6; t++)
-		printf("mlx->map.config_map[%i]%s\n", t, mlx->map.config_map[t]);
 	free (line);
 	close(fd);
 }

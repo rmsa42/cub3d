@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/23 11:41:54 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:15:38 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 	
 	mlx.lib = mlx_init();
 	assert(mlx.lib != NULL);
-	mlx = ft_check_b4_init(argc, argv, &mlx);
+	ft_check_b4_init(argc, argv, &mlx);
 
 	#//TODO fazer checkagens ao mapa
 	#//TODO fazer checkagens ao xpm. se ponteiro for null retornar erro para nao crashar o programa
@@ -79,11 +79,12 @@ int main(int argc, char *argv[])
 	
 	// Map init / Parser / Sprite Init
 	//inti_sprite(mlx, );
-	mlx.sprite[0] = xpm_to_image(&mlx, "sprites/wall1.xpm");
-	mlx.sprite[1] = xpm_to_image(&mlx, "sprites/wall2.xpm");
-	mlx.sprite[2] = xpm_to_image(&mlx, "sprites/wall3.xpm");
-	mlx.sprite[3] = xpm_to_image(&mlx, "sprites/wall5.xpm");
-	mlx.sprite[4] = xpm_to_image(&mlx, "sprites/sky.xpm");
+	mlx.sprite[0] = xpm_to_image(&mlx, mlx.map.config_map[NO]);
+	mlx.sprite[1] = xpm_to_image(&mlx, mlx.map.config_map[SO]);
+	mlx.sprite[2] = xpm_to_image(&mlx, mlx.map.config_map[EA]);
+	mlx.sprite[3] = xpm_to_image(&mlx, mlx.map.config_map[WE]);
+	mlx.map.config_map[C];
+	mlx.map.config_map[F];
 
 	mlx.c_color = shift_color(mlx.sprite[4]);
 	mlx.f_color = shift_color(mlx.sprite[5]);

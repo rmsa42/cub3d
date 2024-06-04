@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:40:18 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/31 12:57:36 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:18:52 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_count_map_lines(t_mlx *mlx)
 	close(fd);
 }
 
-t_mlx ft_check_b4_init(int ac, char **av, t_mlx *mlx)
+void ft_check_b4_init(int ac, char **av, t_mlx *mlx)
 {
 	mlx->file = av[1];
 	mlx->map.config_map[5] = NULL;
@@ -49,8 +49,7 @@ t_mlx ft_check_b4_init(int ac, char **av, t_mlx *mlx)
     ft_check_filename(mlx);
 	ft_copy_config_map(mlx);
 	ft_copy_game_map(mlx);
-	//ft_check_game_map(mlx);
-	return *mlx;
+	ft_check_game_map(mlx);
 }
 
 void	ft_perror(char *msg, t_mlx *mlx)
