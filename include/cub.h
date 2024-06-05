@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:29:45 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/06/04 17:17:48 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:59:48 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,10 @@ typedef struct s_map
 	int		lines_to_map;
 	int		player_count;
 	t_pos	player_pos;
-	char	**game_map;
 	char	**file_map;
 	char	*config_map[6];
+	char	**game_map;
 	char	**flood_map;
-	bool	empty_line_flag;
 	bool	no_flag;
 	bool	so_flag;
 	bool	ea_flag;
@@ -147,6 +146,7 @@ void		ft_copy_config_map(t_mlx *mlx);
 void		ft_copy_game_map(t_mlx *mlx);
 int			ft_check_all_config_flags(t_mlx *mlx);
 void		ft_count_map_lines(t_mlx *mlx);
+int			ft_check_if_line_is_blank(char *line);
 
 // Parser (MAP)
 int			parser_map(t_mlx *mlx);

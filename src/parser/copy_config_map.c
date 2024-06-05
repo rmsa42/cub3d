@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 15:48:23 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/06/04 17:31:19 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:56:56 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,12 @@ void	ft_copy_config_map(t_mlx *mlx)
 		free (clean_line);
 		if (!ft_check_all_config_flags(mlx))
 			break ;
+		line = get_next_line(fd);
+		mlx->map.lines_to_map++;
+	}
+	line = get_next_line(fd);
+	while (ft_check_if_line_is_blank(line))
+	{
 		line = get_next_line(fd);
 		mlx->map.lines_to_map++;
 	}
