@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:40:18 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/06/05 15:02:07 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:19:21 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_count_map_lines(t_mlx *mlx)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		#//TODO numero de linhas total esta errado
 		mlx->map.total_lines++;
 		free(line);
 	}
