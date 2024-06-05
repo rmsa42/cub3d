@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:29:45 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/06/05 14:59:48 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:09:52 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 # define SPRITE_SIZE 64
 
 # define PI 3.14159265359
-# define GREEN 	0x0000FF00
 
 # define SPEED 0.02
 
@@ -51,6 +50,7 @@ typedef struct s_player
 	t_v2D	direction;
 	t_v2D	plane;
 	t_v2D	movement;
+	double	fov;
 	double	angle;
 }	t_player;
 
@@ -132,7 +132,7 @@ void		ft_grua(t_mlx *mlx);
 void		draw_texture(t_mlx *mlx, int x);
 
 // Update
-void		update(t_mlx *mlx);
+void		update(t_player *player, t_map *map);
 
 //Render
 int			render(t_mlx *mlx);
@@ -162,7 +162,6 @@ int			ft_count_lines(t_mlx *mlx);
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
-void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
