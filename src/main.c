@@ -5,35 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 16:39:03 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/06/04 17:29:07 by jmarinho         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/06 12:04:26 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "vector2D.h"
-
-t_player	init_player(double x, double y, char tile)
-{
-	t_player	player;
-	int			dir;
-
-	dir = 1;
-	player.pos = create_vector(x, y);
-	if (tile == 'N')
-		player.direction = create_vector(0, -dir);
-	else if (tile == 'S')
-		player.direction = create_vector(0, dir);
-	else if (tile == 'W')
-		player.direction = create_vector(-dir, 0);
-	else if (tile == 'E')
-		player.direction = create_vector(dir, 0);
-	player.movement = create_vector(0, 0);
-	player.plane = create_vector((double)FOV / 90, 0);
-	player.movement = create_vector(0, 0);
-	player.angle = 0.1;
-	return (player);
-}
 
 int	shift_color(int *rgb)
 {
@@ -58,12 +36,21 @@ int	*ft_conv_str_to_int(char *str)
 	return (int_rgb);
 }
 
+int	render(t_mlx *mlx)
+{
+	update(&mlx->player, &mlx->map);
+	mlx->buffer = start_image_buffer(mlx->lib);
+	ft_grua(mlx);
+	mlx_destroy_image(mlx->lib, mlx->buffer.img_ptr);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;
 
 	mlx.lib = mlx_init();
-	assert(mlx.lib != NULL);
+	if (mlx.lib == NULL)
+		return (perror("MLX Failure\n"), -1);
 	ft_check_b4_init(argc, argv, &mlx);
 	mlx.sprite[0] = xpm_to_image(&mlx, "./sprites/north_wall.xpm");
 	mlx.sprite[1] = xpm_to_image(&mlx, mlx.map.config_map[SO]);
@@ -71,9 +58,11 @@ int	main(int argc, char *argv[])
 	mlx.sprite[3] = xpm_to_image(&mlx, mlx.map.config_map[WE]);
 	mlx.c_color = shift_color(ft_conv_str_to_int(mlx.map.config_map[C]));
 	mlx.f_color = shift_color(ft_conv_str_to_int(mlx.map.config_map[F]));
+	set_map(&mlx.map, &mlx.player);
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
-	assert(mlx.window != NULL);
-	map_draw(&mlx);
+	if (mlx.window == NULL)
+		return (perror("MLX Window Failure\n"), -1);
+	mlx_hook(mlx.window, DestroyNotify, ButtonPressMask, close_game, &mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease,
 		&mlx.player);

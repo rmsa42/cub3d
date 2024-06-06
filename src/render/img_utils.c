@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_draw.c                                         :+:      :+:    :+:   */
+/*   img_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/07 17:19:05 by rumachad         ###   ########.fr       */
+/*   Created: 2024/05/10 16:37:58 by rumachad          #+#    #+#             */
+/*   Updated: 2024/06/04 17:12:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	draw_map(t_mlx *mlx, char tile, int x, int y)
+void	get_img_addr(t_image *img)
 {
-	if ((tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E'))
-		mlx->player = init_player(x + 0.5, y + 0.5, tile);
+	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
+				&img->line_length, &img->endian);
 }
 
-void	map_draw(t_mlx *mlx)
+t_sprite	xpm_to_image(t_mlx *mlx, char *texture)
 {
-	t_map	*map;
+	t_sprite	sprite;
 
-	map = &mlx->map;
-	map->y = 0;
-	while (map->game_map[map->y])
-	{
-		map->x = 0;
-		while (map->game_map[map->y][map->x])
-		{
-			draw_map(mlx, map->game_map[map->y][map->x], map->x, map->y);
-			map->x++;
-		}
-		map->y++;
-	}
+	sprite.img.img_ptr = mlx_xpm_file_to_image(mlx->lib, texture,
+			&sprite.width, &sprite.height);
+	assert(sprite.img.img_ptr != NULL);
+	get_img_addr(&sprite.img);
+	assert(sprite.img.addr != NULL);
+	return (sprite);
 }

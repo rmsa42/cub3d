@@ -6,7 +6,7 @@
 /*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 16:47:35 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:52:27 by jmarinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void	step_rays(t_map map, t_player player, t_ray *ray)
 void	launch_rays(t_mlx *mlx, int x)
 {
 	t_player	*player;
+	double		camera;
 
 	player = &mlx->player;
-	mlx->camera = 2 * x / (double)WIDTH - 1;
-	mlx->ray.dir.x = player->direction.x + player->plane.x * mlx->camera;
-	mlx->ray.dir.y = player->direction.y + player->plane.y * mlx->camera;
+	camera = 2 * x / (double)WIDTH - 1;
+	mlx->ray.dir.x = player->direction.x + player->plane.x * camera;
+	mlx->ray.dir.y = player->direction.y + player->plane.y * camera;
 	mlx->ray.delta.x = fabs(1 / mlx->ray.dir.x);
 	mlx->ray.delta.y = fabs(1 / mlx->ray.dir.y);
 	mlx->map.x = (int)player->pos.x;
