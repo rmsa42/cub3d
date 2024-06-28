@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 12:50:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:52:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define PI 3.14159265359
 
 # define SPEED 0.02
-# define ROTATION_SPEED 3
+# define ROTATION_SPEED 1
 
 typedef struct s_cell
 {
@@ -130,12 +130,14 @@ t_map		init_map(char *map_name);
 t_mlx		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 
 // Parser (MAP)
-int			check_element(char *line);
+int			check_element(t_mlx *mlx, t_sprite *sprite, char *conf_line);
+int			check_fc(t_sprite *sprite, int **rgb, char *conf_line);
 int			check_path(char *line);
 int			check_rgb(int **cc, char *line);
 int			check_config(t_mlx *mlx, char **conf_map);
 int			color(int nbr);
 int			advance_space(char *line);
+int			shift_color(int *rgb);
 
 void		print_map(char **map);
 int			map_parser(char *map_name, t_map *map);

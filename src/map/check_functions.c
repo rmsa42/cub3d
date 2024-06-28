@@ -6,34 +6,27 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/28 12:34:09 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:02:01 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	check_element(char *line)
+int	check_element(t_mlx *mlx, t_sprite *sprite, char *conf_line)
 {
-	int		i;
-	char	*ele[7];
-	
-	ele[0] = "NO";
-	ele[1] = "SO";
-	ele[2] = "WE";
-	ele[3] = "EA";
-	ele[4] = "C";
-	ele[5] = "F";
-	ele[6] = 0;
-	i = 0;
-	while (ele[i])
-	{
-		if (i < 4 && !ft_strncmp(line, ele[i], 2))
-			return (i);
-		else if (i >= 4 && !ft_strncmp(line, ele[i], 1))
-			return (i);
-		i++;
-	}
-	return (-1);
+	if (check_path(conf_line + 2))
+		return (1);
+	*sprite = xpm_to_image(mlx,
+			(conf_line + 2) + (advance_space(conf_line + 2)));
+	return (0);
+}
+
+int	check_fc(t_sprite *sprite, int **rgb, char *conf_line)
+{
+	if (check_rgb(rgb, conf_line))
+		return (1);
+	sprite->color = shift_color(*rgb);
+	return (0);
 }
 
 int	check_rgb(int **cc, char *line)
@@ -69,5 +62,29 @@ int	check_path(char *line)
 	line += 1;
 	if (ft_strncmp(ft_strchr(line, '.'), ".xpm", 5))
 		return (-1);
+	return (0);
+}
+
+int	check_config(t_mlx *mlx, char **conf_map)
+{
+	int	i;
+	int	ret;
+	int	*rgb;
+
+	i = 0;
+	rgb = (int *)malloc(sizeof(int) * 3);
+	if (rgb == NULL)
+		return (-1);
+	while (conf_map[i])
+	{
+		if (i >= 0 && i < 4)
+			ret = check_element(mlx, &mlx->sprite[i], conf_map[i]);
+		else
+			ret = check_fc(&mlx->sprite[i], &rgb, conf_map[i]);
+		if (ret == 1)
+			return (-1);
+		i++;
+	}
+	free(rgb);
 	return (0);
 }

@@ -6,38 +6,36 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 12:40:21 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:13:59 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-// Update Function: Fazer melhor a rotaçao do jogador
-
 t_v2D	rotate(t_v2D vector, int degree)
 {
-	t_v2D	newV;
+	t_v2D	new_vector;
 	double	angle;
 	
 	angle = degree * ((double)PI / 180);
-	newV.x = (vector.x * cos(angle) - vector.y * sin(angle));
-	newV.y = (vector.x * sin(angle) + vector.y * cos(angle));
-	return (newV);
+	new_vector.x = (vector.x * cos(angle) - vector.y * sin(angle));
+	new_vector.y = (vector.x * sin(angle) + vector.y * cos(angle));
+	return (new_vector);
 }
 
 void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 {
-	t_v2D	velocity;
+	t_v2D	dist;
 	t_v2D	new_pos;
 	t_v2D	check;
 	t_v2D	offset;
 
 	new_pos = add_vector(x, y);
 	new_pos = normalize_vector(new_pos);
-	velocity = multiply_vector(new_pos, SPEED);
-	offset = multiply_vector(new_pos, SPEED + 0.1);
+	dist = multiply_vector(new_pos, (double)SPEED);
+	offset = multiply_vector(new_pos, (double)SPEED + 0.1);
 	check = add_vector(player->pos, offset);
-	new_pos = add_vector(player->pos, velocity);
+	new_pos = add_vector(player->pos, dist);
 	if (game_map[(int)check.y][(int)check.x] != '1')
 		player->pos = new_pos;
 }
@@ -46,15 +44,15 @@ void	update(t_player *player, t_map *map)
 {
 	t_v2D	y_axis;
 	t_v2D	x_axis;
-	double	speed;
+	double	dist;
 	
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
 	player_move(player, map->game_map, x_axis, y_axis);
 	
-	speed = player->angle * ROTATION_SPEED;
-	player->direction = rotate(player->direction, speed);
-	player->plane = rotate(player->plane, speed);
+	dist = player->angle * (double)ROTATION_SPEED;
+	player->direction = rotate(player->direction, dist);
+	player->plane = rotate(player->plane, dist);
 }
 
 int	handle_keyPress(int keycode, t_mlx *mlx)

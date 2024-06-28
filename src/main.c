@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 12:58:02 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:03:20 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,20 @@ void	init_mlx_struct(t_mlx *mlx)
 	ft_memset(&mlx->ray, 0, sizeof(t_ray));
 }
 
-void	print_map(char **map)
+void	start_game(t_mlx *mlx)
 {
-	int i;
-
-	i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
+	mlx_hook(mlx->window, DestroyNotify, ButtonPressMask, close_game, mlx);
+	mlx_hook(mlx->window, KeyPress, KeyPressMask, handle_keyPress, mlx);
+	mlx_hook(mlx->window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx->player);
+	mlx_loop_hook(mlx->lib, game_loop, mlx);
+	mlx_loop(mlx->lib);
 }
 
 int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
 	
-	if (argc > 2)
+	if (argc > 2 || argc < 2)
 		return (ft_fprintf(STDERR_FILENO, "Invalid Args\n"), 1);
 	mlx.lib = mlx_init();
 	if (mlx.lib == NULL)
@@ -90,17 +87,9 @@ int main(int argc, char *argv[])
 		print_error("Invalid Map Configuration\n", EXIT_FAILURE, &mlx);
 	if (set_map(&mlx.map, &mlx.player))
 		print_error("Invalid Map(Too many players)\n", EXIT_FAILURE, &mlx);
-	
-	// Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	if (mlx.window == NULL)
 		print_error("Mlx Window Fail\n", EXIT_FAILURE, &mlx);
-	
-	// Game Loop
-	mlx_hook(mlx.window, DestroyNotify, ButtonPressMask, close_game, &mlx);
-	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
-	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
-	mlx_loop_hook(mlx.lib, game_loop, &mlx);
-	mlx_loop(mlx.lib);
+	start_game(&mlx);
 	return (0);	
 }

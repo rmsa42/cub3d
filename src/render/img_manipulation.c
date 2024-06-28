@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 17:09:36 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:06:43 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,21 @@ t_image	start_image_buffer(void *lib)
 	img.addr = mlx_get_data_addr(img.img_ptr, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
 	return (img);
+}
+
+t_sprite	xpm_to_image(t_mlx *mlx, char *texture)
+{
+	t_sprite	sprite;
+	t_image		img;
+
+	img.img_ptr = mlx_xpm_file_to_image(mlx->lib, texture,
+			&sprite.width, &sprite.height);
+	if (img.img_ptr == NULL)
+		print_error("Invalid Sprite\n", EXIT_FAILURE, mlx);
+	img.addr = mlx_get_data_addr(img.img_ptr, &img.bits_per_pixel,
+				&img.line_length, &img.endian);
+	if (img.addr == NULL)
+		print_error("Invalid Sprite Address\n", EXIT_FAILURE, mlx);
+	sprite.img = img;
+	return (sprite);
 }
