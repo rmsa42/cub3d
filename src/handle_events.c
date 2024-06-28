@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 17:01:56 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 12:40:21 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_v2D	rotate(t_v2D vector, int degree)
 	double	angle;
 	
 	angle = degree * ((double)PI / 180);
-	newV.x = (vector.x * cos(angle) - vector.y * sin(angle)) * ROTATION_SPEED;
-	newV.y = (vector.x * sin(angle) + vector.y * cos(angle)) * ROTATION_SPEED;
+	newV.x = (vector.x * cos(angle) - vector.y * sin(angle));
+	newV.y = (vector.x * sin(angle) + vector.y * cos(angle));
 	return (newV);
 }
 
@@ -46,16 +46,15 @@ void	update(t_player *player, t_map *map)
 {
 	t_v2D	y_axis;
 	t_v2D	x_axis;
+	double	speed;
 	
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
 	player_move(player, map->game_map, x_axis, y_axis);
 	
-	player->direction = add_vector(player->direction, rotate(player->direction, player->angle));
-	player->direction = normalize_vector(player->direction);
-	player->plane = add_vector(player->plane, perp_vector(player->direction));
-	player->plane = normalize_vector(player->plane);
-	player->plane = multiply_vector(player->plane, player->fov);
+	speed = player->angle * ROTATION_SPEED;
+	player->direction = rotate(player->direction, speed);
+	player->plane = rotate(player->plane, speed);
 }
 
 int	handle_keyPress(int keycode, t_mlx *mlx)
@@ -64,7 +63,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	
 	player = &mlx->player;
 	if (keycode == ESC || keycode < 0)
-		close_game(mlx);
+		close_game(mlx, 0);
 	else if (keycode == W)
 		player->movement.y = 1;
 	else if (keycode == S)

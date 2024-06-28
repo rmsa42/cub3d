@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 17:16:17 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 12:50:08 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,18 @@
 # define WIDTH 800
 # define FOV 90
 # define SPRITE_SIZE 64
+# define SPRITE_NBR 6
 
 # define PI 3.14159265359
 
 # define SPEED 0.02
 # define ROTATION_SPEED 3
+
+typedef struct s_cell
+{
+	int	x;
+	int	y;
+}	t_cell;
 
 typedef struct s_player
 {
@@ -55,9 +62,9 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
+	int		height;
 	char	**game_map;
-	char	**file_map;
-	char	**config_map;
+	char	*config_map[7];
 }	t_map;
 
 typedef struct s_image
@@ -89,7 +96,7 @@ typedef struct s_mlx
 {
 	void		*lib;
 	void		*window;
-	t_sprite	sprite[6];
+	t_sprite	sprite[SPRITE_NBR];
 	t_player	player;
 	t_map		map;
 	t_image		buffer;
@@ -118,7 +125,7 @@ int			render(t_mlx *mlx);
 t_image		start_image_buffer(void *lib);
 
 // Map
-void		set_map(t_map *map, t_player *player);
+int			set_map(t_map *map, t_player *player);
 t_map		init_map(char *map_name);
 t_mlx		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 
@@ -131,8 +138,12 @@ int			color(int nbr);
 int			advance_space(char *line);
 
 void		print_map(char **map);
-int			ft_check_filename(char *str);
-void    	ft_read_file_and_copy_map(char *file, t_mlx *mlx);
+int			map_parser(char *map_name, t_map *map);
+int			calc_map_lines(int fd, char *map_name);
+char		**create_full_map(int fd, char *map_name, int nbr_lines);
+int			create_content_map(t_map *map, char **full_map, int after, int len);
+char		*begining_of_map(char *line, char *set);
+int			call_flood_fill(t_mlx *mlx, t_map *map);
 
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
@@ -143,7 +154,7 @@ t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 
-int	close_game(t_mlx *mlx);
-int	ft_perror(char *msg, t_mlx *mlx);
+int			close_game(t_mlx *mlx, int status);
+void		print_error(char *str, int status, t_mlx *mlx);
 
 #endif

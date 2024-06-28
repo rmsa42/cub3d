@@ -6,18 +6,18 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 19:03:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 11:09:16 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	clear_sprites(t_sprite *sprite, void *lib)
+void	sprite_destructor(t_sprite *sprite, void *lib)
 {
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < SPRITE_NBR)
 	{
 		if (sprite[i].img.img_ptr)
 			mlx_destroy_image(lib, sprite[i++].img.img_ptr);
@@ -26,23 +26,46 @@ void	clear_sprites(t_sprite *sprite, void *lib)
 	}
 }
 
-int	close_game(t_mlx *mlx)
+void	mlx_destructor(void *lib, void *window)
 {
-	clear_sprites(mlx->sprite, mlx->lib);
-	if (mlx->lib && mlx->window)
+	if (window != NULL)
 	{
-		mlx_clear_window(mlx->lib, mlx->window);
-		mlx_destroy_window(mlx->lib, mlx->window);
+		mlx_clear_window(lib, window);
+		mlx_destroy_window(lib, window);
 	}
-	if (mlx->map.config_map)
-		free(mlx->map.config_map);
-	if (mlx->map.game_map)
-		ft_free_dp((void **)mlx->map.game_map);
-	if (mlx->lib)
+	if (lib != NULL)
 	{
-		mlx_destroy_display(mlx->lib);
-		free(mlx->lib);
+		mlx_destroy_display(lib);
+		free(lib);
 	}
-	exit(0);
-	return (0);
+}
+
+void	map_destructor(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (map->config_map[i])
+	{
+		if (map->config_map[i])
+			free(map->config_map[i]);
+		i++;
+	}
+	if (map->game_map != NULL)
+		ft_free_dp((void **)map->game_map);
+}
+
+int	close_game(t_mlx *mlx, int status)
+{
+	sprite_destructor(mlx->sprite, mlx->lib);
+	map_destructor(&mlx->map);
+	mlx_destructor(mlx->lib, mlx->window);
+	exit(status);
+}
+
+void	print_error(char *str, int status, t_mlx *mlx)
+{
+	ft_fprintf(STDERR_FILENO, "Error\n");
+	perror(str);
+	close_game(mlx, status);
 }
