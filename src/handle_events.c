@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 16:13:59 by rumachad         ###   ########.fr       */
+/*   Created: 2024/07/03 13:56:49 by rumachad          #+#    #+#             */
+/*   Updated: 2024/07/03 14:01:16 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_v2D	rotate(t_v2D vector, int degree)
 {
 	t_v2D	new_vector;
 	double	angle;
-	
+
 	angle = degree * ((double)PI / 180);
 	new_vector.x = (vector.x * cos(angle) - vector.y * sin(angle));
 	new_vector.y = (vector.x * sin(angle) + vector.y * cos(angle));
@@ -45,20 +45,19 @@ void	update(t_player *player, t_map *map)
 	t_v2D	y_axis;
 	t_v2D	x_axis;
 	double	dist;
-	
+
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
 	player_move(player, map->game_map, x_axis, y_axis);
-	
 	dist = player->angle * (double)ROTATION_SPEED;
 	player->direction = rotate(player->direction, dist);
 	player->plane = rotate(player->plane, dist);
 }
 
-int	handle_keyPress(int keycode, t_mlx *mlx)
+int	handle_key_press(int keycode, t_mlx *mlx)
 {
 	t_player	*player;
-	
+
 	player = &mlx->player;
 	if (keycode == ESC || keycode < 0)
 		close_game(mlx, 0);
@@ -77,7 +76,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	return (0);
 }
 
-int	handle_keyRelease(int keycode, t_player *player)
+int	handle_key_release(int keycode, t_player *player)
 {
 	if (keycode == W || keycode == S)
 		player->movement.y = 0;

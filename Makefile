@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/28 17:08:27 by rumachad         ###   ########.fr        #
+#    Updated: 2024/07/03 14:08:48 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,6 @@ SRC_BONUS = main_bonus.c \
 	load_image_bonus.c \
 	parser_bonus.c \
 	parser_utils_bonus.c \
-	read_from_file_bonus.c \
-	check_b4_init_bonus.c \
 	draw_bonus.c \
 	clean_bonus.c 
 
@@ -48,7 +46,6 @@ SRC = main.c \
 	flood_fill.c \
 	parser_utils.c \
 	set_map.c \
-	check_map.c \
 	v2D_math.c \
 	v2D_utils.c \
 	check_functions.c \

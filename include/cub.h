@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/28 15:52:58 by rumachad         ###   ########.fr       */
+/*   Created: 2024/07/03 14:11:47 by rumachad          #+#    #+#             */
+/*   Updated: 2024/07/03 14:11:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # include "vector2D.h"
 # include <assert.h>
 # include <stdbool.h>
-
-/* void	*my_malloc(size_t size);
-# define malloc(size) my_malloc(size) */
 
 # define ESC 65307
 # define W 119
@@ -63,6 +60,7 @@ typedef struct s_map
 	int		x;
 	int		y;
 	int		height;
+	int		width;
 	char	**game_map;
 	char	*config_map[7];
 }	t_map;
@@ -107,6 +105,8 @@ typedef struct s_mlx
 	double		scale;
 	double		tex_pos;
 	int			sprite_index;
+	int			f_color;
+	int			c_color;
 }	t_mlx;
 
 // Init Map/Player/Sprites
@@ -115,31 +115,26 @@ t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
 void		calculus(t_mlx *mlx, t_ray *ray);
-void		draw_texture(t_mlx *mlx, int x);
+void		draw_line(t_mlx *mlx, int x);
 
 // Update
 void		update(t_player *player, t_map *map);
 
 //Render
-int			render(t_mlx *mlx);
 t_image		start_image_buffer(void *lib);
 
 // Map
 int			set_map(t_map *map, t_player *player);
-t_map		init_map(char *map_name);
-t_mlx		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 
 // Parser (MAP)
 int			check_element(t_mlx *mlx, t_sprite *sprite, char *conf_line);
-int			check_fc(t_sprite *sprite, int **rgb, char *conf_line);
 int			check_path(char *line);
-int			check_rgb(int **cc, char *line);
-int			check_config(t_mlx *mlx, char **conf_map);
+int			check_rgb(char *line);
+int			check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite);
 int			color(int nbr);
 int			advance_space(char *line);
 int			shift_color(int *rgb);
 
-void		print_map(char **map);
 int			map_parser(char *map_name, t_map *map);
 int			calc_map_lines(int fd, char *map_name);
 char		**create_full_map(int fd, char *map_name, int nbr_lines);
@@ -153,8 +148,8 @@ int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
 
 // Events
-int			handle_keyPress(int keycode, t_mlx *mlx);
-int			handle_keyRelease(int keycode, t_player *player);
+int			handle_key_press(int keycode, t_mlx *mlx);
+int			handle_key_release(int keycode, t_player *player);
 
 int			close_game(t_mlx *mlx, int status);
 void		print_error(char *str, int status, t_mlx *mlx);

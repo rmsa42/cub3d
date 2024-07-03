@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 20:34:30 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/28 16:03:03 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:06:59 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	color(int nbr)
 int	shift_color(int *rgb)
 {
 	int	color;
-	
+
 	color = (rgb[0] << 16 | rgb[1] << 8
-		| rgb[2]);
+			| rgb[2]);
 	return (color);
 }
 

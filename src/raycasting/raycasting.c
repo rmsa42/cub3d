@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 17:13:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:08:01 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	launch_rays(t_mlx *mlx, int x)
 	step_rays(mlx->map, mlx->player, &mlx->ray);
 }
 
-
 void	dda(t_mlx *mlx, t_map *map, t_ray *ray)
 {
 	int	hit;
@@ -88,9 +87,9 @@ void	ft_grua(t_mlx *mlx)
 		launch_rays(mlx, x);
 		dda(mlx, &mlx->map, &mlx->ray);
 		calculus(mlx, &mlx->ray);
-		draw_texture(mlx, x);
+		draw_line(mlx, x);
 		x++;
 	}
 	mlx_put_image_to_window(mlx->lib, mlx->window,
-			mlx->buffer.img_ptr, 0, 0);
+		mlx->buffer.img_ptr, 0, 0);
 }

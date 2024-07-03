@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/28 12:56:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:32:20 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	get_game_map(t_map *map, char **full_map, int i)
 		else
 		{
 			map->game_map[j] = ft_strdup(trimed_line);
+			if ((int)ft_strlen(map->game_map[j]) > map->width)
+				map->width = ft_strlen(map->game_map[j]);
 			i++;
 			j++;
 		}

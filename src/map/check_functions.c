@@ -6,11 +6,22 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/28 16:02:01 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:37:46 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+int	is_number(char *line)
+{
+	int	j;
+
+	j = 0;
+	while (line[j])
+		if (ft_isdigit(line[j++]) == 0)
+			return (0);
+	return (1);
+}
 
 int	check_element(t_mlx *mlx, t_sprite *sprite, char *conf_line)
 {
@@ -21,33 +32,29 @@ int	check_element(t_mlx *mlx, t_sprite *sprite, char *conf_line)
 	return (0);
 }
 
-int	check_fc(t_sprite *sprite, int **rgb, char *conf_line)
-{
-	if (check_rgb(rgb, conf_line))
-		return (1);
-	sprite->color = shift_color(*rgb);
-	return (0);
-}
-
-int	check_rgb(int **cc, char *line)
+int	check_rgb(char *line)
 {
 	char	**rgb;
 	int		i;
+	int		ele_color;
+	int		c[3];
 
-	i = 0;
-	line += advance_space(line);
+	i = -1;
 	rgb = ft_split(line, ',');
-	while (rgb[i])
+	while (rgb[++i])
 	{
-		cc[0][i] = ft_atoi(rgb[i]);
-		if (!color(cc[0][i]))
-			break;
-		i++;
+		if (!is_number(rgb[i]))
+			break ;
+		ele_color = ft_atoi(rgb[i]);
+		if (color(ele_color))
+			c[i] = ele_color;
+		else
+			break ;
 	}
 	ft_free_dp((void **)rgb);
-	if (i == 3)
-		return (0);
-	return (-1);
+	if (i != 3)
+		return (-1);
+	return (shift_color(c));
 }
 
 int	check_path(char *line)
@@ -65,26 +72,19 @@ int	check_path(char *line)
 	return (0);
 }
 
-int	check_config(t_mlx *mlx, char **conf_map)
+int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 {
-	int	i;
-	int	ret;
-	int	*rgb;
+	int	k;
 
-	i = 0;
-	rgb = (int *)malloc(sizeof(int) * 3);
-	if (rgb == NULL)
-		return (-1);
-	while (conf_map[i])
+	k = -1;
+	while (conf_map[++k] && k < 4)
 	{
-		if (i >= 0 && i < 4)
-			ret = check_element(mlx, &mlx->sprite[i], conf_map[i]);
-		else
-			ret = check_fc(&mlx->sprite[i], &rgb, conf_map[i]);
-		if (ret == 1)
-			return (-1);
-		i++;
+		if (check_element(mlx, &sprite[k], conf_map[k]))
+			print_error("Wrong Textures", EXIT_FAILURE, mlx);
 	}
-	free(rgb);
+	mlx->f_color = check_rgb(conf_map[4] + 1 + advance_space(conf_map[4] + 1));
+	mlx->c_color = check_rgb(conf_map[5] + 1 + advance_space(conf_map[5] + 1));
+	if (mlx->c_color == -1 || mlx->f_color == -1)
+		print_error("Wrong Colors", EXIT_FAILURE, mlx);
 	return (0);
 }
