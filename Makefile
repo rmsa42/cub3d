@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/07/05 15:29:47 by rumachad         ###   ########.fr        #
+#    Updated: 2024/07/05 15:46:27 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ RED = \033[0;31m
 RESET = \033[0m
 
 NAME = cub3D
-BONUS = cub3D_bonus
+BONUS = .cub3D_bonus
 
 SRC_BONUS_PATH = src_bonus/
 SRC_PATH = src/
@@ -51,7 +51,7 @@ SRC_BONUS = main_bonus.c \
 	draw_hud_bonus.c \
 	draw_extra_bonus.c \
 	draw_minimap_bonus.c \
-	sort_sprites.c \
+	sort_sprites_bonus.c \
 	line_calcs_bonus.c \
 	clean_bonus.c \
 	free_mem_bonus.c \
@@ -120,7 +120,8 @@ $(BONUS):	$(OBJ_BONUS)
 			@echo "$(GREEN)MLX Compiled$(RESET)"
 			@make -C $(LIBFT_PATH) > /dev/null
 			@echo "$(GREEN)Libft Compiled$(RESET)"
-			@$(CC) -o $(NAME) $(OBJ_BONUS) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
+			@$(CC) -o $(BONUS) $(OBJ_BONUS) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
+			@cp $(BONUS) cub3D
 			@echo "$(GREEN)Cub3d Bonus Compiled$(RESET)"
 
 $(OBJ_PATH)%.o: %.c
@@ -141,6 +142,7 @@ clean:
 fclean: clean
 		@make fclean -C  $(LIBFT_PATH) > /dev/null
 		@rm -f $(NAME)
+		@rm -f $(BONUS)
 		@echo "$(GREEN)Objects cleaned$(RESET)"
 
 re: fclean all
