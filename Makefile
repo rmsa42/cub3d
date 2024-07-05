@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/07/05 10:14:09 by rumachad         ###   ########.fr        #
+#    Updated: 2024/07/05 15:29:47 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ SRC_BONUS = main_bonus.c \
 
 SRC = main.c \
 	handle_events.c \
+	wall_check.c \
 	img_manipulation.c \
 	raycasting.c \
 	texture_pos.c \

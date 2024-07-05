@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:11:47 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/05 11:55:37 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/05 15:38:19 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,9 @@ void		calculus(t_mlx *mlx, t_ray *ray);
 void		draw_line(t_mlx *mlx, int x);
 
 // Update
-void		update(t_player *player, t_map *map);
+void		update(t_mlx *mlx, t_player *player);
+bool		move_check(t_mlx *mlx, t_v2D check);
+t_v2D		get_position(t_player *player, double speed);
 
 //Render
 t_image		start_image_buffer(void *lib);
