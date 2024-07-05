@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:11:47 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 14:11:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:55:37 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_mlx
 t_player	init_player(double x, double y, char tile);
 
 //Raycast
-void		ft_grua(t_mlx *mlx);
+void		ft_crane(t_mlx *mlx);
 void		calculus(t_mlx *mlx, t_ray *ray);
 void		draw_line(t_mlx *mlx, int x);
 

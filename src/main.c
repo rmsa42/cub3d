@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:01:42 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 14:03:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:55:37 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	game_loop(t_mlx *mlx)
 {
 	update(&mlx->player, &mlx->map);
 	mlx->buffer = start_image_buffer(mlx->lib);
-	ft_grua(mlx);
+	ft_crane(mlx);
 	mlx_destroy_image(mlx->lib, mlx->buffer.img_ptr);
 	return (0);
 }

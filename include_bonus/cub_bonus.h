@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:14:00 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 15:17:50 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:55:37 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ void		init_mlx_vars(t_mlx *mlx, int ac);
 void		init_map(t_mlx *mlx, int nbr_maps, char **av);
 
 // Raycast
-void		ft_grua(t_mlx *mlx);
+void		ft_crane(t_mlx *mlx);
 void		raycaster_hits(t_mlx *mlx, t_map *map, int *hit);
 t_draw		calculus(t_ray *ray, t_player *player, double *buffer, int side);
 int			select_sprite(t_ray *ray, int side);

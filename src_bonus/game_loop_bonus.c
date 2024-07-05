@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 16:49:12 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:55:37 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw(t_mlx *mlx)
 	mlx->img = image_buffer(mlx);
 	if (mlx->game_state == GAME_STATE)
 	{
-		ft_grua(mlx);
+		ft_crane(mlx);
 		draw_sprites(mlx);
 		draw_char(&mlx->img, mlx->sprite, mlx->spr_character_index);
 		draw_hearts(&mlx->img, mlx->sprite, mlx->spr_hp_index);
