@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/09 13:56:55 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:56:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
-void	close_game(t_mlx *mlx)
+void	print_error(char *str, int status, t_mlx *mlx)
 {
-	int	i;
+	ft_fprintf(STDERR_FILENO, "Error\n");
+	perror(str);
+	close_game(mlx, status);
+}
 
-	i = 0;
-	// Sprites
-	while (i < 4)
-		mlx_destroy_image(mlx->lib, mlx->sprite[i++].img.img_ptr);
-	// Window
-	mlx_clear_window(mlx->lib, mlx->window);
-	mlx_destroy_window(mlx->lib, mlx->window);
-	mlx_destroy_display(mlx->lib);
-	// Map
-	free(mlx->map.config_map);
-	ft_free_dp((void **)mlx->map.game_map);
-	// MLX
-	free(mlx->lib);
-	exit(0);
+int	close_game(t_mlx *mlx, int status)
+{
+	free_sprites(mlx->lib, mlx->sprite);
+	free_map(mlx->nbr_maps, mlx->head_map);
+	if (mlx->marked_cells != NULL)
+		free(mlx->marked_cells);
+	free_obj_lst(mlx->objs_lst);
+	mlx_destructor(mlx->lib, mlx->window);
+	exit(status);
 }

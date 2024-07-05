@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   v2D_math.c                                         :+:      :+:    :+:   */
+/*   v2D_math_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:15:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 22:46:17 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:55:37 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector2D.h"
+#include "vector2D_bonus.h"
 
 t_v2D	add_vector(t_v2D v1, t_v2D v2)
 {
@@ -43,7 +43,7 @@ t_v2D	divide_vector(t_v2D v1, const double scalar)
 {
 	t_v2D	v2;
 
-	v2 = create_vector(0, 0);
+	v2 = (t_v2D){0, 0};
 	if (scalar == 0)
 		return (v2);
 	v2.x = v1.x / scalar;

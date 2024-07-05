@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   parser_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 20:34:30 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/30 10:20:30 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:50:07 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 int	color(int nbr)
 {
@@ -29,10 +29,11 @@ int	advance_space(char *line)
 	return (i);
 }
 
-void	print_map(char **map)
+int	shift_color(int *rgb)
 {
-	int i = 0;
+	int	color;
 
-	while (map[i])
-		printf("%s\n", map[i++]);
+	color = (rgb[0] << 16 | rgb[1] << 8
+			| rgb[2]);
+	return (color);
 }

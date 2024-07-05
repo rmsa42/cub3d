@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 14:54:48 by cacarval         ###   ########.fr       */
+/*   Created: 2024/07/03 14:11:47 by rumachad          #+#    #+#             */
+/*   Updated: 2024/07/05 11:55:37 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,20 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 120
+# define FOV 90
 # define SPRITE_SIZE 64
+# define SPRITE_NBR 6
 
 # define PI 3.14159265359
-# define GREEN 	0x0000FF00
 
 # define SPEED 0.02
-# define ROTATION_SPEED 3
+# define ROTATION_SPEED 1
+
+typedef struct s_cell
+{
+	int	x;
+	int	y;
+}	t_cell;
 
 typedef struct s_player
 {
@@ -53,9 +59,10 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
+	int		height;
+	int		width;
 	char	**game_map;
-	char	**file_map;
-	char	**config_map;
+	char	*config_map[7];
 }	t_map;
 
 typedef struct s_image
@@ -87,63 +94,64 @@ typedef struct s_mlx
 {
 	void		*lib;
 	void		*window;
-	t_sprite	sprite[6];
+	t_sprite	sprite[SPRITE_NBR];
 	t_player	player;
 	t_map		map;
-	t_image		img;
+	t_image		buffer;
 	t_ray		ray;
-	double		camera;
-	double		angle;
 	int			tex_x;
 	int			side;
 	double		line_height;
 	double		scale;
 	double		tex_pos;
-	int		sprite_index;
+	int			sprite_index;
+	int			f_color;
+	int			c_color;
 }	t_mlx;
 
-
+// Init Map/Player/Sprites
 t_player	init_player(double x, double y, char tile);
+
 //Raycast
-void		ft_grua(t_mlx *mlx);
+void		ft_crane(t_mlx *mlx);
 void		calculus(t_mlx *mlx, t_ray *ray);
-void		draw_texture(t_mlx *mlx, int x);
+void		draw_line(t_mlx *mlx, int x);
 
 // Update
-void		update(t_mlx *mlx);
+void		update(t_player *player, t_map *map);
 
 //Render
-int			render(t_mlx *mlx);
-void	start_image_sprite(t_sprite *sprite);
+t_image		start_image_buffer(void *lib);
 
 // Map
-void		map_draw(t_mlx *mlx);
-t_map		init_map(char *map_name);
-t_mlx ft_check_b4_init(int ac, char **av, t_mlx *mlx);
+int			set_map(t_map *map, t_player *player);
 
 // Parser (MAP)
-int			check_element(char *line);
+int			check_element(t_mlx *mlx, t_sprite *sprite, char *conf_line);
 int			check_path(char *line);
-int			check_rgb(int **cc, char *line);
-int			check_config(t_mlx *mlx, char **conf_map);
+int			check_rgb(char *line);
+int			check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite);
 int			color(int nbr);
 int			advance_space(char *line);
+int			shift_color(int *rgb);
 
-void		print_map(char **map);
-int			ft_check_filename(char *str);
-void    	ft_read_file_and_copy_map(char *file, t_mlx *mlx);
+int			map_parser(char *map_name, t_map *map);
+int			calc_map_lines(int fd, char *map_name);
+char		**create_full_map(int fd, char *map_name, int nbr_lines);
+int			create_content_map(t_map *map, char **full_map, int after, int len);
+char		*begining_of_map(char *line, char *set);
+int			call_flood_fill(t_mlx *mlx, t_map *map);
 
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
-void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
 
 // Events
-int			handle_keypress(int keycode, t_mlx *mlx);
-int			handle_keyrelease(int keycode, t_player *player);
+int			handle_key_press(int keycode, t_mlx *mlx);
+int			handle_key_release(int keycode, t_player *player);
 
-void		close_game(t_mlx *mlx);
-int	ft_perror(char *msg, t_mlx *mlx);
+int			close_game(t_mlx *mlx, int status);
+void		print_error(char *str, int status, t_mlx *mlx);
 
 #endif

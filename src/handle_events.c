@@ -3,59 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/10 14:52:27 by cacarval          #+#    #+#             */
-/*   Updated: 2024/05/10 14:55:17 by cacarval         ###   ########.fr       */
+/*   Created: 2024/07/03 13:56:49 by rumachad          #+#    #+#             */
+/*   Updated: 2024/07/03 14:01:16 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-// Update Function: Fazer melhor a rotaçao do jogador
-
 t_v2D	rotate(t_v2D vector, int degree)
 {
-	t_v2D	new_v;
+	t_v2D	new_vector;
 	double	angle;
 
 	angle = degree * ((double)PI / 180);
-	new_v.x = (vector.x * cos(angle) - vector.y * sin(angle)) * ROTATION_SPEED;
-	new_v.y = (vector.x * sin(angle) + vector.y * cos(angle)) * ROTATION_SPEED;
-	print_vector(new_v);
-	return (new_v);
+	new_vector.x = (vector.x * cos(angle) - vector.y * sin(angle));
+	new_vector.y = (vector.x * sin(angle) + vector.y * cos(angle));
+	return (new_vector);
 }
 
-void	update(t_mlx *mlx)
+void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 {
-	t_player	*player;
-	t_v2D		velocity;
-	t_v2D		y_axis;
-	t_v2D		x_axis;
-	t_v2D		new_pos;
+	t_v2D	dist;
+	t_v2D	new_pos;
+	t_v2D	check;
+	t_v2D	offset;
 
-	player = &mlx->player;
+	new_pos = add_vector(x, y);
+	new_pos = normalize_vector(new_pos);
+	dist = multiply_vector(new_pos, (double)SPEED);
+	offset = multiply_vector(new_pos, (double)SPEED + 0.1);
+	check = add_vector(player->pos, offset);
+	new_pos = add_vector(player->pos, dist);
+	if (game_map[(int)check.y][(int)check.x] != '1')
+		player->pos = new_pos;
+}
+
+void	update(t_player *player, t_map *map)
+{
+	t_v2D	y_axis;
+	t_v2D	x_axis;
+	double	dist;
+
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
-	new_pos = add_vector(y_axis, x_axis);
-	new_pos = normalize_vector(new_pos);
-	velocity = multiply_vector(new_pos, SPEED);
-	player->pos = add_vector(player->pos, velocity);
-	player->direction = add_vector(player->direction, \
-		rotate(player->direction, player->angle));
-	player->direction = normalize_vector(player->direction);
-	player->plane = add_vector(player->plane, perp_vector(player->direction));
-	player->plane = normalize_vector(player->plane);
-	player->plane = multiply_vector(player->plane, player->fov);
+	player_move(player, map->game_map, x_axis, y_axis);
+	dist = player->angle * (double)ROTATION_SPEED;
+	player->direction = rotate(player->direction, dist);
+	player->plane = rotate(player->plane, dist);
 }
 
-int	handle_keypress(int keycode, t_mlx *mlx)
+int	handle_key_press(int keycode, t_mlx *mlx)
 {
 	t_player	*player;
 
 	player = &mlx->player;
-	if (keycode == ESC)
-		close_game(mlx);
+	if (keycode == ESC || keycode < 0)
+		close_game(mlx, 0);
 	else if (keycode == W)
 		player->movement.y = 1;
 	else if (keycode == S)
@@ -71,7 +76,7 @@ int	handle_keypress(int keycode, t_mlx *mlx)
 	return (0);
 }
 
-int	handle_keyrelease(int keycode, t_player *player)
+int	handle_key_release(int keycode, t_player *player)
 {
 	if (keycode == W || keycode == S)
 		player->movement.y = 0;

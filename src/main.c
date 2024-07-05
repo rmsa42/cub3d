@@ -5,69 +5,82 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/10 14:55:40 by cacarval          #+#    #+#             */
-/*   Updated: 2024/05/10 15:00:13 by cacarval         ###   ########.fr       */
+/*   Created: 2024/07/03 14:01:42 by rumachad          #+#    #+#             */
+/*   Updated: 2024/07/05 11:55:37 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-#include "vector2D.h"
 
-t_player	init_player(double x, double y, char tile)
+int	game_loop(t_mlx *mlx)
 {
-	t_player	player;
-	int			dir;
-
-	dir = 1;
-	player.pos = create_vector(x, y);
-	if (tile == 'N')
-		player.direction = create_vector(0, -dir);
-	else if (tile == 'S')
-		player.direction = create_vector(0, dir);
-	else if (tile == 'W')
-		player.direction = create_vector(-dir, 0);
-	else if (tile == 'E')
-		player.direction = create_vector(dir, 0);
-	player.movement = create_vector(0, 0);
-	player.plane = perp_vector(player.direction);
-	player.movement = create_vector(0, 0);
-	player.angle = 0.1;
-	player.fov = (double)FOV / 90;
-	return (player);
+	update(&mlx->player, &mlx->map);
+	mlx->buffer = start_image_buffer(mlx->lib);
+	ft_crane(mlx);
+	mlx_destroy_image(mlx->lib, mlx->buffer.img_ptr);
+	return (0);
 }
 
-char	**teste(char **map)
+void	init_mlx_struct(t_mlx *mlx)
 {
-	char	**conf_map;
-	int		i;
+	mlx->window = NULL;
+	mlx->side = 0;
+	mlx->sprite_index = 0;
+	mlx->tex_x = 0;
+	mlx->side = 0;
+	mlx->line_height = 0;
+	mlx->scale = 0;
+	mlx->tex_pos = 0;
+	mlx->f_color = 0;
+	mlx->c_color = 0;
+	ft_memset(&mlx->buffer, 0, sizeof(t_image));
+	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
+	ft_memset(&mlx->map, 0, sizeof(t_map));
+	ft_memset(&mlx->player, 0, sizeof(t_player));
+	ft_memset(&mlx->ray, 0, sizeof(t_ray));
+}
 
-	i = -1;
-	conf_map = (char **)malloc(sizeof(char *) * 7);
-	while (++i < 6)
-		conf_map[i] = map[i];
-	conf_map[6] = 0;
-	return (conf_map);
+void	init_map(char **argv, t_mlx *mlx)
+{
+	t_map	*map;
+
+	map = &mlx->map;
+	if (map_parser(argv[1], map))
+		print_error("Invalid Map\n", EXIT_FAILURE, mlx);
+	if (map->height > HEIGHT || map->width > WIDTH)
+		print_error("Invalid Map Size\n", EXIT_FAILURE, mlx);
+	if (call_flood_fill(mlx, &mlx->map))
+		print_error("", 1, mlx);
+	if (check_conf(mlx, mlx->map.config_map, mlx->sprite))
+		print_error("Invalid Map Configuration\n", EXIT_FAILURE, mlx);
+}
+
+void	start_game(t_mlx *mlx)
+{
+	mlx_hook(mlx->window, DestroyNotify, ButtonPressMask, close_game, mlx);
+	mlx_hook(mlx->window, KeyPress, KeyPressMask, handle_key_press, mlx);
+	mlx_hook(mlx->window, KeyRelease, KeyReleaseMask,
+		handle_key_release, &mlx->player);
+	mlx_loop_hook(mlx->lib, game_loop, mlx);
+	mlx_loop(mlx->lib);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;
 
+	if (argc > 2 || argc < 2)
+		return (ft_fprintf(STDERR_FILENO, "Invalid Args\n"), 1);
 	mlx.lib = mlx_init();
-	assert(mlx.lib != NULL);
-	mlx.map = init_map(argv[1]);
-	mlx.map.config_map = teste(mlx.map.game_map);
-	if (check_config(&mlx, mlx.map.config_map))
-		return (printf("Check Error\n"), -1);
+	if (mlx.lib == NULL)
+		return (ft_fprintf(STDERR_FILENO, "MLX Failure\n"), 1);
+	init_mlx_struct(&mlx);
+	init_map(argv, &mlx);
+	if (set_map(&mlx.map, &mlx.player))
+		print_error("Invalid Map(Too many players)\n", EXIT_FAILURE, &mlx);
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
-	assert(mlx.window != NULL);
-	map_draw(&mlx);
-	start_image_sprite(mlx.sprite);
-	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keypress, &mlx);
-	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, \
-			handle_keyrelease, &mlx.player);
-	mlx_loop_hook(mlx.lib, render, &mlx);
-	mlx_loop(mlx.lib);
-	(void)argc;
+	if (mlx.window == NULL)
+		print_error("Mlx Window Fail\n", EXIT_FAILURE, &mlx);
+	start_game(&mlx);
 	return (0);
 }

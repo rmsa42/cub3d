@@ -3,58 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   check_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 15:09:00 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:37:46 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	check_element(char *line)
+int	is_number(char *line)
 {
-	int		i;
-	char	*ele[7];
+	int	j;
 
-	ele[0] = "NO";
-	ele[1] = "SO";
-	ele[2] = "WE";
-	ele[3] = "EA";
-	ele[4] = "C";
-	ele[5] = "F";
-	ele[6] = 0;
-	i = 0;
-	while (ele[i])
-	{
-		if (i < 4 && !ft_strncmp(line, ele[i], 2))
-			return (i);
-		else if (i >= 4 && !ft_strncmp(line, ele[i], 1))
-			return (i);
-		i++;
-	}
-	return (-1);
+	j = 0;
+	while (line[j])
+		if (ft_isdigit(line[j++]) == 0)
+			return (0);
+	return (1);
 }
 
-int	check_rgb(int **cc, char *line)
+int	check_element(t_mlx *mlx, t_sprite *sprite, char *conf_line)
+{
+	if (check_path(conf_line + 2))
+		return (1);
+	*sprite = xpm_to_image(mlx,
+			(conf_line + 2) + (advance_space(conf_line + 2)));
+	return (0);
+}
+
+int	check_rgb(char *line)
 {
 	char	**rgb;
 	int		i;
+	int		ele_color;
+	int		c[3];
 
-	i = 0;
-	line += advance_space(line);
+	i = -1;
 	rgb = ft_split(line, ',');
-	while (rgb[i])
+	while (rgb[++i])
 	{
-		cc[0][i] = ft_atoi(rgb[i]);
-		if (!color(cc[0][i]))
+		if (!is_number(rgb[i]))
 			break ;
-		i++;
+		ele_color = ft_atoi(rgb[i]);
+		if (color(ele_color))
+			c[i] = ele_color;
+		else
+			break ;
 	}
 	ft_free_dp((void **)rgb);
-	if (i == 3)
-		return (0);
-	return (-1);
+	if (i != 3)
+		return (-1);
+	return (shift_color(c));
 }
 
 int	check_path(char *line)
@@ -72,24 +72,19 @@ int	check_path(char *line)
 	return (0);
 }
 
-int	check_row(char *line)
+int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 {
-	int	len;
+	int	k;
 
-	len = ft_strlen(line);
-	if ((line[0] != '1' || line[len] != '1'))
-		return (-1);
+	k = -1;
+	while (conf_map[++k] && k < 4)
+	{
+		if (check_element(mlx, &sprite[k], conf_map[k]))
+			print_error("Wrong Textures", EXIT_FAILURE, mlx);
+	}
+	mlx->f_color = check_rgb(conf_map[4] + 1 + advance_space(conf_map[4] + 1));
+	mlx->c_color = check_rgb(conf_map[5] + 1 + advance_space(conf_map[5] + 1));
+	if (mlx->c_color == -1 || mlx->f_color == -1)
+		print_error("Wrong Colors", EXIT_FAILURE, mlx);
 	return (0);
-}
-
-int	check_first_row(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && line[i] == '1')
-		i++;
-	if (line[i] == '\0')
-		return (0);
-	return (-1);
 }

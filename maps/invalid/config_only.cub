@@ -1,0 +1,6 @@
+WE      ./sprites/wall.xpm
+F         125,200,100
+SO      ./sprites/south_wall.xpm
+EA                   ./sprites/east_wall.xpm
+C              140,130,100
+NO          ./sprites/north_wall.xpm

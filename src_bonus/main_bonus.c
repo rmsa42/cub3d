@@ -1,127 +1,68 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/09 15:22:31 by rumachad         ###   ########.fr       */
+/*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
+/*   Updated: 2024/07/04 12:16:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub_bonus.h"
 
-
-#include "cub.h"
-#include "vector2D.h"
-
-t_player	init_player(double x, double y, char tile)
+int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 {
-	t_player	player;
-	int			dir;
-
-	dir = 1;
-	player.pos = create_vector(x, y);
-	if (tile == 'N')
-		player.direction = create_vector(0, -dir);
-	else if (tile == 'S')
-		player.direction = create_vector(0, dir);
-	else if (tile == 'W')
-		player.direction = create_vector(-dir, 0);
-	else if (tile == 'E')
-		player.direction = create_vector(dir, 0);
-	player.movement = create_vector(0, 0);
-	player.plane = create_vector((double)FOV / 90, 0);
-	player.movement = create_vector(0,0);
-	player.angle = 0.1;
-	return (player);
-}
-
-int	shift_color(int *rgb)
-{
-	int	color;
-	
-	color = (rgb[0] << 16 | rgb[1] << 8
-		| rgb[2]);
-	return (color);
-}
-
-int	check_map(t_mlx *mlx, char **conf_map)
-{
-	int	i;
 	int	k;
-	int	*rgb;
 
-	k = 0;
-	i = 0;
-	rgb = (int *)malloc(sizeof(int) * 3);
-	if (rgb == NULL)
-		return (0);
-	while (conf_map[i])
+	k = -1;
+	while (conf_map[++k] && k < 4)
 	{
-		k = check_element(conf_map[i]);
-		if (k >= 0 && k < 4)
-		{
-			if (check_path(conf_map[i] + 2))
-				return (-1);
-			mlx->sprite[k] = xpm_to_image(mlx, conf_map[i] + 3);
-		}
-		else if (k >= 4)
-		{
-			if (check_rgb(&rgb, conf_map[i] + 1))
-				return (-1);
-			mlx->sprite[k].color = shift_color(rgb);
-		}
-		i++;
+		if (check_element(mlx, &sprite[k], conf_map[k]))
+			print_error("Wrong Textures", EXIT_FAILURE, mlx);
 	}
-	free(rgb);
+	mlx->f_color = check_rgb(conf_map[4] + 1 + advance_space(conf_map[4] + 1));
+	mlx->c_color = check_rgb(conf_map[5] + 1 + advance_space(conf_map[5] + 1));
+	if (mlx->c_color == -1 || mlx->f_color == -1)
+		print_error("Wrong Colors", EXIT_FAILURE, mlx);
 	return (0);
 }
 
-char **teste(char **map)
+void	start_game(t_mlx *mlx)
 {
-	char	**conf_map;
-
-	conf_map = (char **)malloc(sizeof(char *) * 7);
-	for (int i = 0; i < 6; i++)
-	{
-		conf_map[i] = map[i];
-	}
-	conf_map[6] = 0;
-	return (conf_map);
+	mlx_hook(mlx->window, DestroyNotify, ButtonPressMask, close_game, mlx);
+	mlx_hook(mlx->window, MotionNotify, PointerMotionMask,
+		handle_mouse, mlx);
+	mlx_hook(mlx->window, KeyPress, KeyPressMask,
+		handle_key_press, mlx);
+	mlx_mouse_hook(mlx->window, handle_mouse_press, mlx);
+	mlx_hook(mlx->window, KeyRelease, KeyReleaseMask,
+		handle_key_release, &mlx->player);
+	mlx_mouse_hide(mlx->lib, mlx->window);
+	mlx_loop_hook(mlx->lib, game_loop, mlx);
+	mlx_loop(mlx->lib);
 }
 
-
-int main(int argc, char *argv[])
-{	
+int	main(int argc, char *argv[])
+{
 	t_mlx	mlx;
-	
-	mlx.lib = mlx_init();
-	assert(mlx.lib != NULL);
-	
-	/* mlx = ft_check_b4_init(argc, argv, &mlx); */
-	
-	// Map init / Parser / Sprite Init
-	mlx.map = init_map(argv[1]);
-	mlx.map.config_map = teste(mlx.map.game_map);
-	
-	if (check_map(&mlx, mlx.map.config_map))
-		return (printf("Check Error\n"), -1);
-	
-	mlx.sprite[6] = xpm_to_image(&mlx, "./sprites/enemy.xpm");
-	assert(mlx.sprite[6].img.img_ptr != NULL);
 
-	// Create Window
+	if (argc < 2)
+		return (ft_fprintf(STDERR_FILENO, "Invalid nbr arguments\n"), 1);
+	mlx.lib = mlx_init();
+	if (mlx.lib == NULL)
+		return (ft_fprintf(STDERR_FILENO, "MLX Failure\n"), 1);
+	init_mlx_vars(&mlx, argc);
+	if (init_mlx_structs(&mlx))
+		print_error("", EXIT_FAILURE, &mlx);
+	init_map(&mlx, mlx.nbr_maps, argv);
+	init_sprite(&mlx, mlx.map->config_map, mlx.sprite);
+	if (set_map(&mlx))
+		print_error("Invalid Map(No/Too many Players)\n", EXIT_FAILURE, &mlx);
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
-	assert(mlx.window != NULL);
-	
-	map_draw(&mlx);
-	print_vector(mlx.enemy.pos);
-	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
-	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
-	mlx_loop_hook(mlx.lib, render, &mlx);
-	mlx_loop(mlx.lib);
-	
-	(void)argc;
-	return (0);	
+	if (mlx.window == NULL)
+		print_error("Mlx window creation failure\n", EXIT_FAILURE, &mlx);
+	start_game(&mlx);
+	return (0);
 }
