@@ -1,13 +1,10 @@
+11111111111110
+1PCCCC0000N001
+11111111111110
+
 EA ./sprites/east_wall.xpm
 C 140,130,100
 SO ./sprites/south_wall.xpm
 WE ./sprites/wall.xpm
 F 125,200,100
 NO ./sprites/north_wall.xpm
-
-11111111
-1E000001
-10010001
-10000101
-1N000001
-11111111

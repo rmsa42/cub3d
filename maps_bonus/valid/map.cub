@@ -1,0 +1,10 @@
+NO ./sprites/north_wall.xpm
+SO ./sprites/south_wall.xpm
+WE ./sprites/wall.xpm
+EA ./sprites/minishell
+F 125,200,100
+C 140,0,100
+
+1111111111
+1PCCCCCW01
+1111111111
