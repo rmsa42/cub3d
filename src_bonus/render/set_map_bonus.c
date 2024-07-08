@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 15:16:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:31:04 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	map_info(t_mlx *mlx, char *tile, int x, int y)
 	{
 		mlx->player = init_player(x + 0.5, y + 0.5, *tile);
 		*tile = '0';
-		return (1);
 	}
 	else if (*tile == 'e')
 		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, \
@@ -106,7 +105,5 @@ int	set_map(t_mlx *mlx)
 		}
 		map->y++;
 	}
-	if (pl_count > 1 || pl_count < 1)
-		return (1);
 	return (0);
 }

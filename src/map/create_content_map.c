@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 11:53:51 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:37:57 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*begining_of_map(char *line, char *set)
 	return (NULL);
 }
 
-bool	check_lines(char *set, char *line)
+bool	check_lines(char *set, char *line, t_map *map)
 {
 	int	i;
 	int	k;
@@ -46,7 +46,12 @@ bool	check_lines(char *set, char *line)
 			if (line[i] != set[k])
 				k++;
 			else
+			{
+				if (line[i] == 'N' || line[i] == 'W'
+					|| line[i] == 'S' || line[i] == 'E')
+					map->player_flag += 1;
 				break ;
+			}
 		}
 		if (set[k] == '\0')
 			return (0);
@@ -57,7 +62,7 @@ bool	check_lines(char *set, char *line)
 
 int	game_map_helper(char **trimed_line, t_map *map, int j)
 {
-	if (!check_lines("01NEWSDHPCedp", map->game_map[j]))
+	if (!check_lines("01NEWS", map->game_map[j], map))
 	{
 		free(*trimed_line);
 		map->game_map[++j] = 0;
@@ -73,7 +78,7 @@ int	get_game_map(t_map *map, char **full_map, int i)
 
 	j = 0;
 	trimed_line = NULL;
-	while (full_map[i])
+	while (full_map[++i])
 	{
 		trimed_line = ft_strtrim(full_map[i], "\n");
 		if (!trimed_line)
@@ -85,12 +90,13 @@ int	get_game_map(t_map *map, char **full_map, int i)
 				return (-1);
 			if ((int)ft_strlen(map->game_map[j]) > map->width)
 				map->width = ft_strlen(map->game_map[j]);
-			i++;
 			j++;
 		}
 		free(trimed_line);
 	}
 	map->game_map[j] = 0;
+	if (map->player_flag == 0 || map->player_flag > 1)
+		return (-1);
 	return (j);
 }
 
@@ -98,13 +104,19 @@ int	create_content_map(t_map *map, char **full_map, int after, int len)
 {
 	int		i;
 	int		j;
+	char	*trim;
 
 	i = after;
-	while (full_map[i])
+	trim = ft_strtrim(full_map[i], "    ");
+	if (!trim)
 	{
-		if (begining_of_map(full_map[i], "01NEWS"))
-			break ;
-		i++;
+		free(trim);
+		return (-1);
+	}
+	else if (trim[0] != '\n')
+	{
+		free(trim);
+		return (-1);
 	}
 	j = 0;
 	map->game_map = malloc(sizeof(char *) * (len - after + 1));
