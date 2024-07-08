@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 12:37:57 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:44:24 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	check_lines(char *set, char *line, t_map *map)
 
 int	game_map_helper(char **trimed_line, t_map *map, int j)
 {
-	if (!check_lines("01NEWS", map->game_map[j], map))
+	if (!check_lines("01NEWS ", map->game_map[j], map))
 	{
 		free(*trimed_line);
 		map->game_map[++j] = 0;
@@ -121,5 +121,6 @@ int	create_content_map(t_map *map, char **full_map, int after, int len)
 	j = 0;
 	map->game_map = malloc(sizeof(char *) * (len - after + 1));
 	j = get_game_map(map, full_map, i);
+	free (trim);
 	return (j);
 }

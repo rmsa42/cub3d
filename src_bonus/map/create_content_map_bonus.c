@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 12:36:49 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:50:08 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	check_lines(char *set, char *line, t_map *map)
 			{
 				if (line[i] == 'N' || line[i] == 'W'
 					|| line[i] == 'S' || line[i] == 'E')
-					map->player_flag = 1;
+					map->player_flag += 1;
 				break ;
 			}
 		}
@@ -62,7 +62,7 @@ bool	check_lines(char *set, char *line, t_map *map)
 
 int	game_map_helper(char **trimed_line, t_map *map, int j)
 {
-	if (!check_lines("01NEWSDHPCedp", map->game_map[j], map))
+	if (!check_lines("01NEWSHPDCedp ", map->game_map[j], map))
 	{
 		free(*trimed_line);
 		map->game_map[++j] = 0;
@@ -78,7 +78,7 @@ int	get_game_map(t_map *map, char **full_map, int i)
 
 	j = 0;
 	trimed_line = NULL;
-	while (full_map[i])
+	while (full_map[++i])
 	{
 		trimed_line = ft_strtrim(full_map[i], "\n");
 		if (!trimed_line)
@@ -86,16 +86,17 @@ int	get_game_map(t_map *map, char **full_map, int i)
 		else
 		{
 			map->game_map[j] = ft_strdup(trimed_line);
-			if (game_map_helper(&trimed_line, map, j) || map->player_flag == 0)
+			if (game_map_helper(&trimed_line, map, j))
 				return (-1);
 			if ((int)ft_strlen(map->game_map[j]) > map->width)
 				map->width = ft_strlen(map->game_map[j]);
-			i++;
 			j++;
 		}
 		free(trimed_line);
 	}
 	map->game_map[j] = 0;
+	if (map->player_flag == 0 || map->player_flag > 1)
+		return (-1);
 	return (j);
 }
 
@@ -120,5 +121,6 @@ int	create_content_map(t_map *map, char **full_map, int after, int len)
 	j = 0;
 	map->game_map = malloc(sizeof(char *) * (len - after + 1));
 	j = get_game_map(map, full_map, i);
+	free (trim);
 	return (j);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:54:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/05 09:32:06 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:46:12 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	flood_fill(t_mlx *mlx, t_map *map, char **flood_map, t_cell coor)
 {
-	if (coor.x < 0 || coor.y < 0
+	if (coor.x < 0 || coor.y < 0 || flood_map[coor.y][coor.x] == 32
 		|| coor.x >= (int)ft_strlen(flood_map[coor.y])
 		|| coor.y > map->height)
 	{
