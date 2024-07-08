@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:54:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/05 10:28:13 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:52:41 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 
 int	flood_fill(t_mlx *mlx, t_map *map, char **flood_map, t_cell coor)
 {
-	if (coor.x < 0 || coor.y < 0 || flood_map[coor.y][coor.x] == 32
-		|| coor.x >= (int)ft_strlen(flood_map[coor.y])
+	if (coor.x < 0 || coor.y < 0 || coor.x >= (int)ft_strlen(flood_map[coor.y])
 		|| coor.y > map->height)
 	{
 		ft_free_dp((void **)flood_map);
 		print_error("Invalid Map(Not Wall Closed)\n", EXIT_FAILURE, mlx);
-	}
-	else if (!ft_strchr("NEWS10", flood_map[coor.y][coor.x]))
-	{
-		ft_free_dp((void **)flood_map);
-		print_error("Invalid Map(Unknown Tile)\n", EXIT_FAILURE, mlx);
 	}
 	if (flood_map[coor.y][coor.x] == '1')
 		return (1);

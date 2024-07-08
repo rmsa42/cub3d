@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_content_map.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 13:32:20 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:53:51 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,40 @@ char	*begining_of_map(char *line, char *set)
 	return (NULL);
 }
 
+bool	check_lines(char *set, char *line)
+{
+	int	i;
+	int	k;
+
+	i = 0;
+	while (line[i])
+	{
+		k = 0;
+		while (set[k])
+		{
+			if (line[i] != set[k])
+				k++;
+			else
+				break ;
+		}
+		if (set[k] == '\0')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	game_map_helper(char **trimed_line, t_map *map, int j)
+{
+	if (!check_lines("01NEWSDHPCedp", map->game_map[j]))
+	{
+		free(*trimed_line);
+		map->game_map[++j] = 0;
+		return (1);
+	}
+	return (0);
+}
+
 int	get_game_map(t_map *map, char **full_map, int i)
 {
 	char	*trimed_line;
@@ -47,6 +81,8 @@ int	get_game_map(t_map *map, char **full_map, int i)
 		else
 		{
 			map->game_map[j] = ft_strdup(trimed_line);
+			if (game_map_helper(&trimed_line, map, j))
+				return (-1);
 			if ((int)ft_strlen(map->game_map[j]) > map->width)
 				map->width = ft_strlen(map->game_map[j]);
 			i++;

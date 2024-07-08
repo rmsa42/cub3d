@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 11:56:05 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:42:52 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_error(char *str, int status, t_mlx *mlx)
 {
 	ft_fprintf(STDERR_FILENO, "Error\n");
-	perror(str);
+	ft_fprintf(STDERR_FILENO, "%s", str);
 	close_game(mlx, status);
 }
 
