@@ -6,13 +6,13 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 14:21:07 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:34:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_bonus.h"
 
-char	*begining_of_map(char *line, char *set)
+char	*srch_set(char *line, char *set)
 {
 	int	i;
 	int	k;
@@ -60,11 +60,12 @@ bool	check_lines(char *set, char *line, t_map *map)
 	return (1);
 }
 
-int	game_map_helper(char *trimed_line, t_map *map, int j)
+int	check_tiles(t_map *map, int j)
 {
+	if (map->game_map[j] == NULL)
+		return (1);
 	if (!check_lines("01NEWSHPDCedp ", map->game_map[j], map))
 	{
-		free(trimed_line);
 		map->game_map[++j] = 0;
 		return (1);
 	}
@@ -85,14 +86,13 @@ int	get_game_map(t_map *map, char **full_map, int i)
 			return (-1);
 		else
 		{
-			map->game_map[j] = ft_strdup(trimed_line);
-			if (game_map_helper(trimed_line, map, j))
+			map->game_map[j] = trimed_line;
+			if (check_tiles(map, j))
 				return (-1);
 			if ((int)ft_strlen(map->game_map[j]) > map->width)
 				map->width = ft_strlen(map->game_map[j]);
 			j++;
 		}
-		free(trimed_line);
 	}
 	map->game_map[j] = 0;
 	if (map->player_flag == 0 || map->player_flag > 1)
@@ -110,6 +110,8 @@ int	create_content_map(t_map *map, char **full_map, int after, int len)
 		return (-1);
 	j = 0;
 	map->game_map = malloc(sizeof(char *) * (len - after + 1));
+	if (map->game_map == NULL)
+		return (-1);
 	j = get_game_map(map, full_map, i);
 	return (j);
 }

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:11:47 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 12:14:11 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:00:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_v2D		get_position(t_player *player, double speed);
 t_image		start_image_buffer(void *lib);
 
 // Map
-int			set_map(t_map *map, t_player *player);
+void		set_map(t_map *map, t_player *player);
 
 // Parser (MAP)
 int			check_element(t_mlx *mlx, t_sprite *sprite, char *conf_line);
@@ -142,7 +142,7 @@ int			map_parser(char *map_name, t_map *map);
 int			calc_map_lines(int fd, char *map_name);
 char		**create_full_map(int fd, char *map_name, int nbr_lines);
 int			create_content_map(t_map *map, char **full_map, int after, int len);
-char		*begining_of_map(char *line, char *set);
+char		*srch_set(char *line, char *set);
 int			call_flood_fill(t_mlx *mlx, t_map *map);
 
 // Image

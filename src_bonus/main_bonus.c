@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 12:38:17 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:19:06 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ int	main(int argc, char *argv[])
 		print_error("Syscall Failure\n", EXIT_FAILURE, &mlx);
 	init_map(&mlx, mlx.nbr_maps, argv);
 	init_sprite(&mlx, mlx.map->config_map, mlx.sprite);
-	if (set_map(&mlx))
-		print_error("Invalid Map(No/Too many Players)\n", EXIT_FAILURE, &mlx);
+	set_map(&mlx);
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	if (mlx.window == NULL)
 		print_error("Mlx window creation failure\n", EXIT_FAILURE, &mlx);

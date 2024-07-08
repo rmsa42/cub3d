@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:01:42 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 12:37:43 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:34:44 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ int	main(int argc, char *argv[])
 		return (ft_fprintf(STDERR_FILENO, "MLX Failure\n"), 1);
 	init_mlx_struct(&mlx);
 	init_map(argv, &mlx);
-	if (set_map(&mlx.map, &mlx.player))
-		print_error("Invalid Map(No/Too many players)\n", EXIT_FAILURE, &mlx);
+	set_map(&mlx.map, &mlx.player);
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	if (mlx.window == NULL)
 		print_error("Mlx Window Fail\n", EXIT_FAILURE, &mlx);

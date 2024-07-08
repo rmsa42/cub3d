@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 14:14:49 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:14:07 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	check_rgb(char *line)
 
 	i = -1;
 	rgb = ft_split(line, ',');
+	if (rgb == NULL)
+		return (-1);
 	while (rgb[++i])
 	{
 		if (!is_number(rgb[i]))

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:02:04 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 10:38:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:31:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,18 @@ int	create_config_map(t_map *map, char **full_map)
 	int		counter;
 	char	*trimed_line;
 
-	i = 0;
+	i = -1;
 	counter = 0;
 	trimed_line = NULL;
-	while (full_map[i] && counter < 6)
+	while (full_map[++i] && counter < 6)
 	{
 		trimed_line = ft_strtrim(full_map[i], " 	\n");
 		if (!trimed_line)
 			return (-1);
 		else if (!ft_strlen(trimed_line))
-			i++;
+			free(trimed_line);
 		else
-		{
-			map->config_map[counter++] = ft_strdup(trimed_line);
-			i++;
-		}
-		free(trimed_line);
+			map->config_map[counter++] = trimed_line;
 	}
 	if (counter < 6)
 		return (-1);

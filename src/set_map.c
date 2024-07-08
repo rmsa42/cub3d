@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 12:26:51 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:34:28 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	set_pos(t_player *player, char tile, int x, int y)
 	return (0);
 }
 
-int	set_map(t_map *map, t_player *player)
+void	set_map(t_map *map, t_player *player)
 {
 	int	pl_count;
 
@@ -59,5 +59,4 @@ int	set_map(t_map *map, t_player *player)
 		}
 		map->y++;
 	}
-	return (0);
 }

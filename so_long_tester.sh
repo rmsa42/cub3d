@@ -1,13 +1,13 @@
 #!bin/bash
 
-INVALID_MAPS=$(find maps/invalid -type f)
-VALID_MAPS=$(find maps/valid -type f)
+INVALID_MAPS=$(find maps_bonus/invalid -type f)
+VALID_MAPS=$(find maps_bonus/valid -type f)
 touch Valgrind_Result.txt
 VALRESULT=Valgrind_Result.txt
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 
-make > /dev/null
+make bonus > /dev/null
 clear
 
 echo -e "\n                                        MAP TESTER               \n"
