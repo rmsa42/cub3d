@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/07/05 13:10:33 by cacarval         ###   ########.fr        #
+#    Updated: 2024/07/05 15:46:27 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ SRC_BONUS = main_bonus.c \
 
 SRC = main.c \
 	handle_events.c \
+	wall_check.c \
 	img_manipulation.c \
 	raycasting.c \
 	texture_pos.c \

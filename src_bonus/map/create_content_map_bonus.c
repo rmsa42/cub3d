@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   create_content_map_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
 /*   Updated: 2024/07/08 12:50:08 by cacarval         ###   ########.fr       */
@@ -104,23 +104,12 @@ int	create_content_map(t_map *map, char **full_map, int after, int len)
 {
 	int		i;
 	int		j;
-	char	*trim;
 
 	i = after;
-	trim = ft_strtrim(full_map[i], "    ");
-	if (!trim)
-	{
-		free(trim);
+	if (full_map[i] && full_map[i][0] != '\n')
 		return (-1);
-	}
-	else if (trim[0] != '\n')
-	{
-		free(trim);
-		return (-1);
-	}
 	j = 0;
 	map->game_map = malloc(sizeof(char *) * (len - after + 1));
 	j = get_game_map(map, full_map, i);
-	free (trim);
 	return (j);
 }

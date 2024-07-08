@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 12:16:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:38:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 	while (conf_map[++k] && k < 4)
 	{
 		if (check_element(mlx, &sprite[k], conf_map[k]))
-			print_error("Wrong Textures", EXIT_FAILURE, mlx);
+			print_error("Wrong Textures\n", EXIT_FAILURE, mlx);
 	}
 	mlx->f_color = check_rgb(conf_map[4] + 1 + advance_space(conf_map[4] + 1));
 	mlx->c_color = check_rgb(conf_map[5] + 1 + advance_space(conf_map[5] + 1));
 	if (mlx->c_color == -1 || mlx->f_color == -1)
-		print_error("Wrong Colors", EXIT_FAILURE, mlx);
+		print_error("Wrong Colors\n", EXIT_FAILURE, mlx);
 	return (0);
 }
 
@@ -55,7 +55,7 @@ int	main(int argc, char *argv[])
 		return (ft_fprintf(STDERR_FILENO, "MLX Failure\n"), 1);
 	init_mlx_vars(&mlx, argc);
 	if (init_mlx_structs(&mlx))
-		print_error("", EXIT_FAILURE, &mlx);
+		print_error("Syscall Failure\n", EXIT_FAILURE, &mlx);
 	init_map(&mlx, mlx.nbr_maps, argv);
 	init_sprite(&mlx, mlx.map->config_map, mlx.sprite);
 	if (set_map(&mlx))

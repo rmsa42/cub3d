@@ -86,9 +86,7 @@ int	map_info(t_mlx *mlx, char *tile, int x, int y)
 int	set_map(t_mlx *mlx)
 {
 	t_map		*map;
-	int			pl_count;
 
-	pl_count = 0;
 	map = mlx->map;
 	mlx->marked_cells = (t_cell *)ft_calloc(map->height * map->width, \
 		sizeof(t_cell));
@@ -99,7 +97,7 @@ int	set_map(t_mlx *mlx)
 		map->x = 0;
 		while (map->game_map[map->y][map->x])
 		{
-			pl_count += map_info(mlx, &map->game_map[map->y][map->x], \
+			map_info(mlx, &map->game_map[map->y][map->x], \
 				map->x, map->y);
 			map->x++;
 		}

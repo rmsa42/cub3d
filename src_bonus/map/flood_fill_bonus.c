@@ -21,11 +21,6 @@ int	flood_fill(t_mlx *mlx, t_map *map, char **flood_map, t_cell coor)
 		ft_free_dp((void **)flood_map);
 		print_error("Invalid Map(Not Wall Closed)\n", EXIT_FAILURE, mlx);
 	}
-	else if (!ft_strchr("NEWSPDpdeCH10", flood_map[coor.y][coor.x]))
-	{
-		ft_free_dp((void **)flood_map);
-		print_error("Invalid Map(Unknown Tile)\n", EXIT_FAILURE, mlx);
-	}
 	if (flood_map[coor.y][coor.x] == '1')
 		return (1);
 	flood_map[coor.y][coor.x] = '1';
@@ -46,6 +41,7 @@ int	call_flood_fill(t_mlx *mlx, t_map *map)
 
 	i = -1;
 	len = 0;
+	coor = (t_cell){0, 0};
 	flood_map = malloc(sizeof(char *) * (map->height + 1));
 	if (flood_map == NULL)
 		return (1);

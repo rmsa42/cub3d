@@ -104,23 +104,14 @@ int	create_content_map(t_map *map, char **full_map, int after, int len)
 {
 	int		i;
 	int		j;
-	char	*trim;
 
 	i = after;
-	trim = ft_strtrim(full_map[i], "    ");
-	if (!trim)
-	{
-		free(trim);
+	if (full_map[i] && full_map[i][0] != '\n')
 		return (-1);
-	}
-	else if (trim[0] != '\n')
-	{
-		free(trim);
-		return (-1);
-	}
 	j = 0;
 	map->game_map = malloc(sizeof(char *) * (len - after + 1));
+	if (map->game_map == NULL)
+		return (-1);
 	j = get_game_map(map, full_map, i);
-	free (trim);
 	return (j);
 }

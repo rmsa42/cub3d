@@ -24,7 +24,7 @@ then
 	echo -e "Test Invalid Maps with Valgrind:\n"
 	for i in $INVALID_MAPS; do
 		map_basename="${i##*/}"
-    	valgrind ./cub3D_bonus $i &> Valgrind_Result.txt
+    	valgrind ./cub3D $i &> Valgrind_Result.txt
 		RESULT=$(cat Valgrind_Result.txt | grep "All heap blocks")
 		if [[ "$RESULT" == *"All heap blocks were freed -- no leaks are possible"* ]]
 		then
@@ -38,7 +38,7 @@ then
 	echo -e "Run Valid Maps with Valgrind:\n"
 	for i in $VALID_MAPS; do
 		map_basename="${i##*/}"
-    	valgrind ./cub3D_bonus $i &> Valgrind_Result.txt
+    	valgrind ./cub3D $i &> Valgrind_Result.txt
 		RESULT=$(cat Valgrind_Result.txt | grep "All heap blocks")
 		if [[ "$RESULT" == *"All heap blocks were freed -- no leaks are possible"* ]]
 		then

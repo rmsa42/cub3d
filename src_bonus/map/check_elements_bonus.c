@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_elements_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 11:50:07 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:57:21 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,18 @@ int	check_rgb(char *line)
 
 int	check_path(char *line)
 {
-	int	fd;
+	int		fd;
+	char	*extension;
 
-	line += advance_space(line);
+	extension = ft_strchr(line, '.');
+	if (!extension)
+		return (-1);
 	fd = open(line, O_RDONLY);
 	if (fd == -1)
 		return (-1);
 	close(fd);
 	line += 1;
-	if (ft_strncmp(ft_strchr(line, '.'), ".xpm", 5))
+	if (ft_strncmp(extension, ".xpm", 5))
 		return (-1);
 	return (0);
 }
