@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:11:47 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/05 15:38:19 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:14:11 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_map
 	int		y;
 	int		height;
 	int		width;
+	int		player_flag;
 	char	**game_map;
 	char	*config_map[7];
 }	t_map;

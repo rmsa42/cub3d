@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 14:05:01 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:26:51 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ t_player	init_player(double x, double y, char tile)
 int	set_pos(t_player *player, char tile, int x, int y)
 {
 	if ((tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E'))
-	{
 		*player = init_player(x + 0.5, y + 0.5, tile);
-		return (1);
-	}
 	return (0);
 }
 
@@ -62,7 +59,5 @@ int	set_map(t_map *map, t_player *player)
 		}
 		map->y++;
 	}
-	if (pl_count > 1 || pl_count < 1)
-		return (1);
 	return (0);
 }

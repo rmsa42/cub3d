@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_content_map.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 13:00:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:44:24 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,45 @@ char	*begining_of_map(char *line, char *set)
 	return (NULL);
 }
 
+bool	check_lines(char *set, char *line, t_map *map)
+{
+	int	i;
+	int	k;
+
+	i = 0;
+	while (line[i])
+	{
+		k = 0;
+		while (set[k])
+		{
+			if (line[i] != set[k])
+				k++;
+			else
+			{
+				if (line[i] == 'N' || line[i] == 'W'
+					|| line[i] == 'S' || line[i] == 'E')
+					map->player_flag += 1;
+				break ;
+			}
+		}
+		if (set[k] == '\0')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	game_map_helper(char **trimed_line, t_map *map, int j)
+{
+	if (!check_lines("01NEWS ", map->game_map[j], map))
+	{
+		free(*trimed_line);
+		map->game_map[++j] = 0;
+		return (1);
+	}
+	return (0);
+}
+
 int	get_game_map(t_map *map, char **full_map, int i)
 {
 	char	*trimed_line;
@@ -39,7 +78,7 @@ int	get_game_map(t_map *map, char **full_map, int i)
 
 	j = 0;
 	trimed_line = NULL;
-	while (full_map[i])
+	while (full_map[++i])
 	{
 		trimed_line = ft_strtrim(full_map[i], "\n");
 		if (!trimed_line)
@@ -47,14 +86,17 @@ int	get_game_map(t_map *map, char **full_map, int i)
 		else
 		{
 			map->game_map[j] = ft_strdup(trimed_line);
+			if (game_map_helper(&trimed_line, map, j))
+				return (-1);
 			if ((int)ft_strlen(map->game_map[j]) > map->width)
 				map->width = ft_strlen(map->game_map[j]);
-			i++;
 			j++;
 		}
 		free(trimed_line);
 	}
-	map->game_map[j] = 0; 
+	map->game_map[j] = 0;
+	if (map->player_flag == 0 || map->player_flag > 1)
+		return (-1);
 	return (j);
 }
 
