@@ -27,7 +27,7 @@ int	init_mlx_structs(t_mlx *mlx)
 	if (mlx->map == NULL)
 		return (1);
 	mlx->head_map = mlx->map;
-	ft_memset(mlx->map, 0, sizeof(t_map));
+	ft_memset(mlx->map, 0, sizeof(t_map) * mlx->nbr_maps);
 	return (0);
 }
 

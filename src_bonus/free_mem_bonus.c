@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   free_mem_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:54:01 by rumachad          #+#    #+#             */
 /*   Updated: 2024/07/08 14:27:12 by cacarval         ###   ########.fr       */
