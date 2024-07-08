@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:37:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 11:52:36 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:45:46 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@
 
 int	init_mlx_structs(t_mlx *mlx)
 {
-	mlx->map = ft_calloc(sizeof(t_map), mlx->nbr_maps);
-	if (mlx->map == NULL)
-		return (1);
 	mlx->head_map = mlx->map;
 	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
-	ft_memset(mlx->map, 0, sizeof(t_map));
 	ft_memset(&mlx->ray, 0, sizeof(t_ray));
 	ft_memset(&mlx->player, 0, sizeof(t_player));
 	ft_memset(&mlx->draw, 0, sizeof(t_draw));
@@ -28,6 +24,10 @@ int	init_mlx_structs(t_mlx *mlx)
 	update_time(&mlx->last_time);
 	update_time(&mlx->prev_time);
 	update_time(&mlx->current_time);
+	mlx->map = ft_calloc(sizeof(t_map), mlx->nbr_maps);
+	if (mlx->map == NULL)
+		return (1);
+	ft_memset(mlx->map, 0, sizeof(t_map));
 	return (0);
 }
 
@@ -71,7 +71,7 @@ void	init_map(t_mlx *mlx, int nbr_maps, char **av)
 		if (map[k].height > HEIGHT || map[k].width > WIDTH)
 			print_error("Invalid Map Size\n", EXIT_FAILURE, mlx);
 		if (call_flood_fill(mlx, &map[k]))
-			print_error("", EXIT_FAILURE, mlx);
+			print_error("Syscall Failure\n", EXIT_FAILURE, mlx);
 		i++;
 		k++;
 	}

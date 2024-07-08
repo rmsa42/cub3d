@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 13:32:20 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:00:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	get_game_map(t_map *map, char **full_map, int i)
 		}
 		free(trimed_line);
 	}
-	map->game_map[j] = 0;
+	map->game_map[j] = 0; 
 	return (j);
 }
 
@@ -64,14 +64,12 @@ int	create_content_map(t_map *map, char **full_map, int after, int len)
 	int		j;
 
 	i = after;
-	while (full_map[i])
-	{
-		if (begining_of_map(full_map[i], "01NEWS"))
-			break ;
-		i++;
-	}
+	if (full_map[i] && full_map[i][0] != '\n')
+		return (-1);
 	j = 0;
 	map->game_map = malloc(sizeof(char *) * (len - after + 1));
+	if (map->game_map == NULL)
+		return (-1);
 	j = get_game_map(map, full_map, i);
 	return (j);
 }

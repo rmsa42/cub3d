@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:01:42 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/05 15:38:16 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:37:43 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	init_map(char **argv, t_mlx *mlx)
 	if (map->height > HEIGHT || map->width > WIDTH)
 		print_error("Invalid Map Size\n", EXIT_FAILURE, mlx);
 	if (call_flood_fill(mlx, &mlx->map))
-		print_error("", 1, mlx);
+		print_error("Syscall Failure", 1, mlx);
 	if (check_conf(mlx, mlx->map.config_map, mlx->sprite))
 		print_error("Invalid Map Configuration\n", EXIT_FAILURE, mlx);
 }
@@ -77,7 +77,7 @@ int	main(int argc, char *argv[])
 	init_mlx_struct(&mlx);
 	init_map(argv, &mlx);
 	if (set_map(&mlx.map, &mlx.player))
-		print_error("Invalid Map(Too many players)\n", EXIT_FAILURE, &mlx);
+		print_error("Invalid Map(No/Too many players)\n", EXIT_FAILURE, &mlx);
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	if (mlx.window == NULL)
 		print_error("Mlx Window Fail\n", EXIT_FAILURE, &mlx);
