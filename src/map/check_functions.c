@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 14:14:49 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:44:26 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_number(char *line)
 
 int	check_element(t_mlx *mlx, t_sprite *sprite, char *conf_line)
 {
-	if (check_path(conf_line + 2) + (advance_space(conf_line + 2)))
+	if (check_path((conf_line + 2) + advance_space(conf_line + 2)))
 		return (1);
 	*sprite = xpm_to_image(mlx,
 			(conf_line + 2) + (advance_space(conf_line + 2)));
@@ -70,7 +70,7 @@ int	check_path(char *line)
 	if (fd == -1)
 		return (-1);
 	close(fd);
-	if (ft_strncmp(extension, ".xpm", 5))
+	if (ft_strcmp((extension + ft_strlen(extension) - 4), ".xpm"))
 		return (-1);
 	return (0);
 }

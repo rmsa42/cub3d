@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:02:04 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 10:38:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:33:46 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	map_parser(char *map_name, t_map *map)
 	char	**full_map;
 
 	fd = 0;
-	if (!ft_strnstr(map_name, ".cub", ft_strlen(map_name)))
+	if (ft_strcmp(".cub", (map_name + ft_strlen(map_name) - 4)))
 		return (1);
 	nbr_lines = calc_map_lines(fd, map_name);
 	if (nbr_lines == -1)
