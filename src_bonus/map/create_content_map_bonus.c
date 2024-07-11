@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 12:50:08 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:21:07 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ bool	check_lines(char *set, char *line, t_map *map)
 	return (1);
 }
 
-int	game_map_helper(char **trimed_line, t_map *map, int j)
+int	game_map_helper(char *trimed_line, t_map *map, int j)
 {
 	if (!check_lines("01NEWSHPDCedp ", map->game_map[j], map))
 	{
-		free(*trimed_line);
+		free(trimed_line);
 		map->game_map[++j] = 0;
 		return (1);
 	}
@@ -86,7 +86,7 @@ int	get_game_map(t_map *map, char **full_map, int i)
 		else
 		{
 			map->game_map[j] = ft_strdup(trimed_line);
-			if (game_map_helper(&trimed_line, map, j))
+			if (game_map_helper(trimed_line, map, j))
 				return (-1);
 			if ((int)ft_strlen(map->game_map[j]) > map->width)
 				map->width = ft_strlen(map->game_map[j]);
