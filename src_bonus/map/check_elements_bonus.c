@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 14:18:02 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:35:21 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	check_path(char *line)
 	if (fd == -1)
 		return (-1);
 	close(fd);
-	if (ft_strncmp(extension, ".xpm", 5))
+	if (ft_strcmp((extension + ft_strlen(extension) - 4), ".xpm"))
 		return (-1);
 	return (0);
 }
