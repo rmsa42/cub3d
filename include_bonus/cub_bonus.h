@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:14:00 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 12:14:01 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:34:59 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ int			map_parser(char *file_name, t_map *map);
 char		**create_full_map(int fd, char *map_name, int nbr_lines);
 int			create_config_map(t_map *map, char **full_map);
 int			create_content_map(t_map *map, char **full_map, int after, int len);
-char		*begining_of_map(char *line, char *set);
+char		*srch_set(char *line, char *set);
 int			calc_map_lines(int fd, char *map_name);
 int			call_flood_fill(t_mlx *mlx, t_map *map);
 

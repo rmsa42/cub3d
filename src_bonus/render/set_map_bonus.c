@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 12:31:04 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:19:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	set_map(t_mlx *mlx)
 	mlx->marked_cells = (t_cell *)ft_calloc(map->height * map->width, \
 		sizeof(t_cell));
 	if (mlx->marked_cells == NULL)
-		return (1);
+		print_error("Syscall Failure\n", EXIT_FAILURE, mlx);
 	while (map->game_map[map->y])
 	{
 		map->x = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:54:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 12:50:38 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:12:51 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ int	flood_fill(t_mlx *mlx, t_map *map, char **flood_map, t_cell coor)
 	return (0);
 }
 
+char	**start_flood_fill(char ***flood_map, int map_len, t_cell *coor)
+{
+	*coor = (t_cell){0, 0};
+	*flood_map = malloc(sizeof(char *) * (map_len + 1));
+	if (*flood_map == NULL)
+		return (NULL);
+	return (*flood_map);
+}
+
 int	call_flood_fill(t_mlx *mlx, t_map *map)
 {
 	t_cell	coor;
@@ -41,14 +50,16 @@ int	call_flood_fill(t_mlx *mlx, t_map *map)
 
 	i = -1;
 	len = 0;
-	flood_map = malloc(sizeof(char *) * (map->height + 1));
+	flood_map = start_flood_fill(&flood_map, map->height, &coor);
 	if (flood_map == NULL)
 		return (1);
 	while (map->game_map[++i])
 	{
 		flood_map[i] = ft_strdup(map->game_map[i]);
+		if (flood_map[i] == NULL)
+			return (1);
 		len = ft_strlen(flood_map[i]);
-		pl = begining_of_map(flood_map[i], "NEWS");
+		pl = srch_set(flood_map[i], "NEWS");
 		if (pl)
 			coor = (t_cell){len - ft_strlen(pl), i};
 	}
