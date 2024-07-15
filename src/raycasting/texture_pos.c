@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:22:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 11:40:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:37:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	set_sprite(t_ray *ray, int side)
 	sprite_index = 0;
 	if (side == 1)
 	{
-		if (ray->dir.y < 0)
+		if (ray->dir.y > 0)
 			sprite_index = 0;
 		else
 			sprite_index = 1;
 	}
 	else if (side == 0)
 	{
-		if (ray->dir.x < 0)
+		if (ray->dir.x > 0)
 			sprite_index = 2;
 		else
 			sprite_index = 3;

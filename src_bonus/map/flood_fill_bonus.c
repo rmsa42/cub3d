@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:54:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/08 17:37:31 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:41:13 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	flood_fill(t_mlx *mlx, t_map *map, char **flood_map, t_cell coor)
 {
-	if (coor.x < 0 || coor.y < 0 || flood_map[coor.y][coor.x] == 32
+	if (coor.x < 0 || coor.y < 0 || coor.y >= map->height
 		|| coor.x >= (int)ft_strlen(flood_map[coor.y])
-		|| coor.y > map->height)
+		|| flood_map[coor.y][coor.x] == 32)
 	{
 		ft_free_dp((void **)flood_map);
 		print_error("Invalid Map(Not Wall Closed)\n", EXIT_FAILURE, mlx);
