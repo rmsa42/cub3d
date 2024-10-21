@@ -105,7 +105,7 @@ F 123,123,123
 1. Clone the repository.
 2. Navigate to the `cub3d` directory: `cd cub3d`.
 3. Compile the game: `make`.
-4. Run the binary: `./cub3D maps/valid/exmaple.cub`.
+4. Run the binary: `./cub3D maps/valid/example.cub`.
 
 If you want to see the bonus part, you compile with `make bonus` in step 3 and choose a map from `maps_bonus/`
 
